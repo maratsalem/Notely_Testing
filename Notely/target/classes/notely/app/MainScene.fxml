@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<SplitPane dividerPositions="0.5" orientation="HORIZONTAL" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notely.app.SceneController">
+   <items>
+      <VBox>
+         <children>
+            <Label text="Term:">
+               <font>
+                  <Font name="Segoe UI" size="18.0" />
+               </font></Label>
+            <TextField fx:id="termInput" />
+            <Label text="Definition:">
+               <font>
+                  <Font name="Segoe UI" size="18.0" />
+               </font></Label>
+            <TextArea fx:id="definitionInput" />
+            <Button mnemonicParsing="false" onAction="#switchToNotecardScene" prefWidth="60.0" text="Study" textAlignment="CENTER" translateX="215.0" translateY="40.0">
+               <font>
+                  <Font name="Segoe UI" size="15.0" />
+               </font></Button>
+            <Button text="Save" translateX="20.0" translateY="10.0">
+               <font>
+                  <Font name="Segoe UI" size="15.0" />
+               </font></Button>
+         </children>
+      </VBox>
+      <VBox fx:id="cardPane">
+         <children>
+            <Label text="Term: [term goes here]">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
+            <Label text="Definition: [definition goes here]">
+               <font>
+                  <Font name="Segoe UI" size="15.0" />
+               </font></Label>
+            <Button fx:id="returnToHomeM" alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#switchToHomeScene" text="Return to Home" translateX="150.0" translateY="30.0">
+               <font>
+                  <Font name="Segoe UI" size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="225.0" />
+               </VBox.margin></Button>
+         </children>
+      </VBox>
+   </items>
+</SplitPane>

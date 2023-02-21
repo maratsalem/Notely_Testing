@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+
+<SplitPane dividerPositions="0.5" orientation="HORIZONTAL" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NoteCardController">
+    <VBox>
+        <Label text="Term:" />
+        <TextField fx:id="termInput" />
+        <Label text="Definition:" />
+        <TextArea fx:id="definitionInput" />
+        <Button onAction="#handleSaveButtonAction" text="Save" />
+    </VBox>
+    <VBox fx:id="cardPane">
+        <Label text="Term: [term goes here]" />
+        <Label text="Definition: [definition goes here]" />
+    </VBox>
+</SplitPane>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane alignment="CENTER" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notely.app.SceneController">
+    <columnConstraints>
+        <ColumnConstraints percentWidth="100.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints percentHeight="100.0" />
+    </rowConstraints>
+    <children>
+        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="414.0" prefWidth="610.0">
+            <children>
+                <ImageView fitHeight="414.4" fitWidth="610.4" layoutX="-4.0" layoutY="-4.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <image>
+                        <Image url="@Background.png" />
+                    </image>
+                </ImageView>
+                <Button layoutX="95.0" layoutY="252.0" mnemonicParsing="false" onAction="#switchToMainScene" prefHeight="45.0" prefWidth="94.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17px;" text="Create" textFill="#f07b14">
+               <font>
+                  <Font name="Segoe UI" size="12.0" />
+               </font></Button>
+                <Button layoutX="262.0" layoutY="252.0" mnemonicParsing="false" onAction="#switchToNotecardScene" prefHeight="45.0" prefWidth="94.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17px;" text="Study" textFill="#f07b14" />
+                <Button layoutX="432.0" layoutY="251.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="94.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17px;" text="Settings" textFill="#f07b14">
+               <font>
+                  <Font name="Segoe UI" size="12.0" />
+               </font></Button>
+                <Label layoutX="169.0" layoutY="101.0" text="Notely" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI" size="96.0" />
+               </font></Label>
+            </children>
+        </AnchorPane>
+    </children>
+</GridPane>
