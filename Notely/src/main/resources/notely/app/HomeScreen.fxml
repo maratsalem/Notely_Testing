@@ -13,9 +13,9 @@
         <RowConstraints percentHeight="100.0" />
     </rowConstraints>
     <children>
-        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="414.0" prefWidth="610.0">
+        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
             <children>
-                <ImageView fitHeight="414.4" fitWidth="610.4" layoutX="-4.0" layoutY="-4.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <ImageView fitHeight="400.0" fitWidth="610.0" layoutX="-4.0" layoutY="-4.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <image>
                         <Image url="@Background.png" />
                     </image>

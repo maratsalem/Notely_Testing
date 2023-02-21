@@ -13,17 +13,17 @@
                <font>
                   <Font name="Segoe UI" size="18.0" />
                </font></Label>
-            <TextField fx:id="termInput" />
+            <TextField fx:id="termInput" prefHeight="42.0" prefWidth="296.0" />
             <Label text="Definition:">
                <font>
                   <Font name="Segoe UI" size="18.0" />
                </font></Label>
-            <TextArea fx:id="definitionInput" />
-            <Button mnemonicParsing="false" onAction="#switchToNotecardScene" prefWidth="60.0" text="Study" textAlignment="CENTER" translateX="215.0" translateY="40.0">
+            <TextArea fx:id="definitionInput" prefHeight="232.0" prefWidth="296.0" />
+            <Button mnemonicParsing="false" onAction="#switchToNotecardScene" prefWidth="60.0" text="Study" textAlignment="CENTER" translateX="215.0" translateY="30.0">
                <font>
                   <Font name="Segoe UI" size="15.0" />
                </font></Button>
-            <Button text="Save" translateX="20.0" translateY="10.0">
+            <Button text="Save" translateX="20.0">
                <font>
                   <Font name="Segoe UI" size="15.0" />
                </font></Button>
@@ -39,7 +39,7 @@
                <font>
                   <Font name="Segoe UI" size="15.0" />
                </font></Label>
-            <Button fx:id="returnToHomeM" alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#switchToHomeScene" text="Return to Home" translateX="150.0" translateY="30.0">
+            <Button fx:id="returnToHomeM" alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#switchToHomeScene" text="Return to Home" translateX="150.0" translateY="90.0">
                <font>
                   <Font name="Segoe UI" size="15.0" />
                </font>
