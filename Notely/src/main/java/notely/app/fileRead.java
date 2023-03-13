@@ -1,4 +1,4 @@
-package notely.app.fileOperator;
+package notely.app;
 
 import java.util.*;
 import java.io.*;
@@ -10,7 +10,7 @@ public class fileRead {
         String temp;
         ArrayList<String> questions = new ArrayList<>();
         ArrayList<String> answers = new ArrayList<>();
-        temp = "src/Notecard/" + notecardName + ".txt";
+        temp = "src/main/java/notely/app/Notecard/" + notecardName + ".txt";
         try {
             FileInputStream file = new FileInputStream(temp);
             Scanner scanner = new Scanner(file);
@@ -30,7 +30,8 @@ public class fileRead {
                 randomlyReadFromList(questions, answers);
             file.close();
         } catch (FileNotFoundException e1) {
-            System.out.println("Notecard does not exist");
+            System.out.println("\nSet with title " + notecardName + " does not exist.");
+            System.out.println ("Exiting function!");
         } catch (IOException e2) {
             e2.printStackTrace();
         }

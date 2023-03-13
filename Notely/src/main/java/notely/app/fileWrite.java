@@ -1,4 +1,4 @@
-package notely.app.fileOperator;
+package notely.app;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -6,21 +6,29 @@ import java.util.Scanner;
 
 public class fileWrite {
 
-    public static void createNotecard (String title) {
-        String fileName = "src/main/java/notely.app/fileOperator/Notecard" + title + ".txt";
+    public static void createSet (String title) {
+        String fileName = "Notely/src/main/java/notely/app/Notecard/" + title + ".txt";
+        File file = new File(fileName);
+
         try {
-            File file = new File(fileName);
-            if (file.createNewFile())
-                System.out.printf("\nNotecard created with title \"%s\"\n", title);
-            else
-                System.out.println("\nNotecard already exists");
+            file.createNewFile();
+            if(file.createNewFile() == false){
+                System.out.println("File already exists.");
+            }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
+
+        if (file.exists()) {
+            System.out.println("OwO");
+            System.out.print(file.canWrite());
+        }
+        else if (file.exists() == false)
+            System.out.println("\nNotecard already exists or was not created.");
     }
 
     public static void writeQuestion (String title) {
-        String fileName = "src/Notecard/" + title + ".txt";
+        String fileName = "Notely/src/main/java/notely/app/Notecard/" + title + ".txt";
         Scanner scanner = new Scanner(System.in);
         try {
 
@@ -47,23 +55,15 @@ public class fileWrite {
             writer.close();
 
         } catch (FileNotFoundException e1) {
-            System.out.printf ("\nNotecard with title \"%s\" does not exist.\n", title);
-            System.out.print ("Would you like to create a notecard first? y/n: ");
-            String createAnswer = scanner.nextLine();
-            if (createAnswer.equals("y") || createAnswer.equals("Y")) {
-                createNotecard(title);
-                writeQuestion(title);
-            }
-            else {
-                System.out.println ("Exiting function!");
-            }
+            System.out.printf ("\nSet with title \"%s\" does not exist.\n", title);
+            System.out.println ("Exiting function!");
         } catch (IOException e2) {
             e2.printStackTrace();
         }
     }
 
     public static void deleteQuestion (String title) {
-        String fileName = "src/Notecard/" + title + ".txt";
+        String fileName = "Notely/src/main/java/notely/app/Notecard/" + title + ".txt";
         Scanner scanner = new Scanner(System.in);
         try {
 
@@ -97,16 +97,8 @@ public class fileWrite {
             writer.close();
 
         } catch (FileNotFoundException e1) {
-            System.out.printf ("\nNotecard with title \"%s\" does not exist.\n", title);
-            System.out.print ("Would you like to create a notecard first? y/n: ");
-            String createAnswer = scanner.nextLine();
-            if (createAnswer.equals("y") || createAnswer.equals("Y")) {
-                createNotecard(title);
-                writeQuestion(title);
-            }
-            else {
+            System.out.printf("\nSet with title \"%s\" does not exist.\n", title);
                 System.out.println ("Exiting function!");
-            }
         } catch (IOException e2) {
             e2.printStackTrace();
         }
@@ -136,5 +128,15 @@ public class fileWrite {
             e2.printStackTrace();
         }
     } */
+
+
+    /* former notecard doesn't exist exception
+    System.out.print ("Would you like to create a notecard first? y/n: ");
+            String createAnswer = scanner.nextLine();
+            if (createAnswer.equals("y") || createAnswer.equals("Y")) {
+                createNotecard(title);
+                writeQuestion(title);
+
+     */
 
 }
