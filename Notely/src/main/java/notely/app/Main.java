@@ -5,8 +5,8 @@ public class Main {
 
         //fileWrite.createSet("psychology");
         //fileRead.readFromNotecard("psychology", true);
-        fileWrite.writeQuestion("psychology");
-        fileWrite.deleteQuestion("psychology");
+        //fileWrite.writeQuestion("psychology");
+        //fileWrite.deleteQuestion("psychology");
 
 
     }

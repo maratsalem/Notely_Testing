@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class fileWrite {
-
     public static void createSet (String title) {
         String fileName = "Notely/src/main/java/notely/app/Notecard/" + title + ".txt";
         File file = new File(fileName);
@@ -26,7 +25,6 @@ public class fileWrite {
         else if (!file.exists())
             System.out.println("\nNotecard already exists or was not created.");
     }
-
     public static void writeQuestion (String title) {
         String fileName = "Notely/src/main/java/notely/app/Notecard/" + title + ".txt";
         Scanner scanner = new Scanner(System.in);
