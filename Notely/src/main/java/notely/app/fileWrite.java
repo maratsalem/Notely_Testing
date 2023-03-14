@@ -12,7 +12,7 @@ public class fileWrite {
 
         try {
             file.createNewFile();
-            if(file.createNewFile() == false){
+            if(!file.createNewFile()){
                 System.out.println("File already exists.");
             }
         } catch (IOException e) {
@@ -23,7 +23,7 @@ public class fileWrite {
             System.out.println("OwO");
             System.out.print(file.canWrite());
         }
-        else if (file.exists() == false)
+        else if (!file.exists())
             System.out.println("\nNotecard already exists or was not created.");
     }
 
@@ -45,7 +45,7 @@ public class fileWrite {
             while (loopAnswer.equals("y") || loopAnswer.equals("Y")) {
                 System.out.print ("\nEnter your question: ");
                 data.add(scanner.nextLine());
-                System.out.print ("Enter your options: ");
+                System.out.print ("Enter your definition: ");
                 data.add(scanner.nextLine());
                 System.out.print ("Do you want to enter another question? Y/n: ");
                 loopAnswer = scanner.nextLine();
