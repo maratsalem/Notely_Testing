@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import static notely.app.NoteCard.readFromNotecard;
+//import static notely.app.NoteCard.readFromNotecard;
 
 public class NotecardSceneController {
     private Stage stage;
@@ -35,7 +35,7 @@ public class NotecardSceneController {
 
     public void selectSet(ActionEvent event) throws IOException{
         // set button, getText, set text to var and then pass through readFrom
-        readFromNotecard();
+        //readFromNotecard();
     }
 
     public void noteCardForward(ActionEvent event) throws IOException {

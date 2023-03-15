@@ -81,8 +81,12 @@ public class NoteCard {
     private static ArrayList<String> questions = new ArrayList<>();
     private static ArrayList<String> answers = new ArrayList<>();
     public static void randomlyReadFromList() {
-        for (int i = 0; i < questions.size(); i++)
+        for (int i = 0; i < questions.size(); i++) {
             indicesOfSet.add(i);
+            System.out.print(i);
+        }
+
+        System.out.print(indicesOfSet);
         Collections.shuffle(indicesOfSet);
         traverseSet();
     }
@@ -93,35 +97,6 @@ public class NoteCard {
         }
     }
 
-    public static void readFromNotecard (String notecardName, boolean randomize) {
-        String temp;
-        temp = "src/main/java/notely/app/Notecard/" + notecardName + ".txt";
-        try {
-            FileInputStream file = new FileInputStream(temp);
-            Scanner scanner = new Scanner(file);
-            while (scanner.hasNextLine()) {
-                questions.add(scanner.nextLine());
-                if (scanner.hasNextLine())
-                    answers.add(scanner.nextLine());
-            }
-            System.out.println(questions);
-            System.out.println(answers);
+    //manually editing the text file will cause index errors
 
-            if (questions.size() == 0) {
-                System.out.println ("No notes found");
-                return;
-            }
-
-            randomlyReadFromList();
-            //randomlyReadFromList(questions, answers);
-
-            file.close();
-        } catch (FileNotFoundException e1) {
-            System.out.println("\nSet with title " + notecardName + " does not exist.");
-            System.out.println ("Exiting function!");
-        } catch (IOException e2) {
-            e2.printStackTrace();
-        }
-
-    }
 }
