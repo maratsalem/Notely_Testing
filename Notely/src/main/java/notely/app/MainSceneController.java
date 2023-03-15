@@ -11,10 +11,8 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Scanner;
 
-public class MainSceneController extends fileWrite {
+public class MainSceneController {
 
     private Stage stage;
     private Scene scene;
