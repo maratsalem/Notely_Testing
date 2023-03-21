@@ -1,52 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<SplitPane dividerPositions="0.5" orientation="HORIZONTAL" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notely.app.MainSceneController">
-   <items>
-      <VBox>
-         <children>
-            <Label text="Term:">
-               <font>
-                  <Font name="Segoe UI" size="18.0" />
-               </font></Label>
-            <TextArea fx:id="termInput" prefHeight="42.0" prefWidth="296.0" />
-            <Label text="Definition:">
-               <font>
-                  <Font name="Segoe UI" size="18.0" />
-               </font></Label>
-            <TextArea fx:id="definitionInput" prefHeight="232.0" prefWidth="296.0" />
-            <Button mnemonicParsing="false" onAction="#switchToNotecardScene" prefWidth="60.0" text="Study" textAlignment="CENTER" translateX="215.0" translateY="30.0">
-               <font>
-                  <Font name="Segoe UI" size="15.0" />
-               </font></Button>
-            <Button fx:id="saveButton" onAction="#createNotecard" text="Save" translateX="20.0">
-               <font>
-                  <Font name="Segoe UI" size="15.0" />
-               </font></Button>
-         </children>
-      </VBox>
-      <VBox fx:id="cardPane">
-         <children>
-            <Label text="Term: [term goes here]">
-               <font>
-                  <Font size="15.0" />
-               </font></Label>
-            <Label text="Definition: [definition goes here]">
-               <font>
-                  <Font name="Segoe UI" size="15.0" />
-               </font></Label>
-            <Button fx:id="returnToHomeM" alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#switchToHomeScene" text="Return to Home" translateX="150.0" translateY="90.0">
-               <font>
-                  <Font name="Segoe UI" size="15.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="225.0" />
-               </VBox.margin></Button>
-         </children>
-      </VBox>
-   </items>
-</SplitPane>
+<AnchorPane prefHeight="442.0" prefWidth="600.0" style="-fx-background-color: orange;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notely.app.CreateController">
+   <children>
+      <SplitPane dividerPositions="0.5" layoutY="45.0" orientation="HORIZONTAL" prefHeight="397.0" prefWidth="600.0" style="-fx-background-color: orange;">
+         <items>
+            <VBox>
+               <children>
+                  <Label text="Term:">
+                     <font>
+                        <Font name="Segoe UI" size="18.0" />
+                     </font>
+                  </Label>
+                  <TextArea fx:id="termInput" prefHeight="42.0" prefWidth="296.0" />
+                  <Label text="Definition:">
+                     <font>
+                        <Font name="Segoe UI" size="18.0" />
+                     </font>
+                  </Label>
+                  <TextArea fx:id="definitionInput" prefHeight="232.0" prefWidth="296.0" />
+                  <Button mnemonicParsing="false" onAction="#switchToNotecardScene" prefWidth="60.0" text="Study" textAlignment="CENTER" translateX="215.0" translateY="30.0">
+                     <font>
+                        <Font name="Segoe UI" size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="saveButton" onAction="#createNotecard" text="Save" translateX="20.0">
+                     <font>
+                        <Font name="Segoe UI" size="15.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+            <AnchorPane fx:id="termList" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <ScrollBar layoutX="284.0" orientation="VERTICAL" prefHeight="395.0" prefWidth="11.0" />
+               </children>
+            </AnchorPane>
+         </items>
+      </SplitPane>
+      <Label layoutY="-2.0" prefHeight="29.0" prefWidth="82.0" text="Notely" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <Line endX="586.0" layoutX="14.0" layoutY="40.0" startX="-100.0" stroke="WHITE" />
+      <Button layoutX="493.0" layoutY="3.0" mnemonicParsing="false" onAction="#switchToHomeScene" style="-fx-background-color: white;" text="Back to Home">
+         <font>
+            <Font name="Cooper Black" size="12.0" />
+         </font>
+      </Button>
+      <TextArea fx:id="titleInput" layoutX="150.0" prefHeight="35.0" prefWidth="250.0" promptText="Enter Set Name" />
+   </children>
+</AnchorPane>

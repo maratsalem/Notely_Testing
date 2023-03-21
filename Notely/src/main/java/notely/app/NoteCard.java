@@ -68,32 +68,46 @@ public class NoteCard {
         }
     }
 
-    //for notecard display:
-    // 1: need to open correct set and then traverse through it
-    // 2: need to have an on event action for "previous" and "next" buttons so that
-    //      readFromNotecard AND randomlyRead are not being run every time one is pressed
-    //      new method: on event action would get the next (or prev) term/definition in the list
-    //      that has already been randomized,
-    //      potential solution: select a "set" through the GUI, then on selection read and randommize notecards.
-    //      then, take randomized array list and store in a new method that allows for traversal of the
-    //      index term/def using GUI buttons
-    private static ArrayList<Integer> indicesOfSet = new ArrayList<>();
-    private static ArrayList<String> questions = new ArrayList<>();
-    private static ArrayList<String> answers = new ArrayList<>();
-    public static void randomlyReadFromList() {
-        for (int i = 0; i < questions.size(); i++) {
-            indicesOfSet.add(i);
-            System.out.print(i);
-        }
+    //DELETE QUESTION HAS NOT BEEN INTEGRATED YET!!!
+    public static void deleteQuestion (String title) {
+        String fileName = "Notely/src/main/java/notely/app/Notecard/" + title + ".txt";
+        Scanner scanner = new Scanner(System.in);
+        try {
 
-        System.out.print(indicesOfSet);
-        Collections.shuffle(indicesOfSet);
-        traverseSet();
-    }
-    public static void traverseSet(){
-        for (int i = 0; i < indicesOfSet.size(); i++) {
-            System.out.println(questions.get(indicesOfSet.get(i)));
-            System.out.println(answers.get(indicesOfSet.get(i)));
+            FileInputStream fileReading = new FileInputStream (fileName);
+            Scanner reader = new Scanner(fileReading);
+            ArrayList<String> data = new ArrayList<>();
+            while (reader.hasNextLine())
+                data.add(reader.nextLine());
+            reader.close();
+
+            if (data.size() == 0) {
+                System.out.println ("\nNo notes found to delete.");
+                return;
+            }
+
+            FileOutputStream fileWriting = new FileOutputStream(fileName);
+            PrintWriter writer = new PrintWriter(fileWriting, true);
+
+            int input = -999;
+            System.out.print("\nEnter question number: ");
+            input = scanner.nextInt();
+            while (!(input >= 1 && input <= (data.size()/2))) {
+                System.out.print ("Please enter a valid number.");
+                System.out.println("\nEnter question number: ");
+                input = scanner.nextInt();
+            }
+            for (int i = 0; i < data.size(); i++) {
+                if (i != (2 * input - 2) && i != (2 * input - 1))
+                    writer.write(data.get(i) + "\n");
+            }
+            writer.close();
+
+        } catch (FileNotFoundException e1) {
+            System.out.printf("\nSet with title \"%s\" does not exist.\n", title);
+            System.out.println ("Exiting function!");
+        } catch (IOException e2) {
+            e2.printStackTrace();
         }
     }
 
