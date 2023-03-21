@@ -12,7 +12,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.*;
-
 public class CreateController {
 
     private Stage stage;
@@ -30,6 +29,16 @@ public class CreateController {
     @FXML
     TextArea titleInput;
 
+    public void createSet(String title) throws IOException {
+        String fileName = "Notely/src/main/java/notely/app/Notecard/" + title + ".txt";
+
+        File file = new File(fileName);
+        System.out.println(fileName);
+
+        file.createNewFile();
+
+    }
+
     public void createNotecard(ActionEvent event) throws IOException {
         System.out.println(termInput.getText());
         System.out.println(definitionInput.getText());
@@ -37,6 +46,10 @@ public class CreateController {
         term = termInput.getText();
         definition = definitionInput.getText();
         studySet = titleInput.getText();
+
+        System.out.println(studySet);
+
+        createSet(studySet);
 
         NoteCard nc = new NoteCard(term, definition, 0);
         nc.writeQuestion(studySet, term, definition);

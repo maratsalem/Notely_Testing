@@ -70,7 +70,7 @@ public class NoteCard {
 
     //DELETE QUESTION HAS NOT BEEN INTEGRATED YET!!!
     public static void deleteQuestion (String title) {
-        String fileName = "Notely/src/main/java/notely/app/Notecard/" + title + ".txt";
+        String fileName = "src/main/java/notely/app/Notecard" + title + ".txt";
         Scanner scanner = new Scanner(System.in);
         try {
 
