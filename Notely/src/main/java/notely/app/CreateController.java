@@ -12,6 +12,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.*;
@@ -21,13 +22,22 @@ public class CreateController {
     private Stage stage;
     private Scene scene;
     private Parent root;
-
     private String term, definition, studySet;
     private int priorityNum;
     @FXML
     TextArea definitionInput;
     @FXML
     TextArea termInput;
+    @FXML
+    VBox createVbox;
+    @FXML
+    AnchorPane firstCreateAPane;
+    @FXML
+    TextField firstTermField;
+    @FXML
+    TextField firstDefField;
+    @FXML
+    Label firstNumLabel;
     @FXML
     AnchorPane termList;
     @FXML
@@ -65,6 +75,7 @@ public class CreateController {
     private FilePath filePath = new FilePath();
     private ArrayList<NoteCard> currentStudySet = new ArrayList<>();
     private ArrayList<String> fileName = new ArrayList<>();
+    private String termNumberLabel;
     Queue<NoteCard> queue1 = new LinkedList<>();
     Queue<NoteCard> queue2 = new LinkedList<>();
     Queue<NoteCard> queue3 = new LinkedList<>();
@@ -172,6 +183,8 @@ public class CreateController {
     protected void SettingsScene() {
         welcomeText.setText("");
     }
+
+
 
     @FXML
     public void updateLabel(KeyEvent event) throws IOException {
@@ -518,9 +531,9 @@ public class CreateController {
 
         Label termLabel = new Label(this.term);
         Label defLabel = new Label(this.definition);
-        AnchorPane notecard = new AnchorPane(termLabel, defLabel);
-        notecard.setPrefHeight(termLabel.getHeight() + defLabel.getHeight() + 20); // Add some padding
-        termList.getChildren().add(notecard);
+        AnchorPane notecardPane = new AnchorPane(termLabel, defLabel);
+        notecardPane.setPrefHeight(termLabel.getHeight() + defLabel.getHeight() + 20); // Add some padding
+        termList.getChildren().add(notecardPane);
         // Position the notecard below the previously added notecard, if any
         double y = 0;
         if (termList.getChildren().size() > 1) {
@@ -532,8 +545,8 @@ public class CreateController {
             }
             y += 10; // Add some padding
         }
-        notecard.setLayoutX(0);
-        notecard.setLayoutY(y);
+        notecardPane.setLayoutX(0);
+        notecardPane.setLayoutY(y);
         // Position the definition label below the term label
         defLabel.setLayoutY(termLabel.getHeight() + termLabel.getPadding().getTop() + 10); // Add some padding
 
@@ -577,4 +590,28 @@ public class CreateController {
             }
             brin.close();
         }
+
+    public void createSceneDynamic() {
+        TextField termField = new TextField(this.term);
+        TextField defField = new TextField(this.definition);
+        Label numberTermLabel = new Label(this.termNumberLabel);
+        AnchorPane newInsertField = new AnchorPane(termField, defField, numberTermLabel);
+
+        newInsertField.setPrefHeight(firstTermField.getHeight() + firstDefField.getHeight() + 20); // Add some padding
+        createVbox.getChildren().add(newInsertField);
+        // Position the notecard below the previously added notecard, if any
+        double y = 5;
+        if (createVbox.getChildren().size() > 1) {
+            for (Node node : createVbox.getChildren()) {
+                if (node instanceof AnchorPane) {
+                    AnchorPane previousAdded = (AnchorPane) node;
+                    y += previousAdded.getHeight();
+                }
+            }
+            y += 10; // Add some padding
+        }
+        newInsertField.setLayoutX(0);
+        newInsertField.setLayoutY(y);
+        // Position the definition label below the term label
+    }
 }

@@ -15,7 +15,7 @@
     <children>
         <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #ff970f;">
             <children>
-                <Button layoutX="95.0" layoutY="252.0" mnemonicParsing="false" onAction="#SwitchToMainScene" prefHeight="45.0" prefWidth="94.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17px;" text="Create" textFill="#f07b14" />
+                <Button layoutX="95.0" layoutY="252.0" mnemonicParsing="false" onAction="#SwitchToCreateScene" prefHeight="45.0" prefWidth="94.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17px;" text="Create" textFill="#f07b14" />
                 <Button layoutX="279.0" layoutY="252.0" mnemonicParsing="false" onAction="#SwitchToStudyScene" prefHeight="45.0" prefWidth="94.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17px;" text="Study" textFill="#f07b14" />
                 <Button layoutX="446.0" layoutY="251.0" mnemonicParsing="false" onAction="#SettingsScene" prefHeight="48.0" prefWidth="94.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17px;" text="Settings" textFill="#f07b14" />
                 <Label layoutX="149.0" layoutY="106.0" text="Notely" textFill="WHITE">

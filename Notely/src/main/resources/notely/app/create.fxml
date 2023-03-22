@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollBar?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #ff970f;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notely.app.CreateController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #ff970f;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notely.app.CreateController">
    <children>
       <Label layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="289.0" text="Create a new study set" textFill="WHITE">
          <font>
@@ -32,59 +28,21 @@
             <Font name="Heiti TC Light" size="13.0" />
          </font>
       </TextField>
-      <VBox layoutX="16.0" layoutY="155.0" prefHeight="199.0" prefWidth="556.0">
+      <VBox fx:id="createVbox" layoutX="16.0" layoutY="155.0" prefHeight="199.0" prefWidth="556.0">
          <children>
-            <AnchorPane prefHeight="61.0" prefWidth="556.0">
+            <AnchorPane fx:id="firstCreateAPane" prefHeight="61.0" prefWidth="556.0">
                <children>
-                  <TextField layoutX="6.0" layoutY="20.0" prefHeight="23.0" prefWidth="283.0" promptText="Term" AnchorPane.leftAnchor="6.0" AnchorPane.topAnchor="20.0">
+                  <TextField fx:id="firstTermField" layoutX="6.0" layoutY="20.0" prefHeight="23.0" prefWidth="283.0" promptText="Term" AnchorPane.leftAnchor="6.0" AnchorPane.topAnchor="20.0">
                      <font>
                         <Font name="Heiti TC Light" size="13.0" />
                      </font>
                   </TextField>
-                  <TextField layoutX="285.0" layoutY="44.0" prefHeight="23.0" prefWidth="257.0" promptText="Definition" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="20.0">
+                  <TextField fx:id="firstDefField" layoutX="285.0" layoutY="44.0" prefHeight="23.0" prefWidth="257.0" promptText="Definition" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="20.0">
                      <font>
                         <Font name="Heiti TC Light" size="13.0" />
                      </font>
                   </TextField>
-                  <Label layoutX="5.0" layoutY="1.0" prefHeight="26.0" prefWidth="18.0" text="1" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <font>
-                        <Font name="Heiti TC Medium" size="14.0" />
-                     </font>
-                  </Label>
-               </children>
-            </AnchorPane>
-            <AnchorPane prefHeight="61.0" prefWidth="556.0">
-               <children>
-                  <TextField layoutX="6.0" layoutY="20.0" prefHeight="23.0" prefWidth="283.0" promptText="Term" AnchorPane.leftAnchor="6.0" AnchorPane.topAnchor="20.0">
-                     <font>
-                        <Font name="Heiti TC Light" size="13.0" />
-                     </font>
-                  </TextField>
-                  <TextField layoutX="285.0" layoutY="44.0" prefHeight="23.0" prefWidth="257.0" promptText="Definition" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="20.0">
-                     <font>
-                        <Font name="Heiti TC Light" size="13.0" />
-                     </font>
-                  </TextField>
-                  <Label layoutX="5.0" layoutY="1.0" prefHeight="26.0" prefWidth="18.0" text="2" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <font>
-                        <Font name="Heiti TC Medium" size="14.0" />
-                     </font>
-                  </Label>
-               </children>
-            </AnchorPane>
-            <AnchorPane prefHeight="61.0" prefWidth="556.0">
-               <children>
-                  <TextField layoutX="6.0" layoutY="20.0" prefHeight="23.0" prefWidth="283.0" promptText="Term" AnchorPane.leftAnchor="6.0" AnchorPane.topAnchor="20.0">
-                     <font>
-                        <Font name="Heiti TC Light" size="13.0" />
-                     </font>
-                  </TextField>
-                  <TextField layoutX="285.0" layoutY="44.0" prefHeight="23.0" prefWidth="257.0" promptText="Definition" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="20.0">
-                     <font>
-                        <Font name="Heiti TC Light" size="13.0" />
-                     </font>
-                  </TextField>
-                  <Label layoutX="5.0" layoutY="1.0" prefHeight="26.0" prefWidth="18.0" text="3" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <Label fx:id="firstNumLabel" layoutX="5.0" layoutY="1.0" prefHeight="26.0" prefWidth="18.0" text="1" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <font>
                         <Font name="Heiti TC Medium" size="14.0" />
                      </font>
@@ -93,6 +51,6 @@
             </AnchorPane>
          </children>
       </VBox>
-      <Button layoutX="294.0" layoutY="337.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="33.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17px;" text="+" textFill="#f07b14" />
+      <Button fx:id="addNewCard" layoutX="294.0" layoutY="337.0" mnemonicParsing="false" onAction="#createSceneDynamic" prefHeight="34.0" prefWidth="33.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17px;" text="+" textFill="#f07b14" />
    </children>
 </AnchorPane>
