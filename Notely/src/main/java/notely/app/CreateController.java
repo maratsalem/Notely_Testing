@@ -485,8 +485,12 @@ public class CreateController {
             FileOutputStream fileWriting = new FileOutputStream(filePathName);
             PrintWriter writer = new PrintWriter(fileWriting, true);
 
-            data.add(titleInput.getText());
-            data.add(folderNameInput.getText());
+            if (titleInput.getText() == null || folderNameInput.getText() == null){
+                titleInput.setPromptText("You must enter a set title.");
+                folderNameInput.setPromptText("You must enter folder name.");
+            }
+            data.add(Objects.requireNonNull(titleInput.getText()));
+            data.add(Objects.requireNonNull(folderNameInput.getText()));
 
             for (int i = 0; i < data.size(); i++)
                 writer.write(data.get(i) + "\n");
