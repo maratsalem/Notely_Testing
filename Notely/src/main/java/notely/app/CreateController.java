@@ -57,7 +57,7 @@ public class CreateController {
     @FXML
     TextField fileField;
     private String txt;
-    private String file;
+    private static String file = "";
     private int index = 0;
     private int flip = 0;
     private int arraySize;
@@ -123,11 +123,12 @@ public class CreateController {
     @FXML
     public void SwitchToViewScene(ActionEvent event) throws IOException {
         if (!fileField.getText().isEmpty()) {
-            //file = fileField.getText();
-            filePath.setFileName(fileField.getText());
-            System.out.println(filePath.getFileName());
+            file = fileField.getText().toString();
+            filePath.setFileName(file);
+            System.out.println(file + "This code got passed 5"); //Testing
+            System.out.println(filePath.getFileName() + "This code got passed 5.5"); //Testing
         }
-        if (filePath.getFileName() != null && filePath.getFileName() != "") {
+        if (!file.isEmpty()) {
             root = FXMLLoader.load(getClass().getResource("ViewScreen.fxml"));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
@@ -141,6 +142,8 @@ public class CreateController {
     public void SwitchToLearnScene(ActionEvent event) throws IOException {
         if (!fileField.getText().isEmpty()) {
             file = fileField.getText();
+            filePath.setFileName(file);
+            System.out.println(file);
             fileName.add(file);
         }
         if (!file.isEmpty()) {
@@ -172,8 +175,9 @@ public class CreateController {
 
     @FXML
     public void updateLabel(KeyEvent event) throws IOException {
-        System.out.println(filePath.getFileName());
-        readFile();
+        System.out.print(file + "This code got passed 9"); //Testing
+        readFile(file);
+        System.out.println(currentStudySet.get(index).getTerm());
         arraySize = currentStudySet.size();
         txt = currentStudySet.get(index).getTerm();
         textLabel.setText(txt);
@@ -184,7 +188,7 @@ public class CreateController {
 
     @FXML
     protected void onFlipClick(ActionEvent event) throws IOException {
-        readFile();
+        readFile(file);
         if (flip == 0) {
             txt = currentStudySet.get(index).getDefinition();
             topLabel.setText("Definition");
@@ -229,7 +233,7 @@ public class CreateController {
 
     @FXML
     public void loadLabel(KeyEvent event) throws IOException {
-        readFile();
+        readFile(file);
         for (int i = 0; i < currentStudySet.size(); i++) {
             sortNoteCards(i);
             //queue1.add(currentStudySet.get(i));
@@ -467,20 +471,20 @@ public class CreateController {
     }
 
     public void createSet(String title) throws IOException {
-        String fileName = "Notely/src/main/java/notely/app/Notecard/" + title + ".txt";
+        String filePathName = "Notely/src/main/java/notely/app/Notecard/" + title + ".txt";
 
-        File file = new File(fileName);
+        File fileMake = new File(filePathName);
 
-        file.createNewFile();
+        fileMake.createNewFile();
 
-        FileInputStream fileReading = new FileInputStream (fileName);
+        FileInputStream fileReading = new FileInputStream (filePathName);
         Scanner reader = new Scanner(fileReading);
         ArrayList<String> data = new ArrayList<>();
         while (reader.hasNextLine())
             data.add(reader.nextLine());
         reader.close();
 
-        FileOutputStream fileWriting = new FileOutputStream(fileName);
+        FileOutputStream fileWriting = new FileOutputStream(filePathName);
         PrintWriter writer = new PrintWriter(fileWriting, true);
 
         data.add(titleInput.getText());
@@ -493,22 +497,19 @@ public class CreateController {
     }
 
     public void createNotecard(ActionEvent event) throws IOException {
-        System.out.println(termInput.getText());
-        System.out.println(definitionInput.getText());
+        System.out.println(termInput.getText()); //Testing
+        System.out.println(definitionInput.getText()); //Testing
 
         term = termInput.getText();
         definition = definitionInput.getText();
         studySet = titleInput.getText();
 
-        System.out.println(studySet);
+        System.out.println(studySet); //Testing
 
         createSet(studySet);
 
         NoteCard nc = new NoteCard(term, definition, 0, 0);
         nc.writeQuestion(studySet, term, definition);
-
-        System.out.println(this.termInput.getText());
-        System.out.println(this.definitionInput.getText());
 
         Label termLabel = new Label(this.term);
         Label defLabel = new Label(this.definition);
@@ -533,28 +534,17 @@ public class CreateController {
 
     }
 
-    public void readFile() { //Reads a txt file to fill arraylists with words to be guessed.
-        System.out.println(filePath.getFileName());
+    public void readFile(String fileNAMEWORKS) throws IOException { //Reads a txt file to fill arraylists with words to be guessed.
+        System.out.println(fileNAMEWORKS + "This code got passed 2"); //Testing
         String term = "";
-        String fileMac = "Notely/src/main/java/notely/app/Notecard/" + filePath.getFileName() + ".txt";
-        String fileWindows = "Notely/src/main/java/notely/app/Notecard/" + filePath.getFileName() + ".txt";
+        String filePathOS = "Notely/src/main/java/notely/app/Notecard/" + fileNAMEWORKS + ".txt";
         String definition = "";
         String currentLine;
         String title = "";
         String folder = "";
         int priority = 3;
 
-        try {
-            if (new File(fileMac).exists()) { // ./  for MACOS and ../ for Windows
-                file = fileMac;
-            } else if (new File(fileWindows).exists()) {
-                file = fileWindows;
-            } else {
-                return;
-            }
-
-            FileReader fr = new FileReader(filePath.getFileName());
-            System.out.println(filePath.getFileName());
+            FileReader fr = new FileReader(filePathOS);
             BufferedReader brin = new BufferedReader(fr);
             int index = 0;
             while ((currentLine = brin.readLine()) != null) {
@@ -581,8 +571,5 @@ public class CreateController {
                 }
             }
             brin.close();
-        } catch (IOException io) {
-            System.out.println(io.toString() + " could not open file.");
         }
-    }
 }
