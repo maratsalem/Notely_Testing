@@ -11,18 +11,19 @@
          <items>
             <VBox>
                <children>
+                  <TextArea fx:id="folderNameInput" prefHeight="92.0" prefWidth="294.0" promptText="Enter Set Folder Here" />
                   <Label text="Term:">
                      <font>
                         <Font name="Segoe UI" size="18.0" />
                      </font>
                   </Label>
-                  <TextArea fx:id="termInput" prefHeight="42.0" prefWidth="296.0" />
+                  <TextArea fx:id="termInput" prefHeight="105.0" prefWidth="294.0" />
                   <Label text="Definition:">
                      <font>
                         <Font name="Segoe UI" size="18.0" />
                      </font>
                   </Label>
-                  <TextArea fx:id="definitionInput" prefHeight="232.0" prefWidth="296.0" />
+                  <TextArea fx:id="definitionInput" prefHeight="104.0" prefWidth="294.0" />
                   <Button mnemonicParsing="false" onAction="#switchToNotecardScene" prefWidth="60.0" text="Study" textAlignment="CENTER" translateX="215.0" translateY="30.0">
                      <font>
                         <Font name="Segoe UI" size="15.0" />

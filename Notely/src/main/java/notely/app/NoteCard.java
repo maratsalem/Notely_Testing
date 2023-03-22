@@ -9,17 +9,20 @@ public class NoteCard {
     private String term;
     private String definition;
     private int priorityNum;
-
+    private int cardNumber;
     public NoteCard(){
         term = "";
         definition = "";
         priorityNum = 0;
+        cardNumber = 1;
     }
-    public NoteCard(String term, String definition, int priorityNum){
+    public NoteCard(String term, String definition, int priorityNum, int cardNumber){
         this.term = term;
         this.definition = definition;
         this.priorityNum = priorityNum;
+        this.cardNumber = cardNumber;
     }
+
     public void setTerm(String term){
         this.term = term;
     }
@@ -53,8 +56,7 @@ public class NoteCard {
             FileOutputStream fileWriting = new FileOutputStream(fileName);
             PrintWriter writer = new PrintWriter(fileWriting, true);
 
-            data.add(term);
-            data.add(definition);
+            data.add(term + "@" + definition);
 
             for (int i = 0; i < data.size(); i++)
                 writer.write(data.get(i) + "\n");
@@ -67,6 +69,8 @@ public class NoteCard {
             e2.printStackTrace();
         }
     }
+
+
 
     //DELETE QUESTION HAS NOT BEEN INTEGRATED YET!!!
     public static void deleteQuestion (String title) {

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #ff970f;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notely.app.CreateController">
+   <children>
+      <Button layoutX="515.0" layoutY="14.0" mnemonicParsing="false" onAction="#SwitchToHomeScene" prefHeight="34.0" prefWidth="71.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17px;" text="Home" textFill="#f07b14" />
+      <AnchorPane layoutX="132.0" layoutY="54.0" prefHeight="316.0" prefWidth="316.0" style="-fx-background-color: #ffffff;">
+         <children>
+            <Label layoutX="141.0" layoutY="286.0" text="Term" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="141.0" AnchorPane.rightAnchor="144.5">
+               <font>
+                  <Font name="Heiti TC Light" size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="41.0" layoutY="145.0" text="Empty" AnchorPane.bottomAnchor="143.0" AnchorPane.leftAnchor="41.0">
+               <font>
+                  <Font name="Heiti TC Light" size="28.0" />
+               </font>
+            </Label>
+            <Button layoutX="166.0" layoutY="165.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="20.0" style="-fx-background-color: #f07b14; -fx-background-radius: 17px;" text="&gt;" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+            <Button layoutX="19.0" layoutY="168.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="20.0" style="-fx-background-color: #f07b14; -fx-background-radius: 17px;" text="&lt;" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

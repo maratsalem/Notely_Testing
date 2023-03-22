@@ -1,39 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="CENTER" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notely.app.HomeScreenController">
+<GridPane alignment="CENTER" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notely.app.CreateController">
     <columnConstraints>
-        <ColumnConstraints percentWidth="100.0" />
+        <ColumnConstraints percentWidth="-Infinity" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints percentHeight="100.0" />
+        <RowConstraints percentHeight="-Infinity" />
     </rowConstraints>
     <children>
-        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+        <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #ff970f;">
             <children>
-                <ImageView fitHeight="400.0" fitWidth="610.0" layoutX="-4.0" layoutY="-4.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <image>
-                        <Image url="@Background.png" />
-                    </image>
-                </ImageView>
-                <Button layoutX="95.0" layoutY="252.0" mnemonicParsing="false" onAction="#switchToMainScene" prefHeight="45.0" prefWidth="94.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17px;" text="Create" textFill="#f07b14">
-               <font>
-                  <Font name="Segoe UI" size="12.0" />
-               </font></Button>
-                <Button layoutX="262.0" layoutY="252.0" mnemonicParsing="false" onAction="#switchToNotecardScene" prefHeight="45.0" prefWidth="94.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17px;" text="Study" textFill="#f07b14" />
-                <Button layoutX="432.0" layoutY="251.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="94.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17px;" text="Settings" textFill="#f07b14">
-               <font>
-                  <Font name="Segoe UI" size="12.0" />
-               </font></Button>
-                <Label layoutX="169.0" layoutY="101.0" text="Notely" textFill="WHITE">
-               <font>
-                  <Font name="Segoe UI" size="96.0" />
-               </font></Label>
+                <Button layoutX="95.0" layoutY="252.0" mnemonicParsing="false" onAction="#SwitchToMainScene" prefHeight="45.0" prefWidth="94.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17px;" text="Create" textFill="#f07b14" />
+                <Button layoutX="279.0" layoutY="252.0" mnemonicParsing="false" onAction="#SwitchToStudyScene" prefHeight="45.0" prefWidth="94.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17px;" text="Study" textFill="#f07b14" />
+                <Button layoutX="446.0" layoutY="251.0" mnemonicParsing="false" onAction="#SettingsScene" prefHeight="48.0" prefWidth="94.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17px;" text="Settings" textFill="#f07b14" />
+                <Label layoutX="149.0" layoutY="106.0" text="Notely" textFill="WHITE">
+                    <font>
+                        <Font name="Heiti TC Medium" size="96.0" />
+                    </font>
+                </Label>
             </children>
+            <rotationAxis>
+                <Point3D />
+            </rotationAxis>
         </AnchorPane>
     </children>
 </GridPane>
