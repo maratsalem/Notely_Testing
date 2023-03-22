@@ -472,28 +472,28 @@ public class CreateController {
 
     public void createSet(String title) throws IOException {
         String filePathName = "Notely/src/main/java/notely/app/Notecard/" + title + ".txt";
-
         File fileMake = new File(filePathName);
 
-        fileMake.createNewFile();
+        if(fileMake.createNewFile()){
+            FileInputStream fileReading = new FileInputStream (filePathName);
+            Scanner reader = new Scanner(fileReading);
+            ArrayList<String> data = new ArrayList<>();
+            while (reader.hasNextLine())
+                data.add(reader.nextLine());
+            reader.close();
 
-        FileInputStream fileReading = new FileInputStream (filePathName);
-        Scanner reader = new Scanner(fileReading);
-        ArrayList<String> data = new ArrayList<>();
-        while (reader.hasNextLine())
-            data.add(reader.nextLine());
-        reader.close();
+            FileOutputStream fileWriting = new FileOutputStream(filePathName);
+            PrintWriter writer = new PrintWriter(fileWriting, true);
 
-        FileOutputStream fileWriting = new FileOutputStream(filePathName);
-        PrintWriter writer = new PrintWriter(fileWriting, true);
+            data.add(titleInput.getText());
+            data.add(folderNameInput.getText());
 
-        data.add(titleInput.getText());
-        data.add(folderNameInput.getText());
-
-        for (int i = 0; i < data.size(); i++)
-            writer.write(data.get(i) + "\n");
-        writer.close();
-
+            for (int i = 0; i < data.size(); i++)
+                writer.write(data.get(i) + "\n");
+            writer.close();
+        } else { //Testing
+            System.out.print("File already exists, will not write fileName and folder into textfile.");
+        }
     }
 
     public void createNotecard(ActionEvent event) throws IOException {
