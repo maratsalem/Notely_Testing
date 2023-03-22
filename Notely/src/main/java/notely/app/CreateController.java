@@ -595,23 +595,27 @@ public class CreateController {
         TextField termField = new TextField(this.term);
         TextField defField = new TextField(this.definition);
         Label numberTermLabel = new Label(this.termNumberLabel);
-        AnchorPane newInsertField = new AnchorPane(termField, defField, numberTermLabel);
 
-        newInsertField.setPrefHeight(firstTermField.getHeight() + firstDefField.getHeight() + 20); // Add some padding
+        termField.setPrefSize(257, 23);
+        defField.setPrefSize(257,23);
+
+        AnchorPane newInsertField = new AnchorPane(termField, defField, numberTermLabel);
+        newInsertField.setPrefHeight(termField.getHeight() + defField.getHeight() + 20);
         createVbox.getChildren().add(newInsertField);
-        // Position the notecard below the previously added notecard, if any
-        double y = 5;
+
+        double y = 0;
         if (createVbox.getChildren().size() > 1) {
             for (Node node : createVbox.getChildren()) {
                 if (node instanceof AnchorPane) {
                     AnchorPane previousAdded = (AnchorPane) node;
-                    y += previousAdded.getHeight();
+                    numberTermLabel.setLayoutX(previousAdded.getLayoutX());
+                    termField.setLayoutX(previousAdded.getLayoutX() + 6);
+                    defField.setLayoutX(previousAdded.getLayoutX() + 293);
+                    newInsertField.setLayoutY(previousAdded.getLayoutY());
                 }
             }
-            y += 10; // Add some padding
         }
-        newInsertField.setLayoutX(0);
-        newInsertField.setLayoutY(y);
-        // Position the definition label below the term label
+            termField.setLayoutY(termField.getHeight() + termField.getPadding().getTop() + 20); // Add some padding
+            defField.setLayoutY(termField.getHeight() + termField.getPadding().getTop() + 20); // Add some padding
     }
 }

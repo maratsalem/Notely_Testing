@@ -11,7 +11,6 @@
             <Font name="Heiti TC Medium" size="24.0" />
          </font>
       </Label>
-      <ScrollBar layoutX="578.0" layoutY="14.0" orientation="VERTICAL" prefHeight="390.0" prefWidth="16.0" AnchorPane.bottomAnchor="-0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <TextField layoutX="14.0" layoutY="51.0" prefHeight="23.0" prefWidth="560.0" promptText="Enter a title like &quot;Biology - Chapter 22: Evolution&quot;">
          <font>
             <Font name="Heiti TC Light" size="13.0" />
@@ -28,29 +27,13 @@
             <Font name="Heiti TC Light" size="13.0" />
          </font>
       </TextField>
+      <ScrollPane layoutX="20.0" layoutY="150.0" vmax="5.0">
       <VBox fx:id="createVbox" layoutX="16.0" layoutY="155.0" prefHeight="199.0" prefWidth="556.0">
          <children>
-            <AnchorPane fx:id="firstCreateAPane" prefHeight="61.0" prefWidth="556.0">
-               <children>
-                  <TextField fx:id="firstTermField" layoutX="6.0" layoutY="20.0" prefHeight="23.0" prefWidth="283.0" promptText="Term" AnchorPane.leftAnchor="6.0" AnchorPane.topAnchor="20.0">
-                     <font>
-                        <Font name="Heiti TC Light" size="13.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="firstDefField" layoutX="285.0" layoutY="44.0" prefHeight="23.0" prefWidth="257.0" promptText="Definition" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="20.0">
-                     <font>
-                        <Font name="Heiti TC Light" size="13.0" />
-                     </font>
-                  </TextField>
-                  <Label fx:id="firstNumLabel" layoutX="5.0" layoutY="1.0" prefHeight="26.0" prefWidth="18.0" text="1" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <font>
-                        <Font name="Heiti TC Medium" size="14.0" />
-                     </font>
-                  </Label>
-               </children>
-            </AnchorPane>
+            <AnchorPane fx:id="firstCreateAPane" prefHeight="0.0" prefWidth="556.0" />
          </children>
       </VBox>
-      <Button fx:id="addNewCard" layoutX="294.0" layoutY="337.0" mnemonicParsing="false" onAction="#createSceneDynamic" prefHeight="34.0" prefWidth="33.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17px;" text="+" textFill="#f07b14" />
+      </ScrollPane>
+      <Button fx:id="addNewCard" layoutX="294.0" layoutY="350.0" mnemonicParsing="false" onAction="#createSceneDynamic" prefHeight="34.0" prefWidth="33.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17px;" text="+" textFill="#f07b14" />
    </children>
 </AnchorPane>
