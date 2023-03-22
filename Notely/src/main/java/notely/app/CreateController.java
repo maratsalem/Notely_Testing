@@ -471,32 +471,33 @@ public class CreateController {
     }
 
     public void createSet(String title) throws IOException {
+
         String filePathName = "Notely/src/main/java/notely/app/Notecard/" + title + ".txt";
-        File fileMake = new File(filePathName);
 
-        if(fileMake.createNewFile()){
-            FileInputStream fileReading = new FileInputStream (filePathName);
-            Scanner reader = new Scanner(fileReading);
-            ArrayList<String> data = new ArrayList<>();
-            while (reader.hasNextLine())
-                data.add(reader.nextLine());
-            reader.close();
 
-            FileOutputStream fileWriting = new FileOutputStream(filePathName);
-            PrintWriter writer = new PrintWriter(fileWriting, true);
+        if (filePathName.equals("Notely/src/main/java/notely/app/Notecard/.txt") == false) {
+            File fileMake = new File(filePathName);
+            if (fileMake.createNewFile()) {
+                FileInputStream fileReading = new FileInputStream(filePathName);
+                Scanner reader = new Scanner(fileReading);
+                ArrayList<String> data = new ArrayList<>();
+                while (reader.hasNextLine())
+                    data.add(reader.nextLine());
+                reader.close();
 
-            if (titleInput.getText() == null || folderNameInput.getText() == null){
-                titleInput.setPromptText("You must enter a set title.");
-                folderNameInput.setPromptText("You must enter folder name.");
+                FileOutputStream fileWriting = new FileOutputStream(filePathName);
+                PrintWriter writer = new PrintWriter(fileWriting, true);
+
+                data.add(Objects.requireNonNull(titleInput.getText()));
+                data.add(Objects.requireNonNull(folderNameInput.getText()));
+
+                for (int i = 0; i < data.size(); i++)
+                    writer.write(data.get(i) + "\n");
+                writer.close();
             }
-            data.add(Objects.requireNonNull(titleInput.getText()));
-            data.add(Objects.requireNonNull(folderNameInput.getText()));
-
-            for (int i = 0; i < data.size(); i++)
-                writer.write(data.get(i) + "\n");
-            writer.close();
-        } else { //Testing
-            System.out.print("File already exists, will not write fileName and folder into textfile.");
+        } else {
+            titleInput.setPromptText("You must enter a set title.");
+            folderNameInput.setPromptText("You must enter a folder name.");
         }
     }
 
