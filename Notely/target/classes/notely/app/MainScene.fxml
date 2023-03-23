@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="392.0" prefWidth="601.0" style="-fx-background-color: orange;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notely.app.CreateController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: orange;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notely.app.CreateController">
    <children>
-      <SplitPane dividerPositions="0.5" layoutX="1.0" layoutY="77.0" orientation="HORIZONTAL" prefHeight="397.0" prefWidth="600.0" style="-fx-background-color: orange;">
+      <TextArea fx:id="titleInput" layoutX="100.0" layoutY="23.0" maxHeight="5.0" maxWidth="200.0" prefHeight="5.0" prefWidth="200.0" promptText="Enter Set Name" style="-fx-background-radius: 17PX;" translateY="5.0" AnchorPane.rightAnchor="200.0" />
+      <SplitPane dividerPositions="0.5" layoutX="1.0" layoutY="77.0" orientation="HORIZONTAL" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: orange;">
          <items>
             <VBox>
                <children>
@@ -35,7 +31,7 @@
             </VBox>
             <ScrollPane hbarPolicy="ALWAYS" prefHeight="360.0" prefWidth="239.0" style="-fx-background-color: FFFFFF; -fx-background-color: #f07b14;" vbarPolicy="ALWAYS">
                <content>
-                  <AnchorPane fx:id="termList" prefHeight="395.0" prefWidth="296.0" style="-fx-background-color: #f07b14;" />
+                  <AnchorPane fx:id="termList" prefHeight="558.0" prefWidth="384.0" style="-fx-background-color: #f07b14;" />
                </content>
             </ScrollPane>
          </items>
@@ -47,6 +43,5 @@
       </Label>
       <Line endX="586.0" layoutX="14.0" layoutY="77.0" startX="-100.0" stroke="WHITE" />
       <Button layoutX="493.0" layoutY="3.0" mnemonicParsing="false" onAction="#switchToHomeScene" style="-fx-background-color: white; -fx-background-radius: 17PX;" text="Back to Home" textFill="#f07b14" translateX="10.0" translateY="5.0" />
-      <TextArea fx:id="titleInput" layoutX="201.0" layoutY="23.0" maxHeight="5.0" maxWidth="200.0" prefHeight="5.0" prefWidth="200.0" promptText="Enter Set Name" style="-fx-background-radius: 17PX;" translateY="5.0" AnchorPane.rightAnchor="200.0" />
    </children>
 </AnchorPane>

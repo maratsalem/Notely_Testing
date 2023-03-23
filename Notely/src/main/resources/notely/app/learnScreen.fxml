@@ -1,33 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#loadLabel" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #ff970f;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notely.app.CreateController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" onKeyPressed="#loadLabel" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #ff970f;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notely.app.CreateController">
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-                <AnchorPane layoutX="142.0" prefHeight="316.0" prefWidth="316.0" style="-fx-background-color: #ffffff;">
+                <AnchorPane layoutX="161.0" layoutY="52.0" prefHeight="453.0" prefWidth="477.0" style="-fx-background-color: #ffffff;">
                     <children>
-                        <Label fx:id="topLabel" alignment="CENTER" layoutX="1.0" layoutY="14.0" prefHeight="14.0" prefWidth="315.0" text="Term" textAlignment="CENTER" AnchorPane.bottomAnchor="288.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="0.0">
+                        <Label fx:id="topLabel" alignment="CENTER" prefHeight="38.0" prefWidth="477.0" text="Term" textAlignment="CENTER" AnchorPane.bottomAnchor="427.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0">
                             <font>
                                 <Font name="Heiti TC Light" size="13.0" />
                             </font>
                         </Label>
-                        <Label fx:id="textLabel" alignment="CENTER" contentDisplay="TOP" layoutX="4.0" layoutY="144.0" prefHeight="242.0" prefWidth="307.0" text="Press Any Key to Continue" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="5.0">
+                        <Label fx:id="textLabel" alignment="CENTER" contentDisplay="TOP" layoutX="4.0" layoutY="111.0" prefHeight="291.0" prefWidth="469.0" text="Press Any Key to Continue" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="103.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="5.0">
                             <font>
                                 <Font name="Heiti TC Light" size="28.0" />
                             </font>
                         </Label>
-                        <Button fx:id="flipLearnButton" disable="true" alignment="CENTER" contentDisplay="CENTER" layoutX="136.0" layoutY="280.0" mnemonicParsing="false" onAction="#onFlipQueue" prefHeight="26.0" prefWidth="44.0" style="-fx-background-color: #f07b14; -fx-background-radius: 17px;" text="Flip" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="69.5" AnchorPane.rightAnchor="69.5" />
-                        <Button fx:id="correctButton" disable="true" layoutX="120.0" layoutY="242.0" mnemonicParsing="false" onAction="#correctAnswer" prefHeight="32.0" prefWidth="31.0" style="-fx-background-color: #2BCC00; -fx-background-radius: 17px;" text="✓" textFill="WHITE" />
-                        <Button fx:id="incorrectButton" disable="true" layoutX="166.0" layoutY="242.0" mnemonicParsing="false" onAction="#incorrectAnswer" prefHeight="32.0" prefWidth="31.0" style="-fx-background-color: #EE1313; -fx-background-radius: 17px;" text="X" textFill="WHITE" />
+                        <Button fx:id="flipLearnButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="69.0" layoutY="395.0" mnemonicParsing="false" onAction="#onFlipQueue" prefHeight="40.0" prefWidth="340.0" style="-fx-background-color: #f07b14; -fx-background-radius: 17px;" text="Flip" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="69.0" AnchorPane.rightAnchor="70.0" />
+                        <Button fx:id="correctButton" disable="true" layoutX="14.0" layoutY="411.0" mnemonicParsing="false" onAction="#correctAnswer" prefHeight="37.0" prefWidth="39.0" style="-fx-background-color: #2BCC00; -fx-background-radius: 17px;" text="✓" textFill="WHITE" />
+                        <Button fx:id="incorrectButton" disable="true" layoutX="424.0" layoutY="411.0" mnemonicParsing="false" onAction="#incorrectAnswer" prefHeight="37.0" prefWidth="39.0" style="-fx-background-color: #EE1313; -fx-background-radius: 17px;" text="X" textFill="WHITE" />
                     </children>
                 </AnchorPane>
+                <Label fx:id="titleLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="242.0" layoutY="14.0" prefHeight="14.0" prefWidth="315.0" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Heiti TC Light" size="23.0" />
+                    </font>
+                </Label>
             </children>
         </AnchorPane>
     </center>
@@ -38,11 +41,6 @@
             </BorderPane.margin>
             <children>
                 <Button mnemonicParsing="false" onAction="#SwitchToHomeScene" prefHeight="30.0" prefWidth="63.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17PX;" text="Home" textFill="#f07b14" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0" />
-                <Label fx:id="titleLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="144.0" layoutY="7.0" prefHeight="14.0" prefWidth="315.0" textAlignment="CENTER" textFill="WHITE">
-                    <font>
-                        <Font name="Heiti TC Light" size="23.0" />
-                    </font>
-                </Label>
             </children>
         </AnchorPane>
     </top>

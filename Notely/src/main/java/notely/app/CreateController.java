@@ -1,5 +1,6 @@
 package notely.app;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.*;
@@ -23,7 +25,7 @@ public class CreateController {
     private Scene scene;
     private Parent root;
     private String term, definition, studySet;
-    private int priorityNum;
+    private int priorityNum, labelCounter = 1, labelCntTemp;
     @FXML
     TextArea definitionInput;
     @FXML
@@ -32,12 +34,7 @@ public class CreateController {
     VBox createVbox;
     @FXML
     AnchorPane firstCreateAPane;
-    @FXML
-    TextField firstTermField;
-    @FXML
-    TextField firstDefField;
-    @FXML
-    Label firstNumLabel;
+    private String firstTermField, firstDefField, firstNumField;
     @FXML
     AnchorPane termList;
     @FXML
@@ -488,7 +485,7 @@ public class CreateController {
         String filePathName = "Notely/src/main/java/notely/app/Notecard/" + title + ".txt";
 
 
-        if (filePathName.equals("Notely/src/main/java/notely/app/Notecard/.txt") == false) {
+        if (!filePathName.equals("Notely/src/main/java/notely/app/Notecard/.txt")) {
             File fileMake = new File(filePathName);
             if (fileMake.createNewFile()) {
                 FileInputStream fileReading = new FileInputStream(filePathName);
@@ -607,6 +604,14 @@ public class CreateController {
         TextField termField = new TextField(this.term);
         TextField defField = new TextField(this.definition);
         Label numberTermLabel = new Label(this.termNumberLabel);
+        termField.setPromptText("Enter your term here");
+        defField.setPromptText("Enter your definition here");
+        numberTermLabel.setText(String.valueOf(labelCounter));
+
+        labelCounter++;
+        if (createVbox.getChildren() == null){
+            labelCounter = 1;
+        }
 
         termField.setPrefSize(257, 23);
         defField.setPrefSize(257,23);
@@ -618,8 +623,7 @@ public class CreateController {
         double y = 0;
         if (createVbox.getChildren().size() > 1) {
             for (Node node : createVbox.getChildren()) {
-                if (node instanceof AnchorPane) {
-                    AnchorPane previousAdded = (AnchorPane) node;
+                if (node instanceof AnchorPane previousAdded) {
                     numberTermLabel.setLayoutX(previousAdded.getLayoutX());
                     termField.setLayoutX(previousAdded.getLayoutX() + 6);
                     defField.setLayoutX(previousAdded.getLayoutX() + 293);
@@ -627,7 +631,26 @@ public class CreateController {
                 }
             }
         }
-            termField.setLayoutY(termField.getHeight() + termField.getPadding().getTop() + 20); // Add some padding
-            defField.setLayoutY(termField.getHeight() + termField.getPadding().getTop() + 20); // Add some padding
+            termField.setLayoutY(termField.getHeight() + termField.getPadding().getTop() + 30); // Add some padding
+            defField.setLayoutY(termField.getHeight() + termField.getPadding().getTop() + 30);
+            numberTermLabel.setLayoutY(termField.getHeight() + termField.getPadding().getTop() + 10);// Add some padding
     }
+
+    public void onSaveButton(){
+        int saveIndex = 0;
+        TextField tf = new TextField("");
+
+        for(int i = 0;  i < createVbox.getChildren().size(); i++){
+            if (createVbox.getChildren().size() > 1) {
+                System.out.println(createVbox.getChildren());
+
+                //firstTermField = termField.getText();
+                //firstDefField = defField.getText();
+                saveIndex++;
+            }
+        }
+
+    }
+
+
 }

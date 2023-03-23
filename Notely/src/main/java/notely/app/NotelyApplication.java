@@ -13,7 +13,6 @@ public class NotelyApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(NotelyApplication.class.getResource("HomeScreen.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Notely");
-        stage.setResizable(false);
         stage.setScene(scene);
 
         stage.show();
