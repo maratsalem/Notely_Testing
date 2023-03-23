@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -24,7 +25,7 @@ public class CreateController {
     private Stage stage;
     private Scene scene;
     private Parent root;
-    private String term, definition, studySet;
+    private String term, definition, studySet, folderName;
     private int priorityNum, labelCounter = 1, labelCntTemp;
     @FXML
     TextArea definitionInput;
@@ -41,6 +42,10 @@ public class CreateController {
     TextArea titleInput;
     @FXML
     TextArea folderNameInput;
+    @FXML
+    TextField titleInputC;
+    @FXML
+    TextField folderInputC;
     @FXML
     Label textLabel;
     @FXML
@@ -480,7 +485,7 @@ public class CreateController {
         flip = 0;
     }
 
-    public void createSet(String title) throws IOException {
+    public void createSet(String title, String folderName2) throws IOException {
 
         String filePathName = "Notely/src/main/java/notely/app/Notecard/" + title + ".txt";
 
@@ -498,55 +503,58 @@ public class CreateController {
                 FileOutputStream fileWriting = new FileOutputStream(filePathName);
                 PrintWriter writer = new PrintWriter(fileWriting, true);
 
-                data.add(Objects.requireNonNull(titleInput.getText()));
-                data.add(Objects.requireNonNull(folderNameInput.getText()));
+                data.add(Objects.requireNonNull(titleInputC.getText()));
+                data.add(Objects.requireNonNull(folderInputC.getText()));
 
                 for (int i = 0; i < data.size(); i++)
                     writer.write(data.get(i) + "\n");
                 writer.close();
             }
         } else {
-            titleInput.setPromptText("You must enter a set title.");
-            folderNameInput.setPromptText("You must enter a folder name.");
+            titleInputC.setPromptText("You must enter a set title.");
+            folderInputC.setPromptText("You must enter a folder name.");
         }
     }
 
-    public void createNotecard(ActionEvent event) throws IOException {
-        System.out.println(termInput.getText()); //Testing
-        System.out.println(definitionInput.getText()); //Testing
-
-        term = termInput.getText();
-        definition = definitionInput.getText();
-        studySet = titleInput.getText();
+    public void writeToTextFile(ArrayList<String> writeArrayList, String setName, String folderOfSet) throws IOException {
+        studySet = setName;
+        folderName = folderOfSet;
 
         System.out.println(studySet); //Testing
 
-        createSet(studySet);
+        String fileName = "Notely/src/main/java/notely/app/Notecard/" + studySet + ".txt";
 
-        NoteCard nc = new NoteCard(term, definition, 0, 0);
-        nc.writeQuestion(studySet, term, definition);
+        if (!fileName.equals("Notely/src/main/java/notely/app/Notecard/.txt")) {
+            Scanner scanner = new Scanner(System.in);
+            try {
 
-        Label termLabel = new Label(this.term);
-        Label defLabel = new Label(this.definition);
-        AnchorPane notecardPane = new AnchorPane(termLabel, defLabel);
-        notecardPane.setPrefHeight(termLabel.getHeight() + defLabel.getHeight() + 20); // Add some padding
-        termList.getChildren().add(notecardPane);
-        // Position the notecard below the previously added notecard, if any
-        double y = 0;
-        if (termList.getChildren().size() > 1) {
-            for (Node node : termList.getChildren()) {
-                if (node instanceof AnchorPane) {
-                    AnchorPane previousNotecard = (AnchorPane) node;
-                    y += previousNotecard.getHeight();
+                FileInputStream fileReading = new FileInputStream(fileName);
+                Scanner reader = new Scanner(fileReading);
+                ArrayList<String> data = new ArrayList<>();
+                while (reader.hasNextLine())
+                    data.add(reader.nextLine());
+                reader.close();
+
+                FileOutputStream fileWriting = new FileOutputStream(fileName);
+                PrintWriter writer = new PrintWriter(fileWriting, true);
+
+                for(int i = 0; i < writeArrayList.size(); i+=2){
+                    data.add(writeArrayList.get(i) + "@" + writeArrayList.get(i+1));
                 }
-            }
-            y += 10; // Add some padding
-        }
-        notecardPane.setLayoutX(0);
-        notecardPane.setLayoutY(y);
-        // Position the definition label below the term label
-        defLabel.setLayoutY(termLabel.getHeight() + termLabel.getPadding().getTop() + 10); // Add some padding
 
+
+
+                for (int i = 0; i < data.size(); i++)
+                    writer.write(data.get(i) + "\n");
+                writer.close();
+
+            } catch (FileNotFoundException e1) {
+                System.out.printf("\nSet with title \"%s\" does not exist.\n", studySet);
+                System.out.println("Exiting function!");
+            } catch (IOException e2) {
+                e2.printStackTrace();
+            }
+        }
     }
 
     public void readFile(String fileNAMEWORKS) throws IOException { //Reads a txt file to fill arraylists with words to be guessed.
@@ -632,25 +640,38 @@ public class CreateController {
             }
         }
             termField.setLayoutY(termField.getHeight() + termField.getPadding().getTop() + 30); // Add some padding
-            defField.setLayoutY(termField.getHeight() + termField.getPadding().getTop() + 30);
+            defField.setLayoutY(termField.getHeight() + termField.getPadding().getTop() + 30); //Add some padding
             numberTermLabel.setLayoutY(termField.getHeight() + termField.getPadding().getTop() + 10);// Add some padding
     }
+    public void onSaveButton() throws IOException {
+        //Get set name and folder name
+        studySet = titleInputC.getText();
+        folderName = folderInputC.getText();
+        //make an array to store strings
+        ArrayList<String> textList = new ArrayList<>();
+        // observes all children in the Vbox - aka panes
+            ObservableList<Node> anchorpaneList = createVbox.getChildren();
+            // uses the observable list of anchorPanes to find each pane, then to find textfields in each pane
+            for (Node node : anchorpaneList) {
+                if (node instanceof AnchorPane) {
+                    // gets children of anchorPanes - aka the textfields
+                    ObservableList<Node> textFieldList = ((AnchorPane) node).getChildren();
 
-    public void onSaveButton(){
-        int saveIndex = 0;
-        TextField tf = new TextField("");
-
-        for(int i = 0;  i < createVbox.getChildren().size(); i++){
-            if (createVbox.getChildren().size() > 1) {
-                System.out.println(createVbox.getChildren());
-
-                //firstTermField = termField.getText();
-                //firstDefField = defField.getText();
-                saveIndex++;
+                    // loops through each textfield existing in the panes
+                    for (Node textFieldNode : textFieldList) {
+                        if (textFieldNode instanceof TextField) {
+                            // get text from each instance of a textfield inside the anchorpane and then store it in an array
+                            String textFieldText = ((TextField) textFieldNode).getText();
+                            textList.add(textFieldText);
+                        }
+                    }
+                }
             }
+            //creates the set if nonexistent, if existent, will write the new terms added
+            // to the set with the same name
+            createSet(studySet, folderName);
+            writeToTextFile(textList, studySet, folderName);
         }
-
-    }
 
 
 }

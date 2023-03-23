@@ -41,39 +41,6 @@ public class NoteCard {
     public int getPriorityNum(){
         return priorityNum;
     }
-    public void writeQuestion (String title, String term, String definition) {
-        String fileName = "Notely/src/main/java/notely/app/Notecard/" + title + ".txt";
-
-        if (!fileName.equals("Notely/src/main/java/notely/app/Notecard/.txt")) {
-            Scanner scanner = new Scanner(System.in);
-            try {
-
-                FileInputStream fileReading = new FileInputStream(fileName);
-                Scanner reader = new Scanner(fileReading);
-                ArrayList<String> data = new ArrayList<>();
-                while (reader.hasNextLine())
-                    data.add(reader.nextLine());
-                reader.close();
-
-                FileOutputStream fileWriting = new FileOutputStream(fileName);
-                PrintWriter writer = new PrintWriter(fileWriting, true);
-
-                data.add(term + "@" + definition);
-
-                for (int i = 0; i < data.size(); i++)
-                    writer.write(data.get(i) + "\n");
-                writer.close();
-
-            } catch (FileNotFoundException e1) {
-                System.out.printf("\nSet with title \"%s\" does not exist.\n", title);
-                System.out.println("Exiting function!");
-            } catch (IOException e2) {
-                e2.printStackTrace();
-            }
-        }
-    }
-
-
 
     //DELETE QUESTION HAS NOT BEEN INTEGRATED YET!!!
     public static void deleteQuestion (String title) {
