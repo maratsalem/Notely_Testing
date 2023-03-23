@@ -556,12 +556,24 @@ public class CreateController {
         System.out.println(fileNAMEWORKS + "This code got passed 2"); //Testing
         String term = "";
         String filePathOS = "Notely/src/main/java/notely/app/Notecard/" + fileNAMEWORKS + ".txt";
+        String fileMacPath = "./" + fileNAMEWORKS + ".txt";
+        String fileWindowsPath = "../" + fileNAMEWORKS + ".txt";
         String definition = "";
         String currentLine;
         String title = "";
         String folder = "";
         int priority = 3;
 
+        if(new File(fileMacPath).exists()){ // ./  for MACOS and ../ for Windows
+            System.out.print("FileMac");
+            filePathOS = fileMacPath;
+        }
+            else if (new File(fileWindowsPath).exists()){
+            System.out.print("FileWindows");
+            filePathOS = fileWindowsPath;
+        }
+
+            System.out.println("\n\n" + filePathOS);
             FileReader fr = new FileReader(filePathOS);
             BufferedReader brin = new BufferedReader(fr);
             int index = 0;
