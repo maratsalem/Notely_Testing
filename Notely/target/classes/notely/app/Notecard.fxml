@@ -6,7 +6,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #ff970f;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notely.app.CreateController">
    <children>
-      <Button layoutX="715.0" layoutY="10.0" mnemonicParsing="false" onAction="#SwitchToHomeScene" prefHeight="34.0" prefWidth="71.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17px;" text="Home" textFill="#f07b14" />
+      <Button layoutX="715.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#SwitchToHomeScene" prefHeight="34.0" prefWidth="71.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17px;" text="Home" textFill="#f07b14" />
       <AnchorPane layoutX="161.0" layoutY="73.0" prefHeight="453.0" prefWidth="477.0" style="-fx-background-color: #ffffff;">
          <children>
             <Label layoutX="141.0" layoutY="286.0" text="Term" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="141.0" AnchorPane.rightAnchor="144.5">
