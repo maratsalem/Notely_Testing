@@ -476,18 +476,35 @@ public class CreateController {
     }
 
     public void createSet(String title, String folderName2) throws IOException {
-        String filePathName = "src/main/java/notely/app/Notecard/" + title + ".txt";
-        if (!filePathName.equals("Notely/src/main/java/notely/app/Notecard/.txt")) {
-            File fileMake = new File(filePathName);
+        String fileMacPath2 = "./src/main/java/notely/app/Notecard/" + title + ".txt";
+        String fileWindowsPath2 = "../src/main/java/notely/app/Notecard/" + title + ".txt";
+        String createSetPath = "Notely/src/main/java/notely/app/Notecard/" + title + ".txt";
+
+        if(new File(fileMacPath2).exists()){ // ./  for MACOS and ../ for Windows
+            System.out.println("FileMac");
+            createSetPath = fileMacPath2;
+        }
+        else if (new File(fileWindowsPath2).exists()){
+            System.out.println("FileWindows");
+            createSetPath = fileWindowsPath2;
+        }
+
+        System.out.println(createSetPath + "is the assigned path");
+
+        if(new File(createSetPath).exists()) {
+            titleInputC.setPromptText("That set already exists. Please enter a different set name.");
+        }
+        else if (!createSetPath.equals("./src/main/java/notely/app/Notecard/.txt") || !createSetPath.equals("../src/main/java/notely/app/Notecard/.txt")) {
+            File fileMake = new File(createSetPath);
             if (fileMake.createNewFile()) {
-                FileInputStream fileReading = new FileInputStream(filePathName);
+                FileInputStream fileReading = new FileInputStream(createSetPath);
                 Scanner reader = new Scanner(fileReading);
                 ArrayList<String> data = new ArrayList<>();
                 while (reader.hasNextLine())
                     data.add(reader.nextLine());
                 reader.close();
 
-                FileOutputStream fileWriting = new FileOutputStream(filePathName);
+                FileOutputStream fileWriting = new FileOutputStream(createSetPath);
                 PrintWriter writer = new PrintWriter(fileWriting, true);
 
                 data.add(Objects.requireNonNull(titleInputC.getText()));
@@ -531,8 +548,7 @@ public class CreateController {
             writer.close();
 
         } catch (FileNotFoundException e1) {
-            System.out.printf("\nSet with title \"%s\" does not exist.\n", studySet);
-            System.out.println("Exiting function!");
+
         } catch (IOException e2) {
             e2.printStackTrace();
         }
