@@ -671,4 +671,75 @@ public class CreateController {
             writeToTextFile(textList, studySet, folderName);
             switchToHomeScene(event);
         }
+        @FXML
+        AnchorPane helpScreen;
+    @FXML
+    AnchorPane importPane;
+    @FXML
+    TextField titleImport;
+    @FXML
+    TextField folderImport;
+    @FXML
+    TextArea pasteArea;
+    @FXML
+    Button saveImportButton;
+    @FXML
+    Button helpButton;
+    @FXML
+    Label importTitle;
+    @FXML
+    public void onImportButton(MouseEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("Import.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+        @FXML
+    public void closePopUp(MouseEvent event) throws IOException {
+        helpScreen.setVisible(false);
+        titleImport.setVisible(true);
+        folderImport.setVisible(true);
+        pasteArea.setVisible(true);
+        saveImportButton.setVisible(true);
+        helpButton.setVisible(true);
+        importTitle.setVisible(true);
+        }
+    @FXML
+    public void helpPopUp(MouseEvent event) throws IOException {
+        helpScreen.setVisible(true);
+        titleImport.setVisible(false);
+        folderImport.setVisible(false);
+        pasteArea.setVisible(false);
+        saveImportButton.setVisible(false);
+        helpButton.setVisible(false);
+        importTitle.setVisible(false);
+    }
+    @FXML
+    public void saveImport(MouseEvent event) throws IOException {
+        String title = titleImport.getText();
+        String folder = folderImport.getText();
+        String fileName = "src/main/java/notely/app/Notecard/" + title + ".txt"; //change path one level lower
+        Scanner scanner = new Scanner(System.in);
+        try {
+            ArrayList<String> data = new ArrayList<>();
+            data.add(title);
+            data.add(folder);
+            data.add(pasteArea.getText());
+            File file = new File(fileName);
+            FileOutputStream fileWriting = new FileOutputStream(file);
+            PrintWriter writer = new PrintWriter(fileWriting, true);
+
+            for (int i = 0; i < data.size(); i++)
+                writer.write(data.get(i) + "\n");
+            writer.close();
+
+        } catch (FileNotFoundException e1) {
+            System.out.printf("\nSet with title \"%s\" does not exist.\n", studySet);
+            System.out.println("Exiting function!");
+        } catch (IOException e2) {
+            e2.printStackTrace();
+        }
+        switchToHomeScene(event);
+    }
 }
