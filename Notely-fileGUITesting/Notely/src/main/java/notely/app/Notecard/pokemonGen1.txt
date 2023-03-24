@@ -1,4 +1,0 @@
-pokemonGen1
-pokemon
-pikachu@lighning/electric
-squirtle@water

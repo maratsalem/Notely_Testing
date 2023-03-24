@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" onKeyPressed="#loadLabel" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #ff970f;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notely.app.CreateController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" onKeyTyped="#loadLabel" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #ff970f;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notely.app.CreateController">
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
@@ -21,9 +21,9 @@
                                 <Font name="Heiti TC Light" size="28.0" />
                             </font>
                         </Label>
-                        <Button fx:id="flipLearnButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="69.0" layoutY="395.0" mnemonicParsing="false" onAction="#onFlipQueue" prefHeight="40.0" prefWidth="340.0" style="-fx-background-color: #f07b14; -fx-background-radius: 17px;" text="Flip" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="69.0" AnchorPane.rightAnchor="70.0" />
-                        <Button fx:id="correctButton" disable="true" layoutX="14.0" layoutY="411.0" mnemonicParsing="false" onAction="#correctAnswer" prefHeight="37.0" prefWidth="39.0" style="-fx-background-color: #2BCC00; -fx-background-radius: 17px;" text="✓" textFill="WHITE" />
-                        <Button fx:id="incorrectButton" disable="true" layoutX="424.0" layoutY="411.0" mnemonicParsing="false" onAction="#incorrectAnswer" prefHeight="37.0" prefWidth="39.0" style="-fx-background-color: #EE1313; -fx-background-radius: 17px;" text="X" textFill="WHITE" />
+                        <Button fx:id="flipLearnButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="69.0" layoutY="395.0" mnemonicParsing="false" onMouseClicked="#onFlipQueue" prefHeight="40.0" prefWidth="340.0" style="-fx-background-color: #f07b14; -fx-background-radius: 17px;" text="Flip" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="69.0" AnchorPane.rightAnchor="70.0" />
+                        <Button fx:id="correctButton" disable="true" layoutX="14.0" layoutY="411.0" mnemonicParsing="false" onMouseClicked="#correctAnswer" prefHeight="37.0" prefWidth="39.0" style="-fx-background-color: #2BCC00; -fx-background-radius: 17px;" text="✓" textFill="WHITE" />
+                        <Button fx:id="incorrectButton" disable="true" layoutX="424.0" layoutY="411.0" mnemonicParsing="false" onMouseClicked="#incorrectAnswer" prefHeight="37.0" prefWidth="39.0" style="-fx-background-color: #EE1313; -fx-background-radius: 17px;" text="X" textFill="WHITE" />
                     </children>
                 </AnchorPane>
                 <Label fx:id="titleLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="242.0" layoutY="14.0" prefHeight="14.0" prefWidth="315.0" textAlignment="CENTER" textFill="WHITE">
@@ -40,7 +40,7 @@
                 <Insets right="10.0" top="10.0" />
             </BorderPane.margin>
             <children>
-                <Button mnemonicParsing="false" onAction="#SwitchToHomeScene" prefHeight="30.0" prefWidth="63.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17PX;" text="Home" textFill="#f07b14" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0" />
+                <Button mnemonicParsing="false" onMouseClicked="#SwitchToHomeScene" prefHeight="30.0" prefWidth="63.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17PX;" text="Home" textFill="#f07b14" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0" />
             </children>
         </AnchorPane>
     </top>

@@ -13,6 +13,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -22,26 +23,22 @@ import java.io.*;
 import java.util.*;
 
 public class CreateController {
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
-    private String term, definition, studySet, folderName;
-    private int priorityNum, labelCounter = 1, labelCntTemp;
+    @FXML
+    VBox createVbox;
+    @FXML
+    AnchorPane firstCreateAPane;
+    @FXML
+    AnchorPane termList;
     @FXML
     TextArea definitionInput;
     @FXML
     TextArea termInput;
     @FXML
-    VBox createVbox;
-    @FXML
-    AnchorPane firstCreateAPane;
-    private String firstTermField, firstDefField, firstNumField;
-    @FXML
-    AnchorPane termList;
-    @FXML
     TextArea titleInput;
     @FXML
     TextArea folderNameInput;
+    @FXML
+    TextField fileField;
     @FXML
     TextField titleInputC;
     @FXML
@@ -52,6 +49,8 @@ public class CreateController {
     Label topLabel;
     @FXML
     Label titleLabel;
+    @FXML
+    Label welcomeText;      //What is this for
     @FXML
     Button viewButton;
     @FXML
@@ -66,26 +65,37 @@ public class CreateController {
     Button correctButton;
     @FXML
     Button incorrectButton;
-    @FXML
-    TextField fileField;
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+    private String term;
+    private String definition;
+    private String studySet;
+    private String folderName;
+    private String firstTermField;
+    private String firstDefField;
+    private String firstNumField;
     private String txt;
+    private String termNumberLabel;
     private static String file = "";
+    private int priorityNum;
+    private int labelCntTemp;
+    private int arraySize;
+    private int labelCounter = 1;
     private int index = 0;
     private int flip = 0;
-    private int arraySize;
     private NoteCard noteCard = new NoteCard();
     private FilePath filePath = new FilePath();
     private ArrayList<NoteCard> currentStudySet = new ArrayList<>();
     private ArrayList<String> fileName = new ArrayList<>();
-    private String termNumberLabel;
     Queue<NoteCard> queue1 = new LinkedList<>();
     Queue<NoteCard> queue2 = new LinkedList<>();
     Queue<NoteCard> queue3 = new LinkedList<>();
     Queue<NoteCard> top = new LinkedList<>();
     Queue<NoteCard> middle = new LinkedList<>();
     Queue<NoteCard> bottom = new LinkedList<>();
-
-    public void SwitchToCreateScene(ActionEvent event) throws IOException {
+    @FXML
+    public void SwitchToCreateScene(MouseEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("create.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -93,15 +103,16 @@ public class CreateController {
         stage.show();
     }
 
-    public void SwitchToMainScene(ActionEvent event) throws IOException {
+    @FXML
+    public void SwitchToMainScene(MouseEvent event) throws IOException {            //remove code
         root = FXMLLoader.load(getClass().getResource("MainScene.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
-
-    public void SwitchToStudyScene(ActionEvent event) throws IOException {
+    @FXML
+    public void SwitchToStudyScene(MouseEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("View.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -109,23 +120,8 @@ public class CreateController {
         stage.show();
     }
 
-    public void SwitchToHomeScene(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("HomeScreen.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    public void switchToNotecardScene(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("NotecardScene.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    public void switchToHomeScene(ActionEvent event) throws IOException {
+    @FXML
+    public void SwitchToHomeScene(MouseEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("HomeScreen.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -134,12 +130,30 @@ public class CreateController {
     }
 
     @FXML
-    public void SwitchToViewScene(ActionEvent event) throws IOException {
+    public void switchToNotecardScene(MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("NotecardScene.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    public void switchToHomeScene(MouseEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("HomeScreen.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    public void SwitchToViewScene(MouseEvent event) throws IOException {
         if (!fileField.getText().isEmpty()) {
             file = fileField.getText().toString();
             filePath.setFileName(file);
-            System.out.println(file + "This code got passed 5"); //Testing
-            System.out.println(filePath.getFileName() + "This code got passed 5.5"); //Testing
+            //System.out.println(file + "This code got passed 5"); //Testing
+            //System.out.println(filePath.getFileName() + "This code got passed 5.5"); //Testing
         }
         if (!file.isEmpty()) {
             root = FXMLLoader.load(getClass().getResource("ViewScreen.fxml"));
@@ -148,11 +162,10 @@ public class CreateController {
             stage.setScene(scene);
             stage.show();
         }
-
     }
 
     @FXML
-    public void SwitchToLearnScene(ActionEvent event) throws IOException {
+    public void SwitchToLearnScene(MouseEvent event) throws IOException {
         if (!fileField.getText().isEmpty()) {
             file = fileField.getText();
             filePath.setFileName(file);
@@ -167,30 +180,9 @@ public class CreateController {
             stage.show();
         }
     }
-
-    @FXML
-    private Label welcomeText;
-
-    @FXML
-    protected void CreateScene() {
-        welcomeText.setText("");
-    }
-
-    @FXML
-    protected void StudyScene() {
-        welcomeText.setText("");
-    }
-
-    @FXML
-    protected void SettingsScene() {
-        welcomeText.setText("");
-    }
-
-
-
     @FXML
     public void updateLabel(KeyEvent event) throws IOException {
-        System.out.print(file + "This code got passed 9"); //Testing
+        //System.out.print(file + "This code got passed 9"); //Testing
         readFile(file);
         System.out.println(currentStudySet.get(index).getTerm());
         arraySize = currentStudySet.size();
@@ -202,7 +194,7 @@ public class CreateController {
     }
 
     @FXML
-    protected void onFlipClick(ActionEvent event) throws IOException {
+    protected void onFlipClick(MouseEvent event) throws IOException {
         readFile(file);
         if (flip == 0) {
             txt = currentStudySet.get(index).getDefinition();
@@ -217,7 +209,7 @@ public class CreateController {
     }
 
     @FXML
-    protected void onLeftClick(ActionEvent event) throws IOException {
+    protected void onLeftClick(MouseEvent event) throws IOException {
         if (index <= 0) {
             index = 0;
         } else {
@@ -230,10 +222,9 @@ public class CreateController {
     }
 
     @FXML
-    protected void onRightClick(ActionEvent event) throws IOException {
+    protected void onRightClick(MouseEvent event) throws IOException {
         if (index >= (arraySize - 1)) {
             txt = currentStudySet.get(arraySize - 1).getTerm();
-
             index = arraySize - 1;
             flip = 0;
             topLabel.setText("Term");
@@ -263,18 +254,18 @@ public class CreateController {
         flipLearnButton.setDisable(false);
     }
 
-    public void sortNoteCards(int i) {
+    public void sortNoteCards(int index) {
         int max = 9;
         int min = 1;
         int rand = (int) (Math.random() * max) + min;
         if (rand >= 1 && rand <= 3) {
-            top.add(currentStudySet.get(i));
+            top.add(currentStudySet.get(index));
         } else if (rand > 3 && rand <= 6) {
-            middle.add(currentStudySet.get(i));
+            middle.add(currentStudySet.get(index));
         } else if (rand > 6 && rand <= 9) {
-            bottom.add(currentStudySet.get(i));
+            bottom.add(currentStudySet.get(index));
         } else {
-            middle.add(currentStudySet.get(i));
+            middle.add(currentStudySet.get(index));
         }
     }
 
@@ -343,7 +334,7 @@ public class CreateController {
     }
 
     @FXML
-    protected void onFlipQueue(ActionEvent event) throws IOException {
+    protected void onFlipQueue(MouseEvent event) throws IOException {
         int x = 0;
         if (!queue1.isEmpty()) {
             x = 1;
@@ -395,9 +386,8 @@ public class CreateController {
                 break;
         }
     }
-
     @FXML
-    protected void correctAnswer(ActionEvent event) throws IOException {
+    protected void correctAnswer(MouseEvent event) throws IOException {
         if (!queue1.isEmpty()) {
             if (queue1.element().getPriorityNum() == 3) {
                 System.out.println("Queue1 " + queue1.element().getTerm()); //Testing
@@ -455,7 +445,7 @@ public class CreateController {
     }
 
     @FXML
-    protected void incorrectAnswer(ActionEvent event) throws IOException { // revise
+    protected void incorrectAnswer(MouseEvent event) throws IOException { // revise
         if (!queue1.isEmpty()) {
             if (queue1.element().getPriorityNum() == 3) {
                 queue1.add(queue1.element());
@@ -486,10 +476,7 @@ public class CreateController {
     }
 
     public void createSet(String title, String folderName2) throws IOException {
-
-        String filePathName = "Notely/src/main/java/notely/app/Notecard/" + title + ".txt";
-
-
+        String filePathName = "src/main/java/notely/app/Notecard/" + title + ".txt";
         if (!filePathName.equals("Notely/src/main/java/notely/app/Notecard/.txt")) {
             File fileMake = new File(filePathName);
             if (fileMake.createNewFile()) {
@@ -510,7 +497,8 @@ public class CreateController {
                     writer.write(data.get(i) + "\n");
                 writer.close();
             }
-        } else {
+        }
+        else {
             titleInputC.setPromptText("You must enter a set title.");
             folderInputC.setPromptText("You must enter a folder name.");
         }
@@ -519,50 +507,42 @@ public class CreateController {
     public void writeToTextFile(ArrayList<String> writeArrayList, String setName, String folderOfSet) throws IOException {
         studySet = setName;
         folderName = folderOfSet;
+        //System.out.println(studySet); //Testing
 
-        System.out.println(studySet); //Testing
+        String fileName = "src/main/java/notely/app/Notecard/" + studySet + ".txt"; //change path one level lower
+        Scanner scanner = new Scanner(System.in);
+        try {
+            File file = new File(fileName);
+            FileInputStream fileReading = new FileInputStream(file);
+            Scanner reader = new Scanner(fileReading);
+            ArrayList<String> data = new ArrayList<>();
+            while (reader.hasNextLine())
+                data.add(reader.nextLine());
+            reader.close();
 
-        String fileName = "Notely/src/main/java/notely/app/Notecard/" + studySet + ".txt";
+            FileOutputStream fileWriting = new FileOutputStream(file);
+            PrintWriter writer = new PrintWriter(fileWriting, true);
 
-        if (!fileName.equals("Notely/src/main/java/notely/app/Notecard/.txt")) {
-            Scanner scanner = new Scanner(System.in);
-            try {
-
-                FileInputStream fileReading = new FileInputStream(fileName);
-                Scanner reader = new Scanner(fileReading);
-                ArrayList<String> data = new ArrayList<>();
-                while (reader.hasNextLine())
-                    data.add(reader.nextLine());
-                reader.close();
-
-                FileOutputStream fileWriting = new FileOutputStream(fileName);
-                PrintWriter writer = new PrintWriter(fileWriting, true);
-
-                for(int i = 0; i < writeArrayList.size(); i+=2){
-                    data.add(writeArrayList.get(i) + "@" + writeArrayList.get(i+1));
-                }
-
-
-
-                for (int i = 0; i < data.size(); i++)
-                    writer.write(data.get(i) + "\n");
-                writer.close();
-
-            } catch (FileNotFoundException e1) {
-                System.out.printf("\nSet with title \"%s\" does not exist.\n", studySet);
-                System.out.println("Exiting function!");
-            } catch (IOException e2) {
-                e2.printStackTrace();
+            for (int i = 0; i < writeArrayList.size(); i += 2) {
+                data.add(writeArrayList.get(i) + "@" + writeArrayList.get(i + 1));
             }
+            for (int i = 0; i < data.size(); i++)
+                writer.write(data.get(i) + "\n");
+            writer.close();
+
+        } catch (FileNotFoundException e1) {
+            System.out.printf("\nSet with title \"%s\" does not exist.\n", studySet);
+            System.out.println("Exiting function!");
+        } catch (IOException e2) {
+            e2.printStackTrace();
         }
     }
-
     public void readFile(String fileNAMEWORKS) throws IOException { //Reads a txt file to fill arraylists with words to be guessed.
         System.out.println(fileNAMEWORKS + "This code got passed 2"); //Testing
         String term = "";
         String filePathOS = "Notely/src/main/java/notely/app/Notecard/" + fileNAMEWORKS + ".txt";
-        String fileMacPath = "./" + fileNAMEWORKS + ".txt";
-        String fileWindowsPath = "../" + fileNAMEWORKS + ".txt";
+        String fileMacPath = "./src/main/java/notely/app/Notecard/" + fileNAMEWORKS + ".txt";
+        String fileWindowsPath = "../src/main/java/notely/app/Notecard/" + fileNAMEWORKS + ".txt";
         String definition = "";
         String currentLine;
         String title = "";
@@ -570,45 +550,46 @@ public class CreateController {
         int priority = 3;
 
         if(new File(fileMacPath).exists()){ // ./  for MACOS and ../ for Windows
-            System.out.print("FileMac");
+            //System.out.print("FileMac");
             filePathOS = fileMacPath;
         }
-            else if (new File(fileWindowsPath).exists()){
-            System.out.print("FileWindows");
+        else if (new File(fileWindowsPath).exists()){
+            //System.out.print("FileWindows");
             filePathOS = fileWindowsPath;
         }
 
-            System.out.println("\n\n" + filePathOS);
-            FileReader fr = new FileReader(filePathOS);
-            BufferedReader brin = new BufferedReader(fr);
-            int index = 0;
-            while ((currentLine = brin.readLine()) != null) {
-                String line = currentLine;
-                if (index == 0) {
-                    title = currentLine;
-                    titleLabel.setText(title);
-                    index++;
-                } else if (index == 1) {
-                    folder = currentLine;
-                    index++;
-                } else if (index > 1) {
-                    int tokenNumber = 0;
-                    StringTokenizer tokens = new StringTokenizer(line, "@");
-                    while (tokens.hasMoreTokens()) {
-                        String token = tokens.nextToken();
-                        term = token;
-                        token = tokens.nextToken();
-                        definition = token;
-                        tokenNumber++;
-                        noteCard = new NoteCard(term, definition, priority, tokenNumber);
-                        currentStudySet.add(noteCard);
-                    }
+        System.out.println("\n\n" + filePathOS);
+        FileReader fr = new FileReader(filePathOS);
+        BufferedReader brin = new BufferedReader(fr);
+        int index = 0;
+        while ((currentLine = brin.readLine()) != null) {
+            String line = currentLine;
+            if (index == 0) {
+                title = currentLine;
+                titleLabel.setText(title);
+                index++;
+            } else if (index == 1) {
+                folder = currentLine;
+                index++;
+            } else if (index > 1) {
+                int tokenNumber = 0;
+                StringTokenizer tokens = new StringTokenizer(line, "@");
+                while (tokens.hasMoreTokens()) {
+                    String token = tokens.nextToken();
+                    term = token;
+                    token = tokens.nextToken();
+                    definition = token;
+                    tokenNumber++;
+                    noteCard = new NoteCard(term, definition, priority, tokenNumber);
+                    currentStudySet.add(noteCard);
                 }
             }
-            brin.close();
         }
+        brin.close();
+    }
 
-    public void createSceneDynamic() {
+    @FXML
+    public void createSceneDynamic(MouseEvent event) throws IOException {
         TextField termField = new TextField(this.term);
         TextField defField = new TextField(this.definition);
         Label numberTermLabel = new Label(this.termNumberLabel);
@@ -639,39 +620,110 @@ public class CreateController {
                 }
             }
         }
-            termField.setLayoutY(termField.getHeight() + termField.getPadding().getTop() + 30); // Add some padding
-            defField.setLayoutY(termField.getHeight() + termField.getPadding().getTop() + 30); //Add some padding
-            numberTermLabel.setLayoutY(termField.getHeight() + termField.getPadding().getTop() + 10);// Add some padding
+        termField.setLayoutY(termField.getHeight() + termField.getPadding().getTop() + 30); // Add some padding
+        defField.setLayoutY(termField.getHeight() + termField.getPadding().getTop() + 30); //Add some padding
+        numberTermLabel.setLayoutY(termField.getHeight() + termField.getPadding().getTop() + 10);// Add some padding
     }
-    public void onSaveButton() throws IOException {
+    @FXML
+    public void onSaveButton(MouseEvent event) throws IOException {
         //Get set name and folder name
         studySet = titleInputC.getText();
         folderName = folderInputC.getText();
         //make an array to store strings
         ArrayList<String> textList = new ArrayList<>();
         // observes all children in the Vbox - aka panes
-            ObservableList<Node> anchorpaneList = createVbox.getChildren();
-            // uses the observable list of anchorPanes to find each pane, then to find textfields in each pane
-            for (Node node : anchorpaneList) {
-                if (node instanceof AnchorPane) {
-                    // gets children of anchorPanes - aka the textfields
-                    ObservableList<Node> textFieldList = ((AnchorPane) node).getChildren();
+        ObservableList<Node> anchorpaneList = createVbox.getChildren();
+        // uses the observable list of anchorPanes to find each pane, then to find textfields in each pane
+        for (Node node : anchorpaneList) {
+            if (node instanceof AnchorPane) {
+                // gets children of anchorPanes - aka the textfields
+                ObservableList<Node> textFieldList = ((AnchorPane) node).getChildren();
 
-                    // loops through each textfield existing in the panes
-                    for (Node textFieldNode : textFieldList) {
-                        if (textFieldNode instanceof TextField) {
-                            // get text from each instance of a textfield inside the anchorpane and then store it in an array
-                            String textFieldText = ((TextField) textFieldNode).getText();
-                            textList.add(textFieldText);
-                        }
+                // loops through each textfield existing in the panes
+                for (Node textFieldNode : textFieldList) {
+                    if (textFieldNode instanceof TextField) {
+                        // get text from each instance of a textfield inside the anchorpane and then store it in an array
+                        String textFieldText = ((TextField) textFieldNode).getText();
+                        textList.add(textFieldText);
                     }
                 }
             }
-            //creates the set if nonexistent, if existent, will write the new terms added
-            // to the set with the same name
-            createSet(studySet, folderName);
-            writeToTextFile(textList, studySet, folderName);
         }
+        //creates the set if nonexistent, if existent, will write the new terms added
+        // to the set with the same name
+        createSet(studySet, folderName);
+        writeToTextFile(textList, studySet, folderName);
+        switchToHomeScene(event);
+    }
+    @FXML
+    AnchorPane helpScreen;
+    @FXML
+    AnchorPane importPane;
+    @FXML
+    TextField titleImport;
+    @FXML
+    TextField folderImport;
+    @FXML
+    TextArea pasteArea;
+    @FXML
+    Button saveImportButton;
+    @FXML
+    Button helpButton;
+    @FXML
+    Label importTitle;
+    @FXML
+    public void onImportButton(MouseEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("Import.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    public void closePopUp(MouseEvent event) throws IOException {
+        helpScreen.setVisible(false);
+        titleImport.setVisible(true);
+        folderImport.setVisible(true);
+        pasteArea.setVisible(true);
+        saveImportButton.setVisible(true);
+        helpButton.setVisible(true);
+        importTitle.setVisible(true);
+    }
+    @FXML
+    public void helpPopUp(MouseEvent event) throws IOException {
+        helpScreen.setVisible(true);
+        titleImport.setVisible(false);
+        folderImport.setVisible(false);
+        pasteArea.setVisible(false);
+        saveImportButton.setVisible(false);
+        helpButton.setVisible(false);
+        importTitle.setVisible(false);
+    }
+    @FXML
+    public void saveImport(MouseEvent event) throws IOException {
+        String title = titleImport.getText();
+        String folder = folderImport.getText();
+        String fileName = "src/main/java/notely/app/Notecard/" + title + ".txt"; //change path one level lower
+        Scanner scanner = new Scanner(System.in);
+        try {
+            ArrayList<String> data = new ArrayList<>();
+            data.add(title);
+            data.add(folder);
+            data.add(pasteArea.getText());
+            File file = new File(fileName);
+            FileOutputStream fileWriting = new FileOutputStream(file);
+            PrintWriter writer = new PrintWriter(fileWriting, true);
 
+            for (int i = 0; i < data.size(); i++)
+                writer.write(data.get(i) + "\n");
+            writer.close();
 
+        } catch (FileNotFoundException e1) {
+            System.out.printf("\nSet with title \"%s\" does not exist.\n", studySet);
+            System.out.println("Exiting function!");
+        } catch (IOException e2) {
+            e2.printStackTrace();
+        }
+        switchToHomeScene(event);
+    }
 }

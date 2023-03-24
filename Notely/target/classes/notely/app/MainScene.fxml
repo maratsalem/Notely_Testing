@@ -25,7 +25,7 @@
                      </font>
                   </Label>
                   <TextArea fx:id="definitionInput" prefHeight="104.0" prefWidth="294.0" promptText="Enter Definition Here" />
-                  <Button mnemonicParsing="false" onAction="#switchToNotecardScene" prefWidth="60.0" style="-fx-background-radius: 17PX; -fx-background-color: FFFFFF;" text="Study" textAlignment="CENTER" textFill="#f07b14" translateX="230.0" translateY="20.0" />
+                  <Button fx:id="studyBtn" mnemonicParsing="false" onAction="#switchToNotecardScene" prefWidth="60.0" style="-fx-background-radius: 17PX; -fx-background-color: FFFFFF;" text="Study" textAlignment="CENTER" textFill="#f07b14" translateX="230.0" translateY="20.0" />
                   <Button fx:id="saveButton" onAction="#createNotecard" prefHeight="25.0" prefWidth="54.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17PX;" text="Save" textFill="#f07b14" translateY="-5.0" />
                </children>
             </VBox>
