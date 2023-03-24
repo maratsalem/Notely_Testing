@@ -492,7 +492,7 @@ public class CreateController {
     }
 
     public void createSet(String title, String folderName2) throws IOException {
-        String filePathName = "Notely/src/main/java/notely/app/Notecard/" + title + ".txt";
+        String filePathName = "src/main/java/notely/app/Notecard/" + title + ".txt";
         if (!filePathName.equals("Notely/src/main/java/notely/app/Notecard/.txt")) {
             File fileMake = new File(filePathName);
             if (fileMake.createNewFile()) {
@@ -525,24 +525,22 @@ public class CreateController {
         folderName = folderOfSet;
         //System.out.println(studySet); //Testing
 
-        String fileName = "Notely/src/main/java/notely/app/Notecard/" + studySet + ".txt";
-
-        if (!fileName.equals("Notely/src/main/java/notely/app/Notecard/.txt")) {
+        String fileName = "src/main/java/notely/app/Notecard/" + studySet + ".txt"; //change path one level lower
             Scanner scanner = new Scanner(System.in);
             try {
-
-                FileInputStream fileReading = new FileInputStream(fileName);
+                File file = new File(fileName);
+                FileInputStream fileReading = new FileInputStream(file);
                 Scanner reader = new Scanner(fileReading);
                 ArrayList<String> data = new ArrayList<>();
                 while (reader.hasNextLine())
                     data.add(reader.nextLine());
                 reader.close();
 
-                FileOutputStream fileWriting = new FileOutputStream(fileName);
+                FileOutputStream fileWriting = new FileOutputStream(file);
                 PrintWriter writer = new PrintWriter(fileWriting, true);
 
-                for(int i = 0; i < writeArrayList.size(); i+=2){
-                    data.add(writeArrayList.get(i) + "@" + writeArrayList.get(i+1));
+                for (int i = 0; i < writeArrayList.size(); i += 2) {
+                    data.add(writeArrayList.get(i) + "@" + writeArrayList.get(i + 1));
                 }
                 for (int i = 0; i < data.size(); i++)
                     writer.write(data.get(i) + "\n");
@@ -554,7 +552,6 @@ public class CreateController {
             } catch (IOException e2) {
                 e2.printStackTrace();
             }
-        }
     }
     public void readFile(String fileNAMEWORKS) throws IOException { //Reads a txt file to fill arraylists with words to be guessed.
         System.out.println(fileNAMEWORKS + "This code got passed 2"); //Testing
@@ -569,11 +566,11 @@ public class CreateController {
         int priority = 3;
 
         if(new File(fileMacPath).exists()){ // ./  for MACOS and ../ for Windows
-            System.out.print("FileMac");
+            //System.out.print("FileMac");
             filePathOS = fileMacPath;
         }
             else if (new File(fileWindowsPath).exists()){
-            System.out.print("FileWindows");
+            //System.out.print("FileWindows");
             filePathOS = fileWindowsPath;
         }
 
@@ -672,5 +669,6 @@ public class CreateController {
             // to the set with the same name
             createSet(studySet, folderName);
             writeToTextFile(textList, studySet, folderName);
+            switchToHomeScene(event);
         }
 }
