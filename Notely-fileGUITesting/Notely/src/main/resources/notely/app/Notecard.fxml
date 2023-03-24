@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #ff970f;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notely.app.CreateController">
+   <children>
+      <Button layoutX="715.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#SwitchToHomeScene" prefHeight="34.0" prefWidth="71.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17px;" text="Home" textFill="#f07b14" />
+      <AnchorPane layoutX="161.0" layoutY="73.0" prefHeight="453.0" prefWidth="477.0" style="-fx-background-color: #ffffff;">
+         <children>
+            <Label layoutX="141.0" layoutY="286.0" text="Term" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="141.0" AnchorPane.rightAnchor="144.5">
+               <font>
+                  <Font name="Heiti TC Light" size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="198.0" layoutY="207.0" text="Empty" AnchorPane.bottomAnchor="206.60000000000002" AnchorPane.leftAnchor="198.0">
+               <font>
+                  <Font name="Heiti TC Light" size="28.0" />
+               </font>
+            </Label>
+            <Button layoutX="166.0" layoutY="165.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="20.0" style="-fx-background-color: #f07b14; -fx-background-radius: 17px;" text="&gt;" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+            <Button layoutX="19.0" layoutY="168.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="20.0" style="-fx-background-color: #f07b14; -fx-background-radius: 17px;" text="&lt;" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

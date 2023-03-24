@@ -1,0 +1,38 @@
+PolyAtomic Ions
+General Chemsitry 1
+PO4^3-@Phosphate
+PO3^3-@Phosphite
+CrO4^2-@Chromate
+Cr2O7^2-@Dichromate
+MnO4^1-@Permanganate
+ClO4^1-@Perchlorate
+ClO3^1-@Chlorate
+ClO2^1-@Chlorite
+ClO^1-@Hypochlorite
+BrO4^1-@Perbromate
+BrO3^1-@Bromate
+BrO2^1-@Bromite
+BrO^1-@Hypobromite
+SCN^1-@Thiocyanate
+OH^1-@Hydroxide
+C2H3O2^1-@Acetate
+H3O^1+@Hydronium
+C2^2-@Carbide
+SO4^2-@Sulfate
+SO3^2-@Sulfite
+HSO4^1-@hydrogen sulfate (bisulfate)
+HSO3^1-@hydrogen sulfite (bisulfite)
+NO3^1-@Nitrate
+NO2^1-@Nitrite
+IO4^1-@Periodate
+IO3^1-@Iodate
+IO2^1-@Iodite
+IO^1-@Hypoiodite
+CO3^2-@Carbonate
+HCO3^1-@Bicarbonate
+CN^1-@Cyanide
+C2O4^2-@Oxalate
+O2^2-@Peroxide
+NH4^1+@Ammonium
+N3^1-@Azide
+C4H4O6^2-@Tartrate
