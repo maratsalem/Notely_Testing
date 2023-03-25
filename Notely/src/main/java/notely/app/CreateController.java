@@ -550,7 +550,9 @@ public class CreateController {
             PrintWriter writer = new PrintWriter(fileWriting, true);
 
             for (int i = 0; i < writeArrayList.size(); i += 2) {
-                data.add(writeArrayList.get(i) + "@" + writeArrayList.get(i + 1));
+                if(writeArrayList.get(i) != "" && writeArrayList.get(i+1) != "") {
+                    data.add(writeArrayList.get(i) + "@" + writeArrayList.get(i + 1));
+                }
             }
             for (int i = 0; i < data.size(); i++)
                 writer.write(data.get(i) + "\n");
@@ -675,8 +677,7 @@ public class CreateController {
                 }
             }
         }
-        //creates the set if nonexistent, if existent, will write the new terms added
-        // to the set with the same name
+
         if(createSet(studySet, folderName)) {
             writeToTextFile(textList, studySet, folderName);
             switchToHomeScene(event);
