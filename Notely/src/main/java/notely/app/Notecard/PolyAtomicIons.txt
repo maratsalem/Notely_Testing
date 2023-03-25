@@ -1,5 +1,5 @@
 PolyAtomic Ions
-General Chemsitry 1
+General Chemistry 1
 PO4^3-@Phosphate
 PO3^3-@Phosphite
 CrO4^2-@Chromate
