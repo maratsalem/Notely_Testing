@@ -65,15 +65,18 @@ public class CreateController {
     private Parent root;
     private String studySet;
     private String folderName;
-    private TextField firstTermField = new TextField();
-    private TextField firstDefField = new TextField();
-    private TextField firstNumField = new TextField();
     @FXML
-    AnchorPane firstCreateAPane = new AnchorPane(firstNumField, firstDefField, firstTermField);
+    private TextField firstTermField;
+    @FXML
+    private TextField firstDefField;
+    @FXML
+    private Label firstNumLabel;
+    @FXML
+    AnchorPane firstCreateAPane;
     private String txt;
     private static String file = "";
     private int arraySize;
-    private int labelCounter = 1;
+    private int labelCounter= 2;
     private int index = 0;
     private int flip = 0;
     private NoteCard noteCard = new NoteCard();
@@ -630,16 +633,14 @@ public class CreateController {
         newInsertField.setPrefHeight(termField.getHeight() + defField.getHeight() + 20);
 
         labelCounter++;
-        if (createVbox.getChildren() == null){
-            labelCounter = 1;
-        }
 
         createVbox.getChildren().add(newInsertField);
 
         if (createVbox.getChildren().size() > 1) {
             for (Node node : createVbox.getChildren()) {
                 if (node instanceof AnchorPane previousAdded) {
-                    numberTermLabel.setLayoutX(previousAdded.getLayoutX() + 65);
+                    numberTermLabel.setLayoutX(previousAdded.getLayoutX() + 60);
+                    System.out.println(numberTermLabel.getPrefHeight() + " " + numberTermLabel.getPrefWidth());
                     termField.setLayoutX(previousAdded.getLayoutX() + 70);
                     defField.setLayoutX(previousAdded.getLayoutX() + 390);
                     newInsertField.setLayoutY(previousAdded.getLayoutY());
