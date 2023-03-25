@@ -1,6 +1,0 @@
-funkyFunTerms
-testing
-term1@def1
-term2@def2
-term3@def3 and def3.5
-testing4@testing4

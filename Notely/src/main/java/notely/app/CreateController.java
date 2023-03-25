@@ -475,10 +475,11 @@ public class CreateController {
         flip = 0;
     }
 
-    public void createSet(String title, String folderName2) throws IOException {
+    public boolean createSet(String title, String folderName2) throws IOException {
         String fileMacPath2 = "./src/main/java/notely/app/Notecard/" + title + ".txt";
         String fileWindowsPath2 = "../src/main/java/notely/app/Notecard/" + title + ".txt";
         String createSetPath = "Notely/src/main/java/notely/app/Notecard/" + title + ".txt";
+        boolean returnVal = false;
 
         if(new File(fileMacPath2).exists()){ // ./  for MACOS and ../ for Windows
             System.out.println("FileMac");
@@ -492,9 +493,10 @@ public class CreateController {
         System.out.println(createSetPath + "is the assigned path");
 
         if(new File(createSetPath).exists()) {
-            titleInputC.setPromptText("That set already exists. Please enter a different set name.");
+            titleInputC.setText("That set already exists. Please enter a different set name.");
+            returnVal = false;
         }
-        else if (!createSetPath.equals("./src/main/java/notely/app/Notecard/.txt") || !createSetPath.equals("../src/main/java/notely/app/Notecard/.txt")) {
+        else if (!createSetPath.equals("Notely/src/main/java/notely/app/Notecard/.txt")) {
             File fileMake = new File(createSetPath);
             if (fileMake.createNewFile()) {
                 FileInputStream fileReading = new FileInputStream(createSetPath);
@@ -513,12 +515,15 @@ public class CreateController {
                 for (int i = 0; i < data.size(); i++)
                     writer.write(data.get(i) + "\n");
                 writer.close();
+                returnVal = true;
             }
         }
         else {
             titleInputC.setPromptText("You must enter a set title.");
             folderInputC.setPromptText("You must enter a folder name.");
+            returnVal = false;
         }
+        return returnVal;
     }
 
     public void writeToTextFile(ArrayList<String> writeArrayList, String setName, String folderOfSet) throws IOException {
@@ -526,7 +531,7 @@ public class CreateController {
         folderName = folderOfSet;
         //System.out.println(studySet); //Testing
 
-        String fileName = "src/main/java/notely/app/Notecard/" + studySet + ".txt"; //change path one level lower
+        String fileName = "Notely/src/main/java/notely/app/Notecard/" + studySet + ".txt"; //change path one level lower
         Scanner scanner = new Scanner(System.in);
         try {
             File file = new File(fileName);
@@ -660,17 +665,21 @@ public class CreateController {
                     if (textFieldNode instanceof TextField) {
                         // get text from each instance of a textfield inside the anchorpane and then store it in an array
                         String textFieldText = ((TextField) textFieldNode).getText();
-                        textList.add(textFieldText);
+                        if(textFieldText != null){
+                            textList.add(textFieldText);
+                        }
                     }
                 }
             }
         }
         //creates the set if nonexistent, if existent, will write the new terms added
         // to the set with the same name
-        createSet(studySet, folderName);
-        writeToTextFile(textList, studySet, folderName);
-        switchToHomeScene(event);
+        if(createSet(studySet, folderName)) {
+            writeToTextFile(textList, studySet, folderName);
+            switchToHomeScene(event);
+        }
     }
+
     @FXML
     AnchorPane helpScreen;
     @FXML
