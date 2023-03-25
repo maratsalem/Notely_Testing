@@ -1,7 +1,6 @@
 package notely.app;
 
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -11,12 +10,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.*;
@@ -24,9 +21,7 @@ import java.util.*;
 
 public class CreateController {
     @FXML
-    VBox createVbox;
-    @FXML
-    AnchorPane firstCreateAPane;
+    VBox createVbox = new VBox();
     @FXML
     AnchorPane termList;
     @FXML
@@ -50,8 +45,6 @@ public class CreateController {
     @FXML
     Label titleLabel;
     @FXML
-    Label welcomeText;      //What is this for
-    @FXML
     Button viewButton;
     @FXML
     Button leftButton;
@@ -65,21 +58,20 @@ public class CreateController {
     Button correctButton;
     @FXML
     Button incorrectButton;
+    @FXML
+    Button createSceneButton;
     private Stage stage;
     private Scene scene;
     private Parent root;
-    private String term;
-    private String definition;
     private String studySet;
     private String folderName;
-    private String firstTermField;
-    private String firstDefField;
-    private String firstNumField;
+    private TextField firstTermField = new TextField();
+    private TextField firstDefField = new TextField();
+    private TextField firstNumField = new TextField();
+    @FXML
+    AnchorPane firstCreateAPane = new AnchorPane(firstNumField, firstDefField, firstTermField);
     private String txt;
-    private String termNumberLabel;
     private static String file = "";
-    private int priorityNum;
-    private int labelCntTemp;
     private int arraySize;
     private int labelCounter = 1;
     private int index = 0;
@@ -96,7 +88,7 @@ public class CreateController {
     Queue<NoteCard> bottom = new LinkedList<>();
     @FXML
     public void SwitchToCreateScene(MouseEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("create.fxml"));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("create.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -105,7 +97,7 @@ public class CreateController {
 
     @FXML
     public void SwitchToMainScene(MouseEvent event) throws IOException {            //remove code
-        root = FXMLLoader.load(getClass().getResource("MainScene.fxml"));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainScene.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -113,7 +105,7 @@ public class CreateController {
     }
     @FXML
     public void SwitchToStudyScene(MouseEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("View.fxml"));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("View.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -122,7 +114,7 @@ public class CreateController {
 
     @FXML
     public void SwitchToHomeScene(MouseEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("HomeScreen.fxml"));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("HomeScreen.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -131,7 +123,7 @@ public class CreateController {
 
     @FXML
     public void switchToNotecardScene(MouseEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("NotecardScene.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("NotecardScene.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -140,7 +132,7 @@ public class CreateController {
 
     @FXML
     public void switchToHomeScene(MouseEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("HomeScreen.fxml"));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("HomeScreen.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -150,13 +142,13 @@ public class CreateController {
     @FXML
     public void SwitchToViewScene(MouseEvent event) throws IOException {
         if (!fileField.getText().isEmpty()) {
-            file = fileField.getText().toString();
+            file = fileField.getText();
             filePath.setFileName(file);
             //System.out.println(file + "This code got passed 5"); //Testing
             //System.out.println(filePath.getFileName() + "This code got passed 5.5"); //Testing
         }
         if (!file.isEmpty()) {
-            root = FXMLLoader.load(getClass().getResource("ViewScreen.fxml"));
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ViewScreen.fxml")));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
@@ -173,7 +165,7 @@ public class CreateController {
             fileName.add(file);
         }
         if (!file.isEmpty()) {
-            root = FXMLLoader.load(getClass().getResource("learnScreen.fxml"));
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("learnScreen.fxml")));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
@@ -529,12 +521,24 @@ public class CreateController {
     public void writeToTextFile(ArrayList<String> writeArrayList, String setName, String folderOfSet) throws IOException {
         studySet = setName;
         folderName = folderOfSet;
-        //System.out.println(studySet); //Testing
 
-        String fileName = "Notely/src/main/java/notely/app/Notecard/" + studySet + ".txt"; //change path one level lower
+        String fileMacPath3 = "./src/main/java/notely/app/Notecard/" + setName + ".txt";
+        String fileWindowsPath3 = "../src/main/java/notely/app/Notecard/" + setName + ".txt";
+        String writeFilePath = "Notely/src/main/java/notely/app/Notecard/" + setName + ".txt";
+        boolean returnVal = false;
+
+        if(new File(fileMacPath3).exists()){ // ./  for MACOS and ../ for Windows
+            System.out.println("FileMac");
+            writeFilePath = fileMacPath3;
+        }
+        else if (new File(fileWindowsPath3).exists()){
+            System.out.println("FileWindows");
+            writeFilePath = fileWindowsPath3;
+        }
+
         Scanner scanner = new Scanner(System.in);
         try {
-            File file = new File(fileName);
+            File file = new File(writeFilePath);
             FileInputStream fileReading = new FileInputStream(file);
             Scanner reader = new Scanner(fileReading);
             ArrayList<String> data = new ArrayList<>();
@@ -608,35 +612,34 @@ public class CreateController {
         }
         brin.close();
     }
-
     @FXML
     public void createSceneDynamic(MouseEvent event) throws IOException {
-        TextField termField = new TextField(this.term);
-        TextField defField = new TextField(this.definition);
-        Label numberTermLabel = new Label(this.termNumberLabel);
+        TextField termField = new TextField();
+        TextField defField = new TextField();
+        Label numberTermLabel = new Label();
         termField.setPromptText("Enter your term here");
         defField.setPromptText("Enter your definition here");
         numberTermLabel.setText(String.valueOf(labelCounter));
+
+        termField.setPrefSize(257, 40);
+        defField.setPrefSize(257,40);
+
+        AnchorPane newInsertField = new AnchorPane(termField, defField, numberTermLabel);
+        newInsertField.setPrefHeight(termField.getHeight() + defField.getHeight() + 20);
 
         labelCounter++;
         if (createVbox.getChildren() == null){
             labelCounter = 1;
         }
 
-        termField.setPrefSize(257, 23);
-        defField.setPrefSize(257,23);
-
-        AnchorPane newInsertField = new AnchorPane(termField, defField, numberTermLabel);
-        newInsertField.setPrefHeight(termField.getHeight() + defField.getHeight() + 20);
         createVbox.getChildren().add(newInsertField);
 
-        double y = 0;
         if (createVbox.getChildren().size() > 1) {
             for (Node node : createVbox.getChildren()) {
                 if (node instanceof AnchorPane previousAdded) {
-                    numberTermLabel.setLayoutX(previousAdded.getLayoutX());
-                    termField.setLayoutX(previousAdded.getLayoutX() + 6);
-                    defField.setLayoutX(previousAdded.getLayoutX() + 293);
+                    numberTermLabel.setLayoutX(previousAdded.getLayoutX() + 65);
+                    termField.setLayoutX(previousAdded.getLayoutX() + 70);
+                    defField.setLayoutX(previousAdded.getLayoutX() + 390);
                     newInsertField.setLayoutY(previousAdded.getLayoutY());
                 }
             }
@@ -698,7 +701,7 @@ public class CreateController {
     Label importTitle;
     @FXML
     public void onImportButton(MouseEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("Import.fxml"));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Import.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
