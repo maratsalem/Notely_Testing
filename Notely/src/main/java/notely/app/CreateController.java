@@ -6,13 +6,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -22,6 +20,7 @@ import java.util.*;
 public class CreateController {
     @FXML
     VBox createVbox = new VBox();
+    @FXML ScrollPane scrollPane = new ScrollPane();
     @FXML
     AnchorPane termList;
     @FXML
@@ -76,7 +75,7 @@ public class CreateController {
     private String txt;
     private static String file = "";
     private int arraySize;
-    private int labelCounter= 2;
+    private int labelCounter = 2;
     private int index = 0;
     private int flip = 0;
     private NoteCard noteCard = new NoteCard();
@@ -89,6 +88,7 @@ public class CreateController {
     Queue<NoteCard> top = new LinkedList<>();
     Queue<NoteCard> middle = new LinkedList<>();
     Queue<NoteCard> bottom = new LinkedList<>();
+
     @FXML
     public void SwitchToCreateScene(MouseEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("create.fxml")));
@@ -106,6 +106,7 @@ public class CreateController {
         stage.setScene(scene);
         stage.show();
     }
+
     @FXML
     public void SwitchToStudyScene(MouseEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("View.fxml")));
@@ -175,6 +176,7 @@ public class CreateController {
             stage.show();
         }
     }
+
     @FXML
     public void updateLabel(KeyEvent event) throws IOException {
         //System.out.print(file + "This code got passed 9"); //Testing
@@ -381,6 +383,7 @@ public class CreateController {
                 break;
         }
     }
+
     @FXML
     protected void correctAnswer(MouseEvent event) throws IOException {
         if (!queue1.isEmpty()) {
@@ -476,22 +479,18 @@ public class CreateController {
         String createSetPath = "Notely/src/main/java/notely/app/Notecard/" + title + ".txt";
         boolean returnVal = false;
 
-        if(new File(fileMacPath2).exists()){ // ./  for MACOS and ../ for Windows
+        if (new File(fileMacPath2).exists()) { // ./  for MACOS and ../ for Windows
             System.out.println("FileMac");
             createSetPath = fileMacPath2;
-        }
-        else if (new File(fileWindowsPath2).exists()){
+        } else if (new File(fileWindowsPath2).exists()) {
             System.out.println("FileWindows");
             createSetPath = fileWindowsPath2;
         }
 
-        System.out.println(createSetPath + "is the assigned path");
-
-        if(new File(createSetPath).exists()) {
+        if (new File(createSetPath).exists()) {
             titleInputC.setText("That set already exists. Please enter a different set name.");
             returnVal = false;
-        }
-        else if (!createSetPath.equals("Notely/src/main/java/notely/app/Notecard/.txt")) {
+        } else if (!createSetPath.equals("Notely/src/main/java/notely/app/Notecard/.txt")) {
             File fileMake = new File(createSetPath);
             if (fileMake.createNewFile()) {
                 FileInputStream fileReading = new FileInputStream(createSetPath);
@@ -512,13 +511,43 @@ public class CreateController {
                 writer.close();
                 returnVal = true;
             }
-        }
-        else {
+        } else {
             titleInputC.setPromptText("You must enter a set title.");
             folderInputC.setPromptText("You must enter a folder name.");
             returnVal = false;
         }
         return returnVal;
+    }
+
+    public void writeToSetNameFolder(String setName1) throws FileNotFoundException {
+        String fileMacPath4 = "./src/main/java/notely/app/Notecard/setNames";
+        String fileWindowsPath4 = "../src/main/java/notely/app/Notecard/setNames";
+        String dropDownSetPath = "Notely/src/main/java/notely/app/Notecard/setNames";
+
+        if (new File(fileMacPath4).exists()) { // ./  for MACOS and ../ for Windows
+            System.out.println("FileMac");
+            dropDownSetPath = fileMacPath4;
+        } else if (new File(fileWindowsPath4).exists()) {
+            System.out.println("FileWindows");
+            dropDownSetPath = fileWindowsPath4;
+        }
+
+            File ff = new File(dropDownSetPath);
+            FileInputStream fileReading = new FileInputStream(ff);
+            Scanner reader = new Scanner(fileReading);
+            ArrayList<String> setArrayList = new ArrayList<>();
+            while (reader.hasNextLine())
+                setArrayList.add(reader.nextLine());
+            reader.close();
+
+            FileOutputStream fileWriting = new FileOutputStream(ff);
+            PrintWriter writer = new PrintWriter(fileWriting, true);
+
+            setArrayList.add(setName1);
+
+            for (int i = 0; i < setArrayList.size(); i++)
+                writer.write(setArrayList.get(i) + "\n");
+            writer.close();
     }
 
     public void writeToTextFile(ArrayList<String> writeArrayList, String setName, String folderOfSet) throws IOException {
@@ -539,7 +568,6 @@ public class CreateController {
             writeFilePath = fileWindowsPath3;
         }
 
-        Scanner scanner = new Scanner(System.in);
         try {
             File file = new File(writeFilePath);
             FileInputStream fileReading = new FileInputStream(file);
@@ -567,7 +595,7 @@ public class CreateController {
             e2.printStackTrace();
         }
     }
-    public void readFile(String fileNAMEWORKS) throws IOException { //Reads a txt file to fill arraylists with words to be guessed.
+    public boolean readFile(String fileNAMEWORKS) throws IOException { //Reads a txt file to fill arraylists with words to be guessed.
         System.out.println(fileNAMEWORKS + "This code got passed 2"); //Testing
         String term = "";
         String filePathOS = "Notely/src/main/java/notely/app/Notecard/" + fileNAMEWORKS + ".txt";
@@ -578,14 +606,19 @@ public class CreateController {
         String title = "";
         String folder = "";
         int priority = 3;
+        boolean returnVal2 = false;
 
         if(new File(fileMacPath).exists()){ // ./  for MACOS and ../ for Windows
             //System.out.print("FileMac");
             filePathOS = fileMacPath;
+            returnVal2 = true;
         }
         else if (new File(fileWindowsPath).exists()){
             //System.out.print("FileWindows");
             filePathOS = fileWindowsPath;
+            returnVal2 = true;
+        } else {
+            returnVal2 = false;
         }
 
         System.out.println("\n\n" + filePathOS);
@@ -616,6 +649,7 @@ public class CreateController {
             }
         }
         brin.close();
+        return returnVal2;
     }
     @FXML
     public void createSceneDynamic(MouseEvent event) throws IOException {
@@ -630,8 +664,6 @@ public class CreateController {
         defField.setPrefSize(257,40);
 
         AnchorPane newInsertField = new AnchorPane(termField, defField, numberTermLabel);
-        newInsertField.setPrefHeight(termField.getHeight() + defField.getHeight() + 20);
-
         labelCounter++;
 
         createVbox.getChildren().add(newInsertField);
@@ -640,16 +672,15 @@ public class CreateController {
             for (Node node : createVbox.getChildren()) {
                 if (node instanceof AnchorPane previousAdded) {
                     numberTermLabel.setLayoutX(previousAdded.getLayoutX() + 60);
-                    System.out.println(numberTermLabel.getPrefHeight() + " " + numberTermLabel.getPrefWidth());
                     termField.setLayoutX(previousAdded.getLayoutX() + 70);
                     defField.setLayoutX(previousAdded.getLayoutX() + 390);
+                    termField.setLayoutY(termField.getHeight() + termField.getPadding().getTop() + 30);
+                    defField.setLayoutY(termField.getHeight() + termField.getPadding().getTop() + 30);
+                    numberTermLabel.setLayoutY(termField.getHeight() + termField.getPadding().getTop() + 10);
                     newInsertField.setLayoutY(previousAdded.getLayoutY());
                 }
             }
         }
-        termField.setLayoutY(termField.getHeight() + termField.getPadding().getTop() + 30); // Add some padding
-        defField.setLayoutY(termField.getHeight() + termField.getPadding().getTop() + 30); //Add some padding
-        numberTermLabel.setLayoutY(termField.getHeight() + termField.getPadding().getTop() + 10);// Add some padding
     }
     @FXML
     public void onSaveButton(MouseEvent event) throws IOException {
@@ -680,6 +711,7 @@ public class CreateController {
         }
 
         if(createSet(studySet, folderName)) {
+            writeToSetNameFolder(studySet);
             writeToTextFile(textList, studySet, folderName);
             switchToHomeScene(event);
         }
@@ -733,14 +765,25 @@ public class CreateController {
     public void saveImport(MouseEvent event) throws IOException {
         String title = titleImport.getText();
         String folder = folderImport.getText();
-        String fileName = "src/main/java/notely/app/Notecard/" + title + ".txt"; //change path one level lower
+        String fileMacPath5 = "./src/main/java/notely/app/Notecard/" + title + ".txt";
+        String fileWindowsPath5 = "../src/main/java/notely/app/Notecard/" + title + ".txt";
+        String saveImportPath = "Notely/src/main/java/notely/app/Notecard/" + title + ".txt";
+
+        if (new File(fileMacPath5).exists()) { // ./  for MACOS and ../ for Windows
+            System.out.println("FileMac");
+            saveImportPath = fileMacPath5;
+        } else if (new File(fileWindowsPath5).exists()) {
+            System.out.println("FileWindows");
+            saveImportPath = fileWindowsPath5;
+        }
+
         Scanner scanner = new Scanner(System.in);
         try {
             ArrayList<String> data = new ArrayList<>();
             data.add(title);
             data.add(folder);
             data.add(pasteArea.getText());
-            File file = new File(fileName);
+            File file = new File(saveImportPath);
             FileOutputStream fileWriting = new FileOutputStream(file);
             PrintWriter writer = new PrintWriter(fileWriting, true);
 
@@ -756,4 +799,5 @@ public class CreateController {
         }
         switchToHomeScene(event);
     }
+
 }
