@@ -40,6 +40,7 @@
       </ScrollPane>
       <Button fx:id="addNewCard" layoutX="384.0" layoutY="551.0" mnemonicParsing="false" onMouseClicked="#createSceneDynamic" prefHeight="34.0" prefWidth="33.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17px;" text="+" textFill="#f07b14" />
       <Button fx:id="saveButtonC" layoutX="625.0" layoutY="551.0" mnemonicParsing="false" onMouseClicked="#onSaveButton" prefHeight="34.0" prefWidth="116.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 17PX;" text="Save Set" textFill="#f07b14" />
-      <Button fx:id="importButton" layoutX="436.0" layoutY="117.0" mnemonicParsing="false" onMouseClicked="#onImportButton" prefHeight="34.0" prefWidth="169.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 17PX;" text="Import From Quizlet" textFill="#f07b14" />
+      <Button fx:id="importButton" layoutX="436.0" layoutY="117.0" mnemonicParsing="false" onMouseClicked="#onImportButton" prefHeight="34.0" prefWidth="144.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 17PX;" text="Import From Quizlet" textFill="#f07b14" />
+      <Button fx:id="editSetButton" layoutX="597.0" layoutY="118.0" mnemonicParsing="false" onMouseClicked="#SwitchToMainScene"  prefHeight="34.0" prefWidth="144.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 17PX;" text="Edit Exising Set" textFill="#f07b14" />
    </children>
 </AnchorPane>

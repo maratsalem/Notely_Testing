@@ -11,7 +11,7 @@
             <children>
                 <Button fx:id="viewButton" alignment="CENTER" contentDisplay="CENTER" layoutX="207.0" layoutY="375.0" mnemonicParsing="false" onMouseClicked="#SwitchToViewScene" prefHeight="36.0" prefWidth="80.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17PX;" text="View" textAlignment="CENTER" textFill="#f07b14" />
                 <Button fx:id="learnButton" alignment="CENTER" contentDisplay="CENTER" layoutX="368.0" layoutY="375.0" mnemonicParsing="false" onMouseClicked="#SwitchToLearnScene" prefHeight="36.0" prefWidth="80.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17PX;" text="Learn" textAlignment="CENTER" textFill="#f07b14" />
-                <Button fx:id="quizButton" alignment="CENTER" contentDisplay="CENTER" layoutX="537.0" layoutY="375.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="80.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17PX;" text="Quiz" textAlignment="CENTER" textFill="#f07b14" />
+                <Button fx:id="quizButton" alignment="CENTER" contentDisplay="CENTER" layoutX="537.0" layoutY="375.0" mnemonicParsing="false" onMouseClicked="#switchToQuizScene" prefHeight="36.0" prefWidth="80.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17PX;" text="Quiz" textAlignment="CENTER" textFill="#f07b14" />
                 <TextField fx:id="fileField" layoutX="325.0" layoutY="300.0" prefHeight="43.0" prefWidth="194.0" promptText="Enter a Study Set's Name" />
                 <Label alignment="CENTER" layoutX="215.0" layoutY="200.0" prefHeight="58.0" prefWidth="411.0" text="Study Modes" textAlignment="CENTER" textFill="WHITE">
                     <font>
