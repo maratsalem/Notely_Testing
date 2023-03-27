@@ -151,12 +151,14 @@ public class CreateController {
             //System.out.println(file + "This code got passed 5"); //Testing
             //System.out.println(filePath.getFileName() + "This code got passed 5.5"); //Testing
         }
-        if (!file.isEmpty()) {
+        if (!file.isEmpty() && new File(filePath.getFileName()).exists()) {
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ViewScreen.fxml")));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
+        } else {
+            fileField.setText("Please enter a valid set name.");
         }
     }
 
@@ -168,12 +170,14 @@ public class CreateController {
             System.out.println(file);
             fileName.add(file);
         }
-        if (!file.isEmpty()) {
+        if (!file.isEmpty() && new File(fileField.getText()).exists()) {
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("learnScreen.fxml")));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
+        } else {
+            fileField.setText("Please enter a valid set name.");
         }
     }
 
