@@ -84,7 +84,46 @@ public class NoteCard {
             e2.printStackTrace();
         }
     }
-
     //manually editing the text file will cause index errors
+    //required to demo old mainscene
+    public void writeQuestion (String title, String term, String definition) {
+        String fileMacPath = "./src/main/java/notely/app/Notecard/" + title + ".txt";
+        String fileWindowsPath = "../src/main/java/notely/app/Notecard/" + title + ".txt";
+        String fileName = "Notely/src/main/java/notely/app/Notecard/" + title + ".txt";
+
+        if (new File(fileMacPath).exists()) { // ./  for MACOS and ../ for Windows
+            System.out.println("FileMac");
+            fileName = fileMacPath;
+        } else if (new File(fileWindowsPath).exists()) {
+            System.out.println("FileWindows");
+            fileName = fileWindowsPath;
+        }
+
+        Scanner scanner = new Scanner(System.in);
+        try {
+
+            FileInputStream fileReading = new FileInputStream (fileName);
+            Scanner reader = new Scanner(fileReading);
+            ArrayList<String> data = new ArrayList<>();
+            while (reader.hasNextLine())
+                data.add(reader.nextLine());
+            reader.close();
+
+            FileOutputStream fileWriting = new FileOutputStream(fileName);
+            PrintWriter writer = new PrintWriter(fileWriting, true);
+
+            data.add(term + "@" + definition);
+
+            for (int i = 0; i < data.size(); i++)
+                writer.write(data.get(i) + "\n");
+            writer.close();
+
+        } catch (FileNotFoundException e1) {
+            System.out.printf ("\nSet with title \"%s\" does not exist.\n", title);
+            System.out.println ("Exiting function!");
+        } catch (IOException e2) {
+            e2.printStackTrace();
+        }
+    }
 
 }

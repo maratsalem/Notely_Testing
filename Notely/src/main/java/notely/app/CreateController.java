@@ -1,6 +1,7 @@
 package notely.app;
 
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -88,6 +89,8 @@ public class CreateController {
     Queue<NoteCard> top = new LinkedList<>();
     Queue<NoteCard> middle = new LinkedList<>();
     Queue<NoteCard> bottom = new LinkedList<>();
+    private String term;
+    private String definition;
 
     public String checkPath(String checkingPathString){
 
@@ -114,13 +117,52 @@ public class CreateController {
     }
 
     @FXML
-    public void SwitchToMainScene(MouseEvent event) throws IOException {            //remove code
+    public void SwitchToMainScene(MouseEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainScene.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
+
+    //required to demo old main scene
+    public void createNotecard(ActionEvent event) throws IOException {
+        System.out.println(termInput.getText()); //Testing
+        System.out.println(definitionInput.getText()); //Testing
+
+        term = termInput.getText();
+        definition = definitionInput.getText();
+        studySet = titleInput.getText();
+
+        System.out.println(studySet); //Testing
+
+        createSet(studySet, folderNameInput.getText());
+
+        NoteCard nc = new NoteCard(term, definition, 0, 0);
+        nc.writeQuestion(studySet, term, definition);
+
+        Label termLabel = new Label(this.term);
+        Label defLabel = new Label(this.definition);
+        AnchorPane notecardPane = new AnchorPane(termLabel, defLabel);
+        notecardPane.setPrefHeight(termLabel.getHeight() + defLabel.getHeight() + 20); // Add some padding
+        termList.getChildren().add(notecardPane);
+        // Position the notecard below the previously added notecard, if any
+        double y = 0;
+        if (termList.getChildren().size() > 1) {
+            for (Node node : termList.getChildren()) {
+                if (node instanceof AnchorPane) {
+                    AnchorPane previousNotecard = (AnchorPane) node;
+                    y += previousNotecard.getHeight();
+                }
+            }
+            y += 10; // Add some padding
+        }
+        notecardPane.setLayoutX(0);
+        notecardPane.setLayoutY(y);
+        // Position the definition label below the term label
+        defLabel.setLayoutY(termLabel.getHeight() + termLabel.getPadding().getTop() + 10); // Add some padding
+    }
+
 
     @FXML
     public void SwitchToStudyScene(MouseEvent event) throws IOException {
@@ -185,6 +227,24 @@ public class CreateController {
         }
         if (!file.isEmpty() && new File(checkPath(fileField.getText())).exists()) {
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("learnScreen.fxml")));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } else {
+            fileField.setText("Please enter a valid set name.");
+        }
+    }
+
+    public void switchToQuizScene(MouseEvent event) throws IOException {
+        if (!fileField.getText().isEmpty() && new File(checkPath(fileField.getText())).exists()) {
+            file = fileField.getText();
+            filePath.setFileName(file);
+            System.out.println(file);
+            fileName.add(file);
+        }
+        if (!file.isEmpty() && new File(checkPath(fileField.getText())).exists()) {
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Quiz.fxml")));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
@@ -510,8 +570,13 @@ public class CreateController {
                 FileOutputStream fileWriting = new FileOutputStream(createSetPath);
                 PrintWriter writer = new PrintWriter(fileWriting, true);
 
-                data.add(Objects.requireNonNull(titleInputC.getText()));
-                data.add(Objects.requireNonNull(folderInputC.getText()));
+                if(titleInput != null){
+                    data.add(Objects.requireNonNull(titleInput.getText()));
+                    data.add(Objects.requireNonNull(folderNameInput.getText()));
+                } else if (titleInputC != null){
+                    data.add(Objects.requireNonNull(titleInputC.getText()));
+                    data.add(Objects.requireNonNull(folderInputC.getText()));
+                }
 
                 for (int i = 0; i < data.size(); i++)
                     writer.write(data.get(i) + "\n");
