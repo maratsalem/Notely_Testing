@@ -1,4 +1,7 @@
 package notely.app;
+
+import java.io.File;
+
 public class FilePath {
     String file;
     public FilePath(){
@@ -13,4 +16,5 @@ public class FilePath {
     public String getFileName(){
         return file;
     }
+
 }

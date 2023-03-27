@@ -89,6 +89,21 @@ public class CreateController {
     Queue<NoteCard> middle = new LinkedList<>();
     Queue<NoteCard> bottom = new LinkedList<>();
 
+    public String checkPath(String checkingPathString){
+
+        String fileMacPath = "./src/main/java/notely/app/Notecard/" + checkingPathString + ".txt";
+        String fileWindowsPath = "../src/main/java/notely/app/Notecard/" + checkingPathString + ".txt";
+        String checkPathString = "Notely/src/main/java/notely/app/Notecard/" + checkingPathString + ".txt";
+
+        if (new File(fileMacPath).exists()) { // ./  for MACOS and ../ for Windows
+            System.out.println("FileMac");
+            checkPathString = fileMacPath;
+        } else if (new File(fileWindowsPath).exists()) {
+            System.out.println("FileWindows");
+            checkPathString = fileWindowsPath;
+        }
+        return checkPathString;
+    }
     @FXML
     public void SwitchToCreateScene(MouseEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("create.fxml")));
@@ -145,13 +160,11 @@ public class CreateController {
 
     @FXML
     public void SwitchToViewScene(MouseEvent event) throws IOException {
-        if (!fileField.getText().isEmpty()) {
+        if (!fileField.getText().isEmpty() && new File(checkPath(fileField.getText())).exists()) {
             file = fileField.getText();
             filePath.setFileName(file);
-            //System.out.println(file + "This code got passed 5"); //Testing
-            //System.out.println(filePath.getFileName() + "This code got passed 5.5"); //Testing
         }
-        if (!file.isEmpty() && new File(filePath.getFileName()).exists()) {
+        if (!file.isEmpty() && new File(checkPath(fileField.getText())).exists()) {
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ViewScreen.fxml")));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
@@ -164,13 +177,13 @@ public class CreateController {
 
     @FXML
     public void SwitchToLearnScene(MouseEvent event) throws IOException {
-        if (!fileField.getText().isEmpty()) {
+        if (!fileField.getText().isEmpty() && new File(checkPath(fileField.getText())).exists()) {
             file = fileField.getText();
             filePath.setFileName(file);
             System.out.println(file);
             fileName.add(file);
         }
-        if (!file.isEmpty() && new File(fileField.getText()).exists()) {
+        if (!file.isEmpty() && new File(checkPath(fileField.getText())).exists()) {
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("learnScreen.fxml")));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
@@ -478,18 +491,8 @@ public class CreateController {
     }
 
     public boolean createSet(String title, String folderName2) throws IOException {
-        String fileMacPath2 = "./src/main/java/notely/app/Notecard/" + title + ".txt";
-        String fileWindowsPath2 = "../src/main/java/notely/app/Notecard/" + title + ".txt";
-        String createSetPath = "Notely/src/main/java/notely/app/Notecard/" + title + ".txt";
+        String createSetPath = checkPath(title);
         boolean returnVal = false;
-
-        if (new File(fileMacPath2).exists()) { // ./  for MACOS and ../ for Windows
-            System.out.println("FileMac");
-            createSetPath = fileMacPath2;
-        } else if (new File(fileWindowsPath2).exists()) {
-            System.out.println("FileWindows");
-            createSetPath = fileWindowsPath2;
-        }
 
         if (new File(createSetPath).exists()) {
             titleInputC.setText("That set already exists. Please enter a different set name.");
@@ -524,16 +527,14 @@ public class CreateController {
     }
 
     public void writeToSetNameFolder(String setName1) throws FileNotFoundException {
-        String fileMacPath4 = "./src/main/java/notely/app/Notecard/setNames";
-        String fileWindowsPath4 = "../src/main/java/notely/app/Notecard/setNames";
+        String fileMacPath2 = "./src/main/java/notely/app/Notecard/setNames";
+        String fileWindowsPath2 = "../src/main/java/notely/app/Notecard/setNames";
         String dropDownSetPath = "Notely/src/main/java/notely/app/Notecard/setNames";
 
-        if (new File(fileMacPath4).exists()) { // ./  for MACOS and ../ for Windows
-            System.out.println("FileMac");
-            dropDownSetPath = fileMacPath4;
-        } else if (new File(fileWindowsPath4).exists()) {
-            System.out.println("FileWindows");
-            dropDownSetPath = fileWindowsPath4;
+        if (new File(fileMacPath2).exists()) { // ./  for MACOS and ../ for Windows
+            dropDownSetPath = fileMacPath2;
+        } else if (new File(fileWindowsPath2).exists()) {
+            dropDownSetPath = fileWindowsPath2;
         }
 
             File ff = new File(dropDownSetPath);
@@ -558,19 +559,7 @@ public class CreateController {
         studySet = setName;
         folderName = folderOfSet;
 
-        String fileMacPath3 = "./src/main/java/notely/app/Notecard/" + setName + ".txt";
-        String fileWindowsPath3 = "../src/main/java/notely/app/Notecard/" + setName + ".txt";
-        String writeFilePath = "Notely/src/main/java/notely/app/Notecard/" + setName + ".txt";
-        boolean returnVal = false;
-
-        if(new File(fileMacPath3).exists()){ // ./  for MACOS and ../ for Windows
-            System.out.println("FileMac");
-            writeFilePath = fileMacPath3;
-        }
-        else if (new File(fileWindowsPath3).exists()){
-            System.out.println("FileWindows");
-            writeFilePath = fileWindowsPath3;
-        }
+        String writeFilePath = checkPath(setName);
 
         try {
             File file = new File(writeFilePath);
@@ -599,31 +588,15 @@ public class CreateController {
             e2.printStackTrace();
         }
     }
-    public boolean readFile(String fileNAMEWORKS) throws IOException { //Reads a txt file to fill arraylists with words to be guessed.
+    public void readFile(String fileNAMEWORKS) throws IOException { //Reads a txt file to fill arraylists with words to be guessed.
         System.out.println(fileNAMEWORKS + "This code got passed 2"); //Testing
         String term = "";
-        String filePathOS = "Notely/src/main/java/notely/app/Notecard/" + fileNAMEWORKS + ".txt";
-        String fileMacPath = "./src/main/java/notely/app/Notecard/" + fileNAMEWORKS + ".txt";
-        String fileWindowsPath = "../src/main/java/notely/app/Notecard/" + fileNAMEWORKS + ".txt";
+        String filePathOS = checkPath(fileNAMEWORKS);
         String definition = "";
         String currentLine;
         String title = "";
         String folder = "";
         int priority = 3;
-        boolean returnVal2 = false;
-
-        if(new File(fileMacPath).exists()){ // ./  for MACOS and ../ for Windows
-            //System.out.print("FileMac");
-            filePathOS = fileMacPath;
-            returnVal2 = true;
-        }
-        else if (new File(fileWindowsPath).exists()){
-            //System.out.print("FileWindows");
-            filePathOS = fileWindowsPath;
-            returnVal2 = true;
-        } else {
-            returnVal2 = false;
-        }
 
         System.out.println("\n\n" + filePathOS);
         FileReader fr = new FileReader(filePathOS);
@@ -653,7 +626,6 @@ public class CreateController {
             }
         }
         brin.close();
-        return returnVal2;
     }
     @FXML
     public void createSceneDynamic(MouseEvent event) throws IOException {
@@ -769,17 +741,9 @@ public class CreateController {
     public void saveImport(MouseEvent event) throws IOException {
         String title = titleImport.getText();
         String folder = folderImport.getText();
-        String fileMacPath5 = "./src/main/java/notely/app/Notecard/" + title + ".txt";
-        String fileWindowsPath5 = "../src/main/java/notely/app/Notecard/" + title + ".txt";
-        String saveImportPath = "Notely/src/main/java/notely/app/Notecard/" + title + ".txt";
 
-        if (new File(fileMacPath5).exists()) { // ./  for MACOS and ../ for Windows
-            System.out.println("FileMac");
-            saveImportPath = fileMacPath5;
-        } else if (new File(fileWindowsPath5).exists()) {
-            System.out.println("FileWindows");
-            saveImportPath = fileWindowsPath5;
-        }
+        String saveImportPath = checkPath(title);
+        writeToSetNameFolder(title);
 
         Scanner scanner = new Scanner(System.in);
         try {
