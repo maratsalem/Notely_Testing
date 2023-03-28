@@ -2,6 +2,7 @@ package notely.app;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -33,11 +34,11 @@ public class CreateController {
     @FXML
     TextArea folderNameInput;
     @FXML
-    TextField fileField;
-    @FXML
     TextField titleInputC;
     @FXML
     TextField folderInputC;
+    @FXML
+    ComboBox fileField;
     @FXML
     Label textLabel;
     @FXML
@@ -60,6 +61,8 @@ public class CreateController {
     Button incorrectButton;
     @FXML
     Button createSceneButton;
+    @FXML
+    ComboBox comboBoxLabel;
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -72,7 +75,6 @@ public class CreateController {
     private int index = 0;
     private int flip = 0;
     private NoteCard noteCard = new NoteCard();
-    private FilePath filePath = new FilePath();
     private ArrayList<NoteCard> currentStudySet = new ArrayList<>();
     private ArrayList<String> fileName = new ArrayList<>();
     Queue<NoteCard> queue1 = new LinkedList<>();
@@ -99,6 +101,7 @@ public class CreateController {
         }
         return checkPathString;
     }
+
     @FXML
     public void SwitchToCreateScene(MouseEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("create.fxml")));
@@ -183,7 +186,7 @@ public class CreateController {
 
     @FXML
     public void SwitchToStudyScene(MouseEvent event) throws IOException {
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("View.fxml")));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("view.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -217,57 +220,88 @@ public class CreateController {
         stage.show();
     }
 
+    //Connected to ammarTesting.fxml. Pls ignore but do not remove.
+    @FXML
+    protected void displaySetContents (ActionEvent event) throws IOException {
+        if (comboBoxLabel.getValue() == null || comboBoxLabel.getValue().equals(""))
+            System.out.println(111);
+        System.out.println(comboBoxLabel.getValue());
+    }
+
+    //Again I am testing something, do not remove.
+    /*@FXML
+    public void ammarTestingScene (MouseEvent event) throws IOException {
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ammarTesting.fxml")));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }*/
+
+    @FXML
+    protected void displaySetsList (Event event) throws IOException {
+        fileField.getItems().clear();
+        fileField.setPromptText(null);
+        FileInputStream file = new FileInputStream(checkPath("setNames"));
+        Scanner scanner = new Scanner(file);
+        fileField.getItems().add("");
+        while (scanner.hasNextLine()) {
+            fileField.getItems().add(scanner.nextLine());
+            if (scanner.hasNextLine())
+                fileField.getItems().add(scanner.nextLine());
+        }
+    }
+
     @FXML
     public void SwitchToViewScene(MouseEvent event) throws IOException {
-        if (!fileField.getText().isEmpty() && new File(checkPath(fileField.getText())).exists()) {
-            file = fileField.getText();
-            filePath.setFileName(file);
-        }
-        if (!file.isEmpty() && new File(checkPath(fileField.getText())).exists()) {
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ViewScreen.fxml")));
-            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
+        if (fileField.getValue() == null || fileField.getValue().toString().equals("")) {
+            fileField.setPromptText("Please select a set");
+            fileField.getItems().add(null);
+            fileField.getItems().set(0, "Please select a set");
         } else {
-            fileField.setText("Please enter a valid set name.");
+            file = fileField.getValue().toString();
+            if (!checkPath(file).isEmpty()) {
+                root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ViewScreen.fxml")));
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            }
         }
     }
 
     @FXML
     public void SwitchToLearnScene(MouseEvent event) throws IOException {
-        if (!fileField.getText().isEmpty() && new File(checkPath(fileField.getText())).exists()) {
-            file = fileField.getText();
-            filePath.setFileName(file);
-            System.out.println(file);
-            fileName.add(file);
-        }
-        if (!file.isEmpty() && new File(checkPath(fileField.getText())).exists()) {
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("learnScreen.fxml")));
-            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
+        if (fileField.getValue() == null || fileField.getValue().toString().equals("")) {
+            fileField.setPromptText("Please select a set");
+            fileField.getItems().add(null);
+            fileField.getItems().set(0, "Please select a set");
         } else {
-            fileField.setText("Please enter a valid set name.");
+            file = fileField.getValue().toString();
+            if (!checkPath(file).isEmpty()) {
+                root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("learnScreen.fxml")));
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            }
         }
     }
 
     public void switchToQuizScene(MouseEvent event) throws IOException {
-        if (!fileField.getText().isEmpty() && new File(checkPath(fileField.getText())).exists()) {
-            file = fileField.getText();
-            filePath.setFileName(file);
-            System.out.println(file);
-            fileName.add(file);
-        }
-        if (!file.isEmpty() && new File(checkPath(fileField.getText())).exists()) {
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Quiz.fxml")));
-            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
+        if (fileField.getValue() == null || fileField.getValue().toString().equals("")) {
+            fileField.setPromptText("Please select a set");
+            fileField.getItems().add(null);
+            fileField.getItems().set(0, "Please select a set");
         } else {
-            fileField.setText("Please enter a valid set name.");
+            file = fileField.getValue().toString();
+            if (!checkPath(file).isEmpty()) {
+                root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Quiz.fxml")));
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            }
         }
     }
 
@@ -640,32 +674,25 @@ public class CreateController {
     }
 
     public void writeToSetNameFolder(String setName1) throws FileNotFoundException {
-        String fileMacPath2 = "./src/main/java/notely/app/Notecard/setNames";
-        String fileWindowsPath2 = "../src/main/java/notely/app/Notecard/setNames";
-        String dropDownSetPath = "Notely/src/main/java/notely/app/Notecard/setNames";
 
-        if (new File(fileMacPath2).exists()) { // ./  for MACOS and ../ for Windows
-            dropDownSetPath = fileMacPath2;
-        } else if (new File(fileWindowsPath2).exists()) {
-            dropDownSetPath = fileWindowsPath2;
-        }
+        String dropDownSetPath = checkPath("setNames");
 
-            File ff = new File(dropDownSetPath);
-            FileInputStream fileReading = new FileInputStream(ff);
-            Scanner reader = new Scanner(fileReading);
-            ArrayList<String> setArrayList = new ArrayList<>();
-            while (reader.hasNextLine())
-                setArrayList.add(reader.nextLine());
-            reader.close();
+        File ff = new File(dropDownSetPath);
+        FileInputStream fileReading = new FileInputStream(ff);
+        Scanner reader = new Scanner(fileReading);
+        ArrayList<String> setArrayList = new ArrayList<>();
+        while (reader.hasNextLine())
+            setArrayList.add(reader.nextLine());
+        reader.close();
 
-            FileOutputStream fileWriting = new FileOutputStream(ff);
-            PrintWriter writer = new PrintWriter(fileWriting, true);
+        FileOutputStream fileWriting = new FileOutputStream(ff);
+        PrintWriter writer = new PrintWriter(fileWriting, true);
 
-            setArrayList.add(setName1);
+        setArrayList.add(setName1);
 
-            for (int i = 0; i < setArrayList.size(); i++)
-                writer.write(setArrayList.get(i) + "\n");
-            writer.close();
+        for (int i = 0; i < setArrayList.size(); i++)
+            writer.write(setArrayList.get(i) + "\n");
+        writer.close();
     }
 
     public void writeToTextFile(ArrayList<String> writeArrayList, String setName, String folderOfSet) throws IOException {
