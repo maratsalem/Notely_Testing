@@ -65,14 +65,6 @@ public class CreateController {
     private Parent root;
     private String studySet;
     private String folderName;
-    @FXML
-    private TextField firstTermField;
-    @FXML
-    private TextField firstDefField;
-    @FXML
-    private Label firstNumLabel;
-    @FXML
-    AnchorPane firstCreateAPane;
     private String txt;
     private static String file = "";
     private int arraySize;
@@ -126,6 +118,8 @@ public class CreateController {
     }
 
     //required to demo old main scene
+    private int setNumber = 1;
+
     public void createNotecard(ActionEvent event) throws IOException {
         System.out.println(termInput.getText()); //Testing
         System.out.println(definitionInput.getText()); //Testing
@@ -136,31 +130,54 @@ public class CreateController {
 
         System.out.println(studySet); //Testing
 
-        createSet(studySet, folderNameInput.getText());
+        createSet2(studySet, folderNameInput.getText());
 
         NoteCard nc = new NoteCard(term, definition, 0, 0);
         nc.writeQuestion(studySet, term, definition);
 
-        Label termLabel = new Label(this.term);
+        Label labelSetNumber = new Label("Card " + setNumber++ + ":");
+        labelSetNumber.setStyle("-fx-font-weight: bold; -fx-text-fill: white;");
+
+        Label labelDef = new Label("Definition:");
+        labelDef.setStyle("-fx-font-weight: bold; -fx-text-fill: white;");
         Label defLabel = new Label(this.definition);
-        AnchorPane notecardPane = new AnchorPane(termLabel, defLabel);
-        notecardPane.setPrefHeight(termLabel.getHeight() + defLabel.getHeight() + 20); // Add some padding
-        termList.getChildren().add(notecardPane);
+        defLabel.setStyle("-fx-text-fill: white;");
+        Label labelTerm = new Label("Term:");
+        labelTerm.setStyle("-fx-font-weight: bold; -fx-text-fill: white;");
+        Label termLabel = new Label(this.term);
+        termLabel.setStyle("-fx-text-fill: white;");
+
+        double labelSetNumberY = 0; // top
+        double labelTermY = labelSetNumberY + labelSetNumber.getHeight() + labelSetNumber.getPadding().getTop() + 10; // add padding
+        double termLabelY = labelTermY + labelTerm.getHeight() + labelTerm.getPadding().getTop() + 10; // add padding
+        double labelDefY = termLabelY + termLabel.getHeight() + termLabel.getPadding().getTop() + 10; // add padding
+        double defLabelY = labelDefY + labelDef.getHeight() + labelDef.getPadding().getTop() + 10; // add padding
+
+        AnchorPane notecard = new AnchorPane(labelSetNumber, labelTerm, termLabel, labelDef, defLabel);
+        notecard.setPrefHeight(termLabelY + termLabel.getHeight() + 20); // Add some padding
+        termList.getChildren().add(notecard);
+
         // Position the notecard below the previously added notecard, if any
         double y = 0;
         if (termList.getChildren().size() > 1) {
             for (Node node : termList.getChildren()) {
                 if (node instanceof AnchorPane) {
                     AnchorPane previousNotecard = (AnchorPane) node;
-                    y += previousNotecard.getHeight();
+                    y += previousNotecard.getBoundsInParent().getHeight() + 10; // Add some padding
                 }
             }
-            y += 10; // Add some padding
+        } else {
+            y += 10; // Add extra padding for the first notecard
         }
-        notecardPane.setLayoutX(0);
-        notecardPane.setLayoutY(y);
-        // Position the definition label below the term label
-        defLabel.setLayoutY(termLabel.getHeight() + termLabel.getPadding().getTop() + 10); // Add some padding
+        notecard.setLayoutX(0);
+        notecard.setLayoutY(y);
+
+        // Position the labels within the notecard
+        labelSetNumber.setLayoutY(labelSetNumberY);
+        labelTerm.setLayoutY(labelTermY);
+        termLabel.setLayoutY(termLabelY);
+        labelDef.setLayoutY(labelDefY);
+        defLabel.setLayoutY(defLabelY);
     }
 
 
@@ -548,6 +565,37 @@ public class CreateController {
         }
         topLabel.setText("Term");
         flip = 0;
+    }
+
+    public void createSet2(String title, String folderName2) throws IOException {
+        String filePathName = checkPath(title);
+        File fileMake = new File(filePathName);
+
+        if(fileMake.createNewFile()){
+            FileInputStream fileReading = new FileInputStream (filePathName);
+            Scanner reader = new Scanner(fileReading);
+            ArrayList<String> data = new ArrayList<>();
+            while (reader.hasNextLine())
+                data.add(reader.nextLine());
+            reader.close();
+
+            FileOutputStream fileWriting = new FileOutputStream(filePathName);
+            PrintWriter writer = new PrintWriter(fileWriting, true);
+
+            if (titleInput.getText() == null || folderNameInput.getText() == null){
+                titleInput.setPromptText("You must enter a set title.");
+                folderNameInput.setPromptText("You must enter folder name.");
+            }
+            if(new File(filePathName).exists()) {
+                writeToSetNameFolder(title);
+            }
+            data.add(Objects.requireNonNull(titleInput.getText()));
+            data.add(Objects.requireNonNull(folderNameInput.getText()));
+
+            for (int i = 0; i < data.size(); i++)
+                writer.write(data.get(i) + "\n");
+            writer.close();
+        }
     }
 
     public boolean createSet(String title, String folderName2) throws IOException {

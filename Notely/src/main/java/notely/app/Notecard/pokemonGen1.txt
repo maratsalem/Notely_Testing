@@ -6,4 +6,3 @@ bulbasaur@grass/poison
 caterpie@bug
 eevee@normal
 vaporeon@water
-null@null
