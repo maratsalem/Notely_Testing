@@ -1,0 +1,8 @@
+pokemonGen1
+pokemon
+pikachu@lighning/electric
+squirtle@water
+bulbasaur@grass/poison
+caterpie@bug
+eevee@normal
+vaporeon@water
