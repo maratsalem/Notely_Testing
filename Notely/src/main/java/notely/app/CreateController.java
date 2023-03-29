@@ -15,7 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
+import notely.app.MultipleChoice;
 import java.io.*;
 import java.util.*;
 
@@ -296,7 +296,7 @@ public class CreateController {
         } else {
             file = fileField.getValue().toString();
             if (!checkPath(file).isEmpty()) {
-                root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Quiz.fxml")));
+                root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("QuizPlaceholder.fxml")));
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 scene = new Scene(root);
                 stage.setScene(scene);
@@ -906,6 +906,16 @@ public class CreateController {
             e2.printStackTrace();
         }
         switchToHomeScene(event);
+    }
+    @FXML
+    public void multipleChoiceSetUp(MouseEvent event) throws IOException {
+        readFile(file);
+        MultipleChoice quiz = new MultipleChoice();
+        for (int i = 0; i < currentStudySet.size(); i++) {
+            quiz.addNoteCard(currentStudySet.get(i));
+        }
+        quiz.shuffleList();
+        quiz.Quiz();
     }
 
 }
