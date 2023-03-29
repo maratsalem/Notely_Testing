@@ -20,49 +20,28 @@ import java.io.*;
 import java.util.*;
 
 public class CreateController {
-    @FXML
-    VBox createVbox = new VBox();
-    @FXML ScrollPane scrollPane = new ScrollPane();
-    @FXML
-    AnchorPane termList;
-    @FXML
-    TextArea definitionInput;
-    @FXML
-    TextArea termInput;
-    @FXML
-    TextArea titleInput;
-    @FXML
-    TextArea folderNameInput;
-    @FXML
-    TextField titleInputC;
-    @FXML
-    TextField folderInputC;
-    @FXML
-    ComboBox fileField;
-    @FXML
-    Label textLabel;
-    @FXML
-    Label topLabel;
-    @FXML
-    Label titleLabel;
-    @FXML
-    Button viewButton;
-    @FXML
-    Button leftButton;
-    @FXML
-    Button rightButton;
-    @FXML
-    Button flipButton;
-    @FXML
-    Button flipLearnButton;
-    @FXML
-    Button correctButton;
-    @FXML
-    Button incorrectButton;
-    @FXML
-    Button createSceneButton;
-    @FXML
-    ComboBox comboBoxLabel;
+    @FXML VBox createVbox;
+    @FXML AnchorPane firstCreateAPane;
+    @FXML AnchorPane termList;
+    @FXML TextArea definitionInput;
+    @FXML TextArea termInput;
+    @FXML TextArea titleInput;
+    @FXML TextArea folderNameInput;
+    @FXML TextField titleInputC;
+    @FXML TextField folderInputC;
+    @FXML ComboBox fileField;
+    @FXML Label textLabel;
+    @FXML Label topLabel;
+    @FXML Label titleLabel;
+    @FXML Button viewButton;
+    @FXML Button leftButton;
+    @FXML Button rightButton;
+    @FXML Button flipButton;
+    @FXML Button flipLearnButton;
+    @FXML Button correctButton;
+    @FXML Button incorrectButton;
+    @FXML Button createSceneButton;
+    @FXML ComboBox comboBoxLabel;
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -767,15 +746,14 @@ public class CreateController {
         }
         brin.close();
     }
-    @FXML
-    public void createSceneDynamic(MouseEvent event) throws IOException {
+    @FXML public void createSceneDynamic(MouseEvent event) throws IOException {
+        firstCreateAPane.setMinSize(708,100);
         TextField termField = new TextField();
         TextField defField = new TextField();
         Label numberTermLabel = new Label();
         termField.setPromptText("Enter your term here");
         defField.setPromptText("Enter your definition here");
         numberTermLabel.setText(String.valueOf(labelCounter));
-
         termField.setPrefSize(257, 40);
         defField.setPrefSize(257,40);
 
@@ -784,16 +762,17 @@ public class CreateController {
 
         createVbox.getChildren().add(newInsertField);
 
+        newInsertField.setMinSize(708,100);
+
         if (createVbox.getChildren().size() > 1) {
             for (Node node : createVbox.getChildren()) {
                 if (node instanceof AnchorPane previousAdded) {
-                    numberTermLabel.setLayoutX(previousAdded.getLayoutX() + 60);
-                    termField.setLayoutX(previousAdded.getLayoutX() + 70);
-                    defField.setLayoutX(previousAdded.getLayoutX() + 390);
-                    termField.setLayoutY(termField.getHeight() + termField.getPadding().getTop() + 30);
-                    defField.setLayoutY(termField.getHeight() + termField.getPadding().getTop() + 30);
-                    numberTermLabel.setLayoutY(termField.getHeight() + termField.getPadding().getTop() + 10);
-                    newInsertField.setLayoutY(previousAdded.getLayoutY());
+                    numberTermLabel.setLayoutX(60);
+                    termField.setLayoutX(70);
+                    defField.setLayoutX(390);
+                    termField.setLayoutY(30);
+                    defField.setLayoutY(30);
+                    numberTermLabel.setLayoutY(10);
                 }
             }
         }
