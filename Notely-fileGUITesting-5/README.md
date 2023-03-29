@@ -1,2 +1,0 @@
-# Notely
-Sophomore Project 
