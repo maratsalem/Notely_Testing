@@ -25,7 +25,7 @@
       <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutX="46.0" layoutY="159.0" prefHeight="387.0" prefWidth="708.0" vmax="5.0">
          <VBox fx:id="createVbox" fillWidth="true" layoutX="16.0" layoutY="155.0" prefHeight="387.0" prefWidth="708.0">
             <children>
-               <AnchorPane fx:id="firstCreateAPane" prefHeight="100.0" prefWidth="708.0">
+               <AnchorPane fx:id="firstCreateAPane" minHeight="100.0" minWidth="708.0" prefHeight="100.0" prefWidth="708.0">
                   <children>
                      <TextField fx:id="firstTermField" layoutX="70.0" layoutY="30.0" prefHeight="40.0" prefWidth="257.0" promptText="Enter your term here" />
                      <TextField fx:id="firstDefField" layoutX="390.0" layoutY="30.0" prefHeight="40.0" prefWidth="257.0" promptText="Enter your definition here" />

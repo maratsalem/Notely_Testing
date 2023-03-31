@@ -17,10 +17,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import notely.app.MultipleChoice;
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class CreateController {
     @FXML VBox createVbox;
+    @FXML ScrollPane scrollPane;
     @FXML AnchorPane firstCreateAPane;
     @FXML AnchorPane termList;
     @FXML TextArea definitionInput;
@@ -30,6 +32,7 @@ public class CreateController {
     @FXML TextField titleInputC;
     @FXML TextField folderInputC;
     @FXML ComboBox fileField;
+    @FXML ComboBox fileFieldDelete;
     @FXML Label textLabel;
     @FXML Label topLabel;
     @FXML Label titleLabel;
@@ -166,6 +169,15 @@ public class CreateController {
     @FXML
     public void SwitchToStudyScene(MouseEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("view.fxml")));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    public void SwitchToSettingScene(MouseEvent event) throws IOException {
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("deleteSetScene.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -707,6 +719,57 @@ public class CreateController {
             e2.printStackTrace();
         }
     }
+
+    public void displaySet2() throws FileNotFoundException {
+        fileFieldDelete.getItems().clear();
+        fileFieldDelete.setPromptText(null);
+        FileInputStream file = new FileInputStream(checkPath("setNames"));
+        Scanner scanner = new Scanner(file);
+        fileFieldDelete.getItems().add("");
+        while (scanner.hasNextLine()) {
+            fileFieldDelete.getItems().add(scanner.nextLine());
+            if (scanner.hasNextLine())
+                fileFieldDelete.getItems().add(scanner.nextLine());
+        }
+    }
+    @FXML
+    public void deleteFromSetNameFolder(MouseEvent event) throws IOException {
+        // initialize the setName file, the file we want to delete, and the string we are deleting
+        File setNameFile = new File(checkPath("setNames"));
+        File deleteFile = new File(checkPath(fileFieldDelete.getValue().toString()));
+        String deleteName = fileFieldDelete.getValue().toString();
+
+        //delete the set the user no longer wants
+        deleteFile.delete();
+
+        //create a reader to get the current setTerms
+        BufferedReader sr1 = new BufferedReader(new InputStreamReader(new FileInputStream(setNameFile)));
+        //array to hold all the set names in the current setNames text file
+        ArrayList<String> setNameArray = new ArrayList<>();
+
+        //fills the array with the set names
+        Scanner scanner = new Scanner(setNameFile);
+        while (scanner.hasNextLine()) {
+            setNameArray.add(scanner.nextLine());
+        } sr1.close();
+        //finds the string to delete
+        for(int i = 0; i < setNameArray.size(); i++){
+            if(setNameArray.get(i).equals(deleteName)){
+                setNameArray.remove(i);
+            }
+        }
+        //delete the old set file and create a new one
+        setNameFile.delete();
+        File newSetNameFile = new File(checkPath("setNames"));
+        newSetNameFile.createNewFile();
+
+        //write the array that stores the set names into the new setName file
+        PrintWriter sw1 = new PrintWriter(new OutputStreamWriter(new FileOutputStream(newSetNameFile)));
+        for(int i = 0; i < setNameArray.size(); i++){
+            sw1.write(setNameArray.get(i) + "\n");
+        } sw1.close();
+    }
+
     public void readFile(String fileNAMEWORKS) throws IOException { //Reads a txt file to fill arraylists with words to be guessed.
         System.out.println(fileNAMEWORKS + "This code got passed 2"); //Testing
         String term = "";
@@ -746,8 +809,8 @@ public class CreateController {
         }
         brin.close();
     }
+
     @FXML public void createSceneDynamic(MouseEvent event) throws IOException {
-        firstCreateAPane.setMinSize(708,100);
         TextField termField = new TextField();
         TextField defField = new TextField();
         Label numberTermLabel = new Label();
@@ -761,7 +824,6 @@ public class CreateController {
         labelCounter++;
 
         createVbox.getChildren().add(newInsertField);
-
         newInsertField.setMinSize(708,100);
 
         if (createVbox.getChildren().size() > 1) {
