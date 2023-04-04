@@ -925,9 +925,9 @@ public class CreateController {
 
         String saveImportPath = checkPath(title);
         writeToSetNameFolder(title);
-
-        Scanner scanner = new Scanner(System.in);
-        try {
+        if (new File(saveImportPath).exists()) {
+            titleImport.setText("That set already exists. Please enter a different set name.");
+        } else if (!saveImportPath.equals("Notely/src/main/java/notely/app/Notecard/.txt") && pasteArea.getText() != null) {
             ArrayList<String> data = new ArrayList<>();
             data.add(title);
             data.add(folder);
@@ -939,12 +939,10 @@ public class CreateController {
             for (int i = 0; i < data.size(); i++)
                 writer.write(data.get(i) + "\n");
             writer.close();
-
-        } catch (FileNotFoundException e1) {
-            System.out.printf("\nSet with title \"%s\" does not exist.\n", studySet);
-            System.out.println("Exiting function!");
-        } catch (IOException e2) {
-            e2.printStackTrace();
+        }
+        else {
+            titleImport.setPromptText("You must enter a set title.");
+            folderImport.setPromptText("You must enter a folder name.");
         }
         switchToHomeScene(event);
     }
