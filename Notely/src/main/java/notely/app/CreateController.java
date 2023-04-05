@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import notely.app.MultipleChoice;
 import java.io.*;
 import java.lang.reflect.Array;
+import java.nio.file.Files;
 import java.util.*;
 
 public class CreateController {
@@ -45,6 +46,9 @@ public class CreateController {
     @FXML Button incorrectButton;
     @FXML Button createSceneButton;
     @FXML ComboBox comboBoxLabel;
+    @FXML TextField setNumber;
+    @FXML TextArea newTerm;
+    @FXML TextArea newDef;
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -102,67 +106,146 @@ public class CreateController {
         stage.show();
     }
 
-    //required to demo old main scene
-    private int setNumber = 1;
+    @FXML
+    protected void displayTermsAndDefinitions(MouseEvent event) throws IOException {
+        if (fileField.getValue() == null || fileField.getValue().toString().equals("")) {
+            fileField.setPromptText("Please select a set");
+            fileField.getItems().add(null);
+            fileField.getItems().set(0, "Please select a set");
+        } else {
+            String setName = fileField.getValue().toString();
+            if (!checkPath(setName).isEmpty()) {
+                String fileName = checkPath(setName);
+                File file = new File(fileName);
+                if (file.exists()) {
+                    try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+                        String line;
+                        int counter = 1;
 
-    public void createNotecard(ActionEvent event) throws IOException {
-        System.out.println(termInput.getText()); //Testing
-        System.out.println(definitionInput.getText()); //Testing
+                        // Clear existing notecards from termList
+                        termList.getChildren().clear();
 
-        term = termInput.getText();
-        definition = definitionInput.getText();
-        studySet = titleInput.getText();
+                        while ((line = br.readLine()) != null) {
+                            if (counter > 2) {
+                                String[] parts = line.split("@");
+                                if (parts.length >= 2) {
+                                    AnchorPane notecard = new AnchorPane();
 
-        System.out.println(studySet); //Testing
+                                    Label setNumberLabel = new Label("Set " + (counter - 2));
+                                    setNumberLabel.setStyle("-fx-text-fill: white");
+                                    Label termLabel = new Label("Term " + (counter - 2) + ": " + parts[0]);
+                                    termLabel.setStyle("-fx-text-fill: white");
+                                    Label definitionLabel = new Label("Definition " + (counter - 2) + ": " + parts[1]);
+                                    definitionLabel.setStyle("-fx-text-fill: white");
 
-        createSet2(studySet, folderNameInput.getText());
+                                    notecard.getChildren().addAll(setNumberLabel, termLabel, definitionLabel);
 
-        NoteCard nc = new NoteCard(term, definition, 0, 0);
-        nc.writeQuestion(studySet, term, definition);
+                                    // Position the notecard within termList
+                                    double y = (counter - 3) * 80;
+                                    notecard.setLayoutX(0);
+                                    notecard.setLayoutY(y);
 
-        Label labelSetNumber = new Label("Card " + setNumber++ + ":");
-        labelSetNumber.setStyle("-fx-font-weight: bold; -fx-text-fill: white;");
+                                    setNumberLabel.setLayoutX(10);
+                                    setNumberLabel.setLayoutY(10);
+                                    termLabel.setLayoutX(10);
+                                    termLabel.setLayoutY(40);
+                                    definitionLabel.setLayoutX(10);
+                                    definitionLabel.setLayoutY(60);
 
-        Label labelDef = new Label("Definition:");
-        labelDef.setStyle("-fx-font-weight: bold; -fx-text-fill: white;");
-        Label defLabel = new Label(this.definition);
-        defLabel.setStyle("-fx-text-fill: white;");
-        Label labelTerm = new Label("Term:");
-        labelTerm.setStyle("-fx-font-weight: bold; -fx-text-fill: white;");
-        Label termLabel = new Label(this.term);
-        termLabel.setStyle("-fx-text-fill: white;");
-
-        double labelSetNumberY = 0; // top
-        double labelTermY = labelSetNumberY + labelSetNumber.getHeight() + labelSetNumber.getPadding().getTop() + 10; // add padding
-        double termLabelY = labelTermY + labelTerm.getHeight() + labelTerm.getPadding().getTop() + 10; // add padding
-        double labelDefY = termLabelY + termLabel.getHeight() + termLabel.getPadding().getTop() + 10; // add padding
-        double defLabelY = labelDefY + labelDef.getHeight() + labelDef.getPadding().getTop() + 10; // add padding
-
-        AnchorPane notecard = new AnchorPane(labelSetNumber, labelTerm, termLabel, labelDef, defLabel);
-        notecard.setPrefHeight(termLabelY + termLabel.getHeight() + 20); // Add some padding
-        termList.getChildren().add(notecard);
-
-        // Position the notecard below the previously added notecard, if any
-        double y = 0;
-        if (termList.getChildren().size() > 1) {
-            for (Node node : termList.getChildren()) {
-                if (node instanceof AnchorPane) {
-                    AnchorPane previousNotecard = (AnchorPane) node;
-                    y += previousNotecard.getBoundsInParent().getHeight() + 10; // Add some padding
+                                    termList.getChildren().add(notecard); // add notecard to termList
+                                }
+                            }
+                            counter++;
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
-        } else {
-            y += 10; // Add extra padding for the first notecard
         }
-        notecard.setLayoutX(0);
-        notecard.setLayoutY(y);
+    }
+    @FXML
+    protected void saveChanges(MouseEvent event) throws IOException {
+        if (fileField.getValue() == null || fileField.getValue().toString().equals("")) {
+            fileField.setPromptText("Please select a set");
+            fileField.getItems().add(null);
+            fileField.getItems().set(0, "Please select a set");
+        } else {
+            String setName = fileField.getValue().toString();
+            String fileName = checkPath(setName);
+            File file = new File(fileName);
+            // Read the contents of the text file
+            List<String> lines = Files.readAllLines(file.toPath());
+            int changeIndex = 0;
+            // Calculate the start index of the selected set
+            if (setNumber != null && !setNumber.getText().isEmpty()) {
+                // new line
+                try {
+                    changeIndex = Integer.parseInt(setNumber.getText());
+                } catch (NumberFormatException e) {
+                    setNumber.setText("Please enter a number value.");
+                }
 
-        // Position the labels within the notecard
-        labelSetNumber.setLayoutY(labelSetNumberY);
-        labelTerm.setLayoutY(labelTermY);
-        termLabel.setLayoutY(termLabelY);
-        labelDef.setLayoutY(labelDefY);
-        defLabel.setLayoutY(defLabelY);
+                if(changeIndex > (lines.size() - 2) || changeIndex <= 0){
+                    setNumber.setText("Please enter a valid number.");
+                } else {
+                    int startIndex = changeIndex + 1;
+
+                    // Update the selected term and definition with the new values
+                    if(newTerm.getText().isEmpty() || newDef.getText().isEmpty()){
+                        lines.remove(startIndex);
+                    } else {
+                        lines.set(startIndex, newTerm.getText() + "@" + newDef.getText());
+                    }
+                    // Save the updated contents back to the text file
+                    Files.write(file.toPath(), lines);
+
+                    try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+                        String line;
+                        int counter = 1;
+
+                        // Clear existing notecards from termList
+                        termList.getChildren().clear();
+
+                        while ((line = br.readLine()) != null) {
+                            if (counter > 2) {
+                                String[] parts = line.split("@");
+                                if (parts.length >= 2) {
+                                    AnchorPane notecard = new AnchorPane();
+
+                                    Label setNumberLabel = new Label("Set " + (counter - 2));
+                                    setNumberLabel.setStyle("-fx-text-fill: white");
+                                    Label termLabel = new Label("Term " + (counter - 2) + ": " + parts[0]);
+                                    termLabel.setStyle("-fx-text-fill: white");
+                                    Label definitionLabel = new Label("Definition " + (counter - 2) + ": " + parts[1]);
+                                    definitionLabel.setStyle("-fx-text-fill: white");
+
+                                    notecard.getChildren().addAll(setNumberLabel, termLabel, definitionLabel);
+
+                                    // Position the notecard within termList
+                                    double y = (counter - 3) * 80;
+                                    notecard.setLayoutX(0);
+                                    notecard.setLayoutY(y);
+
+                                    setNumberLabel.setLayoutX(10);
+                                    setNumberLabel.setLayoutY(10);
+                                    termLabel.setLayoutX(10);
+                                    termLabel.setLayoutY(40);
+                                    definitionLabel.setLayoutX(10);
+                                    definitionLabel.setLayoutY(60);
+
+                                    termList.getChildren().add(notecard); // add notecard to termList
+                                }
+                            }
+                            counter++;
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+
     }
 
 
@@ -853,7 +936,6 @@ public class CreateController {
             if (node instanceof AnchorPane) {
                 // gets children of anchorPanes - aka the textfields
                 ObservableList<Node> textFieldList = ((AnchorPane) node).getChildren();
-
                 // loops through each textfield existing in the panes
                 for (Node textFieldNode : textFieldList) {
                     if (textFieldNode instanceof TextField) {
@@ -946,6 +1028,8 @@ public class CreateController {
         }
         switchToHomeScene(event);
     }
+
+
     @FXML
     public void multipleChoiceSetUp(MouseEvent event) throws IOException {
         readFile(file);
