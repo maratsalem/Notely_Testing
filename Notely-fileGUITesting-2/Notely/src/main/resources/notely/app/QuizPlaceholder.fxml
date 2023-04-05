@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="345.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notely.app.CreateController">
+    <center>
+        <AnchorPane prefHeight="529.0" prefWidth="800.0" style="-fx-background-color: #ff970f;" BorderPane.alignment="CENTER">
+            <children>
+                <AnchorPane layoutX="125.0" layoutY="14.0" prefHeight="149.0" prefWidth="558.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 25Px;">
+                    <children>
+                        <Label fx:id="titleLabel1" alignment="CENTER" contentDisplay="CENTER" layoutX="24.0" layoutY="67.0" prefHeight="20.0" prefWidth="500.0" text="placeholder text (check the terminal)" textAlignment="CENTER">
+                            <font>
+                                <Font name="Heiti TC Light" size="23.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </AnchorPane>
+                <Button layoutX="360.0" layoutY="189.0" mnemonicParsing="false" onMouseClicked="#multipleChoiceSetUp" prefHeight="75.0" prefWidth="87.0" text="start quiz" />
+            </children>
+        </AnchorPane>
+    </center>
+    <top>
+        <AnchorPane prefHeight="54.0" prefWidth="600.0" style="-fx-background-color: #ff970f;" BorderPane.alignment="CENTER">
+            <children>
+                <Button layoutX="706.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#SwitchToHomeScene" prefHeight="36.0" prefWidth="80.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17PX;" text="Home" textFill="#f07b14" />
+                <Label fx:id="titleLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="242.0" layoutY="16.0" prefHeight="14.0" prefWidth="315.0" text="Set Name" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Heiti TC Light" size="23.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+    </top>
+</BorderPane>
