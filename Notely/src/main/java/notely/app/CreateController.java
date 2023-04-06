@@ -1026,31 +1026,87 @@ public class CreateController {
     public void saveImport(MouseEvent event) throws IOException {
         String title = titleImport.getText();
         String folder = folderImport.getText();
-
+        String text = pasteArea.getText();
         String saveImportPath = checkPath(title);
-        writeToSetNameFolder(title);
-        if (new File(saveImportPath).exists()) {
-            titleImport.setText("That set already exists. Please enter a different set name.");
-        } else if (!saveImportPath.equals("Notely/src/main/java/notely/app/Notecard/.txt") && pasteArea.getText() != null) {
-            ArrayList<String> data = new ArrayList<>();
-            data.add(title);
-            data.add(folder);
-            data.add(pasteArea.getText());
-            File file = new File(saveImportPath);
-            FileOutputStream fileWriting = new FileOutputStream(file);
-            PrintWriter writer = new PrintWriter(fileWriting, true);
+        int titleCheck = 0;
+        int folderCheck = 0;
+        int textCheck = 0;
 
-            for (int i = 0; i < data.size(); i++)
-                writer.write(data.get(i) + "\n");
-            writer.close();
+        if (title.isEmpty()) {
+            titleImport.setPromptText("You must enter a set name.");
+            titleCheck = 1;
+        } else {
+            if (new File(saveImportPath).exists()) {
+                titleImport.setPromptText("A set with the name: " + title + " already exists.");
+                titleImport.setText("");
+                titleCheck = 1;
+            } else {
+                titleCheck = 0;
+            }
         }
-        else {
-            titleImport.setPromptText("You must enter a set title.");
+        if (folder.isEmpty()) {
             folderImport.setPromptText("You must enter a folder name.");
+            folderCheck = 1;
+        } else {
+            folderCheck = 0;
         }
-        switchToHomeScene(event);
-    }
+        if (text.isEmpty() || text.isBlank()) {
+            pasteArea.setText("");
+            pasteArea.setPromptText("You must enter text.");
+            textCheck = 1;
+        } else {
+            StringTokenizer lines = new StringTokenizer(pasteArea.getText(), "\n");
+            ArrayList<String> textArea = new ArrayList<>();
+            for (int i = 0; i < lines.countTokens(); i++) {
+                String token = lines.nextToken();
+                System.out.println(token);
+                textArea.add(token);
+            }
+            for (int i = 0; i < textArea.size(); i++) {
+                StringTokenizer tokens = new StringTokenizer(textArea.get(i), "@");
+                System.out.print(tokens.countTokens());
+                if (!textArea.get(i).contains("@")) {
+                    pasteArea.setPromptText("There is a line that is missing the @.");
+                    pasteArea.setText("");
+                    textCheck = 1;
+                    break;
+                } else if (tokens.countTokens() == 0) {
+                    pasteArea.setPromptText("There is a line that is missing the term and definition.");
+                    pasteArea.setText("");
+                    textCheck = 1;
+                    break;
+                } else if (tokens.countTokens() == 1) {
+                    pasteArea.setPromptText("There is a term or definition missing from a line.");
+                    pasteArea.setText("");
+                    textCheck = 1;
+                    break;
+                } else if (tokens.countTokens() > 2) {
+                    pasteArea.setPromptText("There are multiple @ in one line");
+                    pasteArea.setText("");
+                    textCheck = 1;
+                    break;
+                } else {
+                    textCheck = 0;
+                }
+            }
+            if (titleCheck == 0 && folderCheck == 0 && textCheck == 0) {
+                writeToSetNameFolder(title);
+                ArrayList<String> data = new ArrayList<>();
+                data.add(title);
+                data.add(folder);
+                data.add(pasteArea.getText());
+                File file = new File(saveImportPath);
+                FileOutputStream fileWriting = new FileOutputStream(file);
+                PrintWriter writer = new PrintWriter(fileWriting, true);
 
+                for (int i = 0; i < data.size(); i++) {
+                    writer.write(data.get(i) + "\n");
+                }
+                writer.close();
+                switchToHomeScene(event);
+            }
+        }
+    }
 
     @FXML
     public void multipleChoiceSetUp(MouseEvent event) throws IOException {
