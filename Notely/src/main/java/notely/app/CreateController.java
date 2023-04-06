@@ -342,6 +342,8 @@ public class CreateController {
                 stage.show();
             }
         }
+        spacePressed = false;
+        keyCheck = 0;
     }
 
     @FXML
@@ -382,14 +384,16 @@ public class CreateController {
     @FXML
     public void updateLabel(KeyEvent event) throws IOException {
         //System.out.print(file + "This code got passed 9"); //Testing
-        readFile(file);
-        System.out.println(currentStudySet.get(index).getTerm());
-        arraySize = currentStudySet.size();
-        txt = currentStudySet.get(index).getTerm();
-        textLabel.setText(txt);
-        leftButton.setDisable(false);
-        rightButton.setDisable(false);
-        flipButton.setDisable(false);
+        if(buttonPressed(event) == false){
+            readFile(file);
+            System.out.println(currentStudySet.get(index).getTerm());
+            arraySize = currentStudySet.size();
+            txt = currentStudySet.get(index).getTerm();
+            textLabel.setText(txt);
+            leftButton.setDisable(false);
+            rightButton.setDisable(false);
+            flipButton.setDisable(false);
+        }
     }
 
     @FXML
@@ -436,21 +440,40 @@ public class CreateController {
         textLabel.setText(txt);
     }
 
+    private boolean spacePressed = false;
+    private int keyCheck = 0;
+    public boolean buttonPressed(KeyEvent e){
+        System.out.println("This is in my boolean check."); //Testing
+        if (keyCheck < 1) {
+            spacePressed = false;
+            keyCheck++;
+            System.out.println(keyCheck); //Testing
+        } else {
+            spacePressed = true;
+        }
+        return spacePressed;
+    }
     @FXML
     public void loadLabel(KeyEvent event) throws IOException {
-        readFile(file);
-        for (int i = 0; i < currentStudySet.size(); i++) {
-            sortNoteCards(i);
-            //queue1.add(currentStudySet.get(i));
+        System.out.println("This is in load label.");
+        boolean testBoolean = buttonPressed(event);
+        if (testBoolean == false) {
+            System.out.println("This is in load label - button pressed returned false");
+            System.out.println("This is before the readFile in load label");
+            readFile(file);
+            for (int i = 0; i < currentStudySet.size(); i++) {
+                sortNoteCards(i);
+                //queue1.add(currentStudySet.get(i));
+            }
+            shuffleNoteCards();
+            arraySize = currentStudySet.size();
+            txt = queue1.element().getTerm();
+            //txt = currentStudySet.get(index).getTerm();
+            textLabel.setText(txt);
+            incorrectButton.setDisable(false);
+            correctButton.setDisable(false);
+            flipLearnButton.setDisable(false);
         }
-        shuffleNoteCards();
-        arraySize = currentStudySet.size();
-        txt = queue1.element().getTerm();
-        //txt = currentStudySet.get(index).getTerm();
-        textLabel.setText(txt);
-        incorrectButton.setDisable(false);
-        correctButton.setDisable(false);
-        flipLearnButton.setDisable(false);
     }
 
     public void sortNoteCards(int index) {
@@ -853,17 +876,16 @@ public class CreateController {
         } sw1.close();
     }
 
-    public void readFile(String fileNAMEWORKS) throws IOException { //Reads a txt file to fill arraylists with words to be guessed.
-        System.out.println(fileNAMEWORKS + "This code got passed 2"); //Testing
+    public void readFile(String readFileNameInput) throws IOException { //Reads a txt file to fill arraylists with words to be guessed.
         String term = "";
-        String filePathOS = checkPath(fileNAMEWORKS);
+        String filePathOS = checkPath(readFileNameInput);
         String definition = "";
         String currentLine;
         String title = "";
         String folder = "";
         int priority = 3;
 
-        System.out.println("\n\n" + filePathOS);
+        //System.out.println(filePathOS); //Testing
         FileReader fr = new FileReader(filePathOS);
         BufferedReader brin = new BufferedReader(fr);
         int index = 0;
