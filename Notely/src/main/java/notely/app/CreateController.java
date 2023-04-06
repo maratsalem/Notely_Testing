@@ -14,6 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import notely.app.MultipleChoice;
 import java.io.*;
@@ -256,6 +257,8 @@ public class CreateController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+        spacePressed = false;
+        keyCheck = 0;
     }
 
     @FXML
@@ -294,23 +297,12 @@ public class CreateController {
         stage.show();
     }
 
-    //Connected to ammarTesting.fxml. Pls ignore but do not remove.
     @FXML
     protected void displaySetContents (ActionEvent event) throws IOException {
         if (comboBoxLabel.getValue() == null || comboBoxLabel.getValue().equals(""))
             System.out.println(111);
         System.out.println(comboBoxLabel.getValue());
     }
-
-    //Again I am testing something, do not remove.
-    /*@FXML
-    public void ammarTestingScene (MouseEvent event) throws IOException {
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ammarTesting.fxml")));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }*/
 
     @FXML
     protected void displaySetsList (Event event) throws IOException {
@@ -342,8 +334,6 @@ public class CreateController {
                 stage.show();
             }
         }
-        spacePressed = false;
-        keyCheck = 0;
     }
 
     @FXML
@@ -372,7 +362,7 @@ public class CreateController {
         } else {
             file = fileField.getValue().toString();
             if (!checkPath(file).isEmpty()) {
-                root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("QuizPlaceholder.fxml")));
+                root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Quiz.fxml")));
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 scene = new Scene(root);
                 stage.setScene(scene);
@@ -1108,15 +1098,206 @@ public class CreateController {
         }
     }
 
+    //multiple choice testing
+    //START
+    MultipleChoice quiz = new MultipleChoice();
+    @FXML
+    Button topLeftAnswer;
+    @FXML
+    Button topRightAnswer;
+    @FXML
+    Button bottomLeftAnswer;
+    @FXML
+    Button reviewButton;
+    @FXML
+    Button bottomRightAnswer;
+    @FXML
+    Button MCSetupButton;
+    @FXML
+    Label multChoiceQuestion;
+    @FXML
+    Label questionTracker;
+    int quizSize; //for later function?? - allowing the user to set quiz size
+    QuizReview review = new QuizReview();
+
     @FXML
     public void multipleChoiceSetUp(MouseEvent event) throws IOException {
+        quiz.reset();
         readFile(file);
-        MultipleChoice quiz = new MultipleChoice();
         for (int i = 0; i < currentStudySet.size(); i++) {
             quiz.addNoteCard(currentStudySet.get(i));
         }
         quiz.shuffleList();
-        quiz.Quiz();
+        //update GUI
+        topLeftAnswer.setDisable(false);
+        topRightAnswer.setDisable(false);
+        bottomLeftAnswer.setDisable(false);
+        bottomRightAnswer.setDisable(false);
+        MCSetupButton.setDisable(true);
+        topLeftAnswer.setOpacity(1);
+        bottomLeftAnswer.setOpacity(1);
+        topRightAnswer.setOpacity(1);
+        bottomRightAnswer.setOpacity(1);
+        MCSetupButton.setOpacity(0);
+        reviewButton.setDisable(true);
+        reviewButton.setOpacity(0);
+        updateQuizQuestion();
+//        quiz.Quiz(); //for testing purposes
+    }
+    @FXML
+    public void TLMultipleChoiceAnswer(MouseEvent event) {mChoiceAnswer(topLeftAnswer.getText());}
+    @FXML
+    public void TRMultipleChoiceAnswer(MouseEvent event) {mChoiceAnswer(topRightAnswer.getText());}
+    @FXML
+    public void BLMultipleChoiceAnswer(MouseEvent event) {mChoiceAnswer(bottomLeftAnswer.getText());}
+    @FXML
+    public void BRMultipleChoiceAnswer(MouseEvent event) {mChoiceAnswer(bottomRightAnswer.getText());}
+    public void mChoiceAnswer(String answer) {
+        boolean isCorrect = quiz.answer(answer);
+        System.out.println(answer);
+        System.out.println(multChoiceQuestion.getText());
+        System.out.println(isCorrect);
+        int correctnessValue = 0; //this is kinda spaghetti code, but this passes the questions correctness to the review
+        if (isCorrect) {correctnessValue = 1;} //0 means wrong, 1 means right
+
+        //adds the answer to the review list so the user can check if they got it right or wrong
+        NoteCard question = new NoteCard(quiz.getQuestion(), quiz.getAnswer1(), correctnessValue, 0);
+
+        review.addAnswer(question, answer);
+
+
+        //update GUI to next question
+        quiz.nextQuestion();
+        updateQuizQuestion();
+    }
+
+    public void endQuiz() {
+        quiz.endQuiz();
+        multChoiceQuestion.setText("Quiz Complete. Score: " + quiz.getNumberCorrect() + "/" + quiz.getQuizSize() + " (" + Math.round(quiz.getQuizScore()) + "%)");
+        reviewScore.setText("Score: " + quiz.getNumberCorrect() + "/" + quiz.getQuizSize() + " (" + Math.round(quiz.getQuizScore()) + "%)");
+        MCSetupButton.setDisable(false);
+        topLeftAnswer.setDisable(true);
+        topRightAnswer.setDisable(true);
+        bottomLeftAnswer.setDisable(true);
+        bottomRightAnswer.setDisable(true);
+        topLeftAnswer.setOpacity(0.5);
+        bottomLeftAnswer.setOpacity(0.5);
+        topRightAnswer.setOpacity(0.5);
+        bottomRightAnswer.setOpacity(0.5);
+
+        reviewButton.setDisable(false);
+        reviewButton.setOpacity(1);
+
+        quiz.reset();
+    }
+
+    public void updateQuizQuestion() {
+        if (quiz.getQuizCompletion()) {endQuiz();}
+        else {
+            //update question (top field)
+            multChoiceQuestion.setText(quiz.getQuestion());
+            //randomize answer list
+            quiz.setAnswerList();
+            ArrayList<String> bufferList = new ArrayList<>();
+            bufferList.add(quiz.getAnswer1());
+            bufferList.add(quiz.getAnswer2());
+            bufferList.add(quiz.getAnswer3());
+            bufferList.add(quiz.getAnswer4());
+
+            ArrayList<String> answerList = new ArrayList<>();
+            for (int i = 0; i < 4; i++) {
+                int randindex = (int) (Math.random() * bufferList.size());
+                String dummy = bufferList.get(randindex);
+                bufferList.remove(randindex);
+                answerList.add(dummy);
+            }
+
+            //set button text
+            topLeftAnswer.setText(answerList.get(0));
+            topRightAnswer.setText(answerList.get(1));
+            bottomLeftAnswer.setText(answerList.get(2));
+            bottomRightAnswer.setText(answerList.get(3));
+
+            //set question tracker text
+            questionTracker.setText("" + (quiz.getQuestionIndex()+1) + "/" + quiz.getQuizSize());
+        }
+    }
+
+    //MULTIPLE CHOICE END
+
+
+    //MULTIPLE CHOICE REVIEW
+    @FXML AnchorPane reviewPane;
+    @FXML Label reviewTitle;
+    @FXML Label reviewScore;
+    @FXML Label reviewSet;
+    @FXML void reviewButtonClicked(MouseEvent event) throws IOException {
+        reviewSet.setText(titleLabel.getText());
+        titleLabel.setText("");
+        reviewPane.setDisable(false);
+        reviewPane.setOpacity(1);
+        reviewTitle.setOpacity(1);
+
+        for (int i = 0; i < review.getReviewSize(); i++) {
+            generateReview(i);
+        }
+
+        review.clearReview();
+    }
+    public void generateReview(int i) throws IOException {
+
+        Label answerLabel = new Label("Answer:");
+        Label userAnswerLabel = new Label("Your Answer:");
+
+        Label dynamicAnswerLabel = new Label(review.getCorrectAnswer(i));
+        dynamicAnswerLabel.setFont(new Font(21));
+        dynamicAnswerLabel.setPrefSize(309, 44);
+        Label dynamicUserAnswerLabel = new Label(review.getUserAnswer(i));
+        dynamicUserAnswerLabel.setFont(new Font(21));
+        dynamicUserAnswerLabel.setPrefSize(309, 44);
+
+        Label numberTermLabel = new Label("Question " + (i+1) + ": " + review.getQuestion(i));
+        numberTermLabel.setFont(new Font(17));
+
+        Pane answerPane = new Pane(dynamicAnswerLabel);
+        answerPane.setStyle("-fx-background-radius: 17; -fx-background-color: #ffffffff;");
+        dynamicAnswerLabel.setLayoutX(5);
+        dynamicAnswerLabel.setLayoutY(0);
+
+        Pane userAnswerPane = new Pane(dynamicUserAnswerLabel);
+        dynamicUserAnswerLabel.setLayoutX(5);
+        dynamicUserAnswerLabel.setLayoutY(0);
+        userAnswerPane.setStyle("-fx-background-radius: 17; -fx-background-color: #ff7878;");
+        if (review.getCorrectness(i)) {userAnswerPane.setStyle("-fx-background-radius: 17; -fx-background-color: #45f25f;");}
+
+        answerPane.setPrefSize(309, 44);
+        userAnswerPane.setPrefSize(309, 44);
+
+        AnchorPane newInsertField = new AnchorPane(answerLabel, userAnswerLabel, answerPane, userAnswerPane, numberTermLabel);
+
+        createVbox.getChildren().add(newInsertField);
+
+        if (createVbox.getChildren().size() > 1) {
+            for (Node node : createVbox.getChildren()) {
+                if (node instanceof AnchorPane previousAdded) {
+                    numberTermLabel.setLayoutX(previousAdded.getLayoutX() + 25);
+
+                    answerLabel.setLayoutX(previousAdded.getLayoutX() + 35);
+                    userAnswerLabel.setLayoutX(previousAdded.getLayoutX() + 355);
+
+                    answerPane.setLayoutX(previousAdded.getLayoutX() + 40);
+                    userAnswerPane.setLayoutX(previousAdded.getLayoutX() + 365);
+
+                    answerPane.setLayoutY(answerPane.getHeight() + answerPane.getPadding().getTop() + 50);
+                    userAnswerPane.setLayoutY(answerPane.getHeight() + answerPane.getPadding().getTop() + 50);
+
+                    numberTermLabel.setLayoutY(answerPane.getHeight() + answerPane.getPadding().getTop() + 10);
+                    answerLabel.setLayoutY(answerPane.getHeight() + answerPane.getPadding().getTop() + 35);
+                    userAnswerLabel.setLayoutY(answerPane.getHeight() + answerPane.getPadding().getTop() + 35);
+                    newInsertField.setLayoutY(previousAdded.getLayoutY());
+                }
+            }
+        }
     }
 
 }

@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class NotelyApplication extends Application {
@@ -14,7 +13,7 @@ public class NotelyApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Notely");
         stage.setScene(scene);
-
+        stage.setResizable(false);
         stage.show();
     }
 
