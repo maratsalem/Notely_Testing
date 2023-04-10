@@ -40,6 +40,7 @@
                 <Insets right="10.0" top="10.0" />
             </BorderPane.margin>
             <children>
+                <Button mnemonicParsing="false" onMouseClicked="#SwitchToStudyScene" prefHeight="30.0" prefWidth="147.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17PX;" text="Select another set." textFill="#f07b14" AnchorPane.rightAnchor="625.0" AnchorPane.topAnchor="0.0" />
                 <Button mnemonicParsing="false" onMouseClicked="#SwitchToHomeScene" prefHeight="30.0" prefWidth="63.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17PX;" text="Home" textFill="#f07b14" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0" />
             </children>
         </AnchorPane>

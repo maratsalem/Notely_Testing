@@ -3,5 +3,5 @@ imported
 term1@def1
 two@too
 term3@def3
-really long string like a really long fake long string that will mess up compilation maybe@def4
+newTerm4@newDef4
 

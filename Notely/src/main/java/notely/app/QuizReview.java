@@ -1,9 +1,6 @@
 package notely.app;
 
 import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
-
 public class QuizReview {
     QuizReview() {}
 
