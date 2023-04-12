@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0"  xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notely.app.CreateController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notely.app.CreateController">
    <children>
       <Label layoutX="46.0" layoutY="14.0" prefHeight="35.0" prefWidth="635.0" text="Create a New Study Set" textFill="WHITE">
          <font>
@@ -16,7 +16,7 @@
             <Font size="19.0" />
          </font>
       </TextField>
-      <Button layoutX="705.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#SwitchToHomeScene" prefHeight="34.0" prefWidth="71.0"  text="Home" textFill="#f07b14" />
+      <Button layoutX="694.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#SwitchToHomeScene" prefHeight="34.0" prefWidth="82.0" text="Home" textFill="#f07b14" />
       <TextField fx:id="folderInputC" layoutX="46.0" layoutY="117.0" prefHeight="34.0" prefWidth="377.0" promptText="Folder">
          <font>
             <Font size="17.0" />
@@ -41,7 +41,7 @@
       </ScrollPane>
       <Button fx:id="addNewCard" layoutX="384.0" layoutY="551.0" mnemonicParsing="false" onMouseClicked="#createSceneDynamic" prefHeight="34.0" prefWidth="33.0" text="+" textFill="#f07b14" />
       <Button fx:id="saveButtonC" layoutX="625.0" layoutY="551.0" mnemonicParsing="false" onMouseClicked="#onSaveButton" prefHeight="34.0" prefWidth="116.0" text="Save Set" textFill="#f07b14" />
-      <Button fx:id="importButton" layoutX="436.0" layoutY="117.0" mnemonicParsing="false" onMouseClicked="#onImportButton" prefHeight="34.0" prefWidth="144.0" text="Import From Quizlet" textFill="#f07b14" />
-      <Button fx:id="editSetButton" layoutX="597.0" layoutY="117.0" mnemonicParsing="false" onMouseClicked="#SwitchToMainScene" prefHeight="34.0" prefWidth="144.0" text="Edit Exising Set" textFill="#f07b14" />
+      <Button fx:id="importButton" layoutX="436.0" layoutY="117.0" mnemonicParsing="false" onMouseClicked="#onImportButton" prefHeight="34.0" prefWidth="156.0" text="Import From Quizlet" textFill="#f07b14" />
+      <Button fx:id="editSetButton" layoutX="597.0" layoutY="117.0" mnemonicParsing="false" onMouseClicked="#SwitchToMainScene" prefHeight="34.0" prefWidth="156.0" text="Edit Exising Set" textFill="#f07b14" />
    </children>
 </AnchorPane>

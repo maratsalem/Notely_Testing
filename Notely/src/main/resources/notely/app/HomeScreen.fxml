@@ -16,9 +16,9 @@
         <children>
             <AnchorPane minHeight="600.0" prefHeight="600.0" prefWidth="800.0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                 <children>
-                    <Button fx:id="createSceneButton" minHeight="45.0" minWidth="94.0" mnemonicParsing="false" onMouseClicked="#SwitchToCreateScene"  text="Create" textFill="#f07b14" translateX="170.0" translateY="453.0" />
-                    <Button layoutX="-5.0" mnemonicParsing="false" onMouseClicked="#SwitchToStudyScene" prefHeight="45.0" prefWidth="94.0"  text="Study" textFill="#f07b14" translateX="347.5" translateY="453.0" />
-                    <Button mnemonicParsing="false" onMouseClicked="#SwitchToSettingsScene" prefHeight="48.0" prefWidth="94.0" text="Settings" textFill="#f07b14" translateX="525.0" translateY="453.0" />
+                    <Button fx:id="createSceneButton" layoutX="-37.0" layoutY="-20.0" minHeight="45.0" minWidth="94.0" mnemonicParsing="false" onMouseClicked="#SwitchToCreateScene" prefHeight="66.0" prefWidth="131.0" text="Create" textFill="#f07b14" translateX="170.0" translateY="453.0" />
+                    <Button layoutX="-13.0" layoutY="-20.0" mnemonicParsing="false" onMouseClicked="#SwitchToStudyScene" prefHeight="66.0" prefWidth="131.0" text="Study" textFill="#f07b14" translateX="347.5" translateY="453.0" />
+                    <Button layoutX="6.0" layoutY="-20.0" mnemonicParsing="false" onMouseClicked="#SwitchToSettingsScene" prefHeight="66.0" prefWidth="131.0" text="Settings" textFill="#f07b14" translateX="525.0" translateY="453.0" />
                     <Label layoutX="264.0" layoutY="192.0" text="Notely" textFill="WHITE" AnchorPane.leftAnchor="250.0">
                         <font>
                             <Font name="Heiti TC Medium" size="96.0" />

@@ -11,12 +11,12 @@
          <items>
             <VBox prefWidth="396.0">
                <children>
-                  <ComboBox fx:id="fileField" onShowing="#displaySetsList" prefHeight="40.0" prefWidth="200.0" promptText="Select Set Name" translateY="20.0" />
+                  <ComboBox fx:id="fileField" onShowing="#displaySetsList" prefHeight="40.0" prefWidth="233.0" promptText="Select Set Name" translateY="20.0" />
                   <Button fx:id="DisplaySet" mnemonicParsing="false" onMouseClicked="#displayTermsAndDefinitions" prefHeight="40.0" prefWidth="147.0" text="Display" textFill="#f07b14" translateX="250.0" translateY="-20.0" />
                   <TextField fx:id="setNumber" maxHeight="50.0" maxWidth="403.0" minHeight="50.0" minWidth="403.0" promptText="Enter Term/Def Number" translateY="25.0" />
                   <TextField fx:id="newTerm" maxHeight="90.0" maxWidth="403.0" minHeight="90.0" minWidth="403.0" promptText="Enter New Term" translateY="25.0" />
                   <TextField fx:id="newDef" maxHeight="90.0" maxWidth="403.0" minHeight="90.0" minWidth="403.0" promptText="Enter New Definition " translateY="25.0" />
-                  <Button fx:id="SaveChangesButton" onMouseClicked="#saveChanges" prefHeight="40.0" prefWidth="100.0" text="Save Changes" textFill="#f07b14" translateX="145.0" translateY="50.0" />
+                  <Button fx:id="SaveChangesButton" onMouseClicked="#saveChanges" prefHeight="40.0" prefWidth="127.0" text="Save Changes" textFill="#f07b14" translateX="140.0" translateY="50.0" />
                </children>
             </VBox>
             <ScrollPane hbarPolicy="ALWAYS" prefHeight="360.0" prefWidth="239.0" vbarPolicy="ALWAYS">
@@ -33,7 +33,7 @@
       </Label>
       <Line endX="787.0" layoutX="14.0" layoutY="77.0" startX="-100.0" stroke="WHITE" />
       <Button layoutX="673.0" layoutY="18.0" mnemonicParsing="false" onMouseClicked="#SwitchToHomeScene" prefHeight="40.0" prefWidth="100.0" text="Home" textFill="#f07b14" AnchorPane.rightAnchor="28.5" AnchorPane.topAnchor="18.0" />
-      <Button layoutX="559.0" layoutY="18.0" mnemonicParsing="false" onMouseClicked="#SwitchToStudyScene" prefHeight="40.0" prefWidth="100.0" text="Study" textAlignment="CENTER" textFill="#f07b14" />
+      <Button layoutX="551.0" layoutY="18.0" mnemonicParsing="false" onMouseClicked="#SwitchToStudyScene" prefHeight="40.0" prefWidth="108.0" text="Study" textAlignment="CENTER" textFill="#f07b14" />
       <Button layoutX="-135.0" layoutY="-435.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" onMouseClicked="#SwitchToDeleteSetScene" prefHeight="40.0" prefWidth="147.0" text="Delete an Entire Set" textFill="#f07b14" translateX="525.0" translateY="453.0" />
    </children>
 </AnchorPane>

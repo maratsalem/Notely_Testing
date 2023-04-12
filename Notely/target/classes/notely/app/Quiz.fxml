@@ -1,31 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notely.app.CreateController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notely.app.CreateController">
     <center>
-        <AnchorPane prefHeight="600.0" prefWidth="800.0"  BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="600.0" prefWidth="800.0" BorderPane.alignment="CENTER">
             <children>
-                <AnchorPane layoutX="112.0" layoutY="16.0" prefHeight="170.0" prefWidth="603.0" >
+                <AnchorPane id="quizBackPane" layoutX="112.0" layoutY="16.0" prefHeight="170.0" prefWidth="603.0">
                     <children>
                         <Label fx:id="multChoiceQuestion" alignment="CENTER" contentDisplay="CENTER" layoutX="24.0" layoutY="67.0" prefHeight="20.0" prefWidth="500.0" text="Selected Term" textAlignment="CENTER">
                             <font>
                                 <Font name="Heiti TC Light" size="23.0" />
                             </font>
                         </Label>
-                        <Button fx:id="MCSetupButton" layoutX="72.0" layoutY="66.0" mnemonicParsing="false" onMouseClicked="#multipleChoiceSetUp" prefHeight="25.0" prefWidth="459.0" text="Click Here to Start" textFill="WHITE">
+                        <Button id="MCSetupButton" fx:id="MCSetupButton" layoutX="72.0" layoutY="39.0" mnemonicParsing="false" onMouseClicked="#multipleChoiceSetUp" prefHeight="89.0" prefWidth="459.0" text="Click Here to Start" textFill="WHITE">
                             <font>
                                 <Font size="16.0" />
                             </font>
                         </Button>
-                        <Button fx:id="reviewButton" disable="true" layoutX="464.0" layoutY="120.0" mnemonicParsing="false" onMouseClicked="#reviewButtonClicked" opacity="0.0" prefHeight="36.0" prefWidth="122.0" text="Review" textFill="WHITE">
+                        <Button id="reviewButton" fx:id="reviewButton" disable="true" layoutX="445.0" layoutY="115.0" mnemonicParsing="false" onMouseClicked="#reviewButtonClicked" opacity="0.0" prefHeight="51.0" prefWidth="150.0" text="Review" textFill="WHITE">
                             <font>
                                 <Font size="16.0" />
                             </font>
@@ -34,14 +29,14 @@
                 </AnchorPane>
                 <Button fx:id="topLeftAnswer" disable="true" layoutX="114.0" layoutY="228.0" mnemonicParsing="false" onMouseClicked="#TLMultipleChoiceAnswer" prefHeight="100.0" prefWidth="288.0" />
                 <Button fx:id="bottomLeftAnswer" disable="true" layoutX="113.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#BLMultipleChoiceAnswer" prefHeight="100.0" prefWidth="288.0" />
-                <Button fx:id="topRightAnswer" disable="true" layoutX="429.0" layoutY="227.0" mnemonicParsing="false" onMouseClicked="#TRMultipleChoiceAnswer" prefHeight="100.0" prefWidth="288.0"/>
-                <Button fx:id="bottomRightAnswer" disable="true" layoutX="428.0" layoutY="360.0" mnemonicParsing="false" onMouseClicked="#BRMultipleChoiceAnswer" prefHeight="100.0" prefWidth="288.0"/>
+                <Button fx:id="topRightAnswer" disable="true" layoutX="429.0" layoutY="227.0" mnemonicParsing="false" onMouseClicked="#TRMultipleChoiceAnswer" prefHeight="100.0" prefWidth="288.0" />
+                <Button fx:id="bottomRightAnswer" disable="true" layoutX="428.0" layoutY="360.0" mnemonicParsing="false" onMouseClicked="#BRMultipleChoiceAnswer" prefHeight="100.0" prefWidth="288.0" />
                 <Label fx:id="questionTracker" alignment="CENTER" contentDisplay="CENTER" layoutX="595.0" layoutY="488.0" prefHeight="34.0" prefWidth="167.0" text=" " textAlignment="CENTER" textFill="WHITE">
                     <font>
                         <Font name="Heiti TC Light" size="23.0" />
                     </font>
                 </Label>
-                <AnchorPane fx:id="reviewPane" disable="true" layoutY="57.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="205.0" minWidth="800.0" opacity="0.0" prefHeight="582.6666666666666" prefWidth="800.0"  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <AnchorPane fx:id="reviewPane" disable="true" layoutY="57.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="205.0" minWidth="800.0" opacity="0.0" prefHeight="582.6666666666666" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
                         <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutX="46.0" layoutY="60.0" prefHeight="429.0" prefWidth="708.0" vmax="5.0">
                             <content>
@@ -54,12 +49,12 @@
                         </ScrollPane>
                         <Pane layoutX="46.0" prefHeight="44.0" prefWidth="708.0">
                             <children>
-                                <Label fx:id="reviewSet" layoutX="14.0" layoutY="6.0" prefHeight="31.0" prefWidth="247.0" text="(Quiz Name)" textFill="#ff970f">
+                                <Label id="reviewSet" fx:id="reviewSet" layoutX="-7.0" prefHeight="47.0" prefWidth="268.0" text="(Quiz Name)" textFill="#ff970f">
                                     <font>
                                         <Font size="21.0" />
                                     </font>
                                 </Label>
-                                <Label fx:id="reviewScore" layoutX="512.0" layoutY="7.0" prefHeight="31.0" prefWidth="194.0" text="Score:" textAlignment="RIGHT" textFill="#ff970f">
+                                <Label id="reviewScore" fx:id="reviewScore" layoutX="460.0" layoutY="-1.0" prefHeight="47.0" prefWidth="248.0" text="Score:" textAlignment="RIGHT" textFill="#ff970f">
                                     <font>
                                         <Font size="21.0" />
                                     </font>
@@ -72,7 +67,7 @@
         </AnchorPane>
     </center>
     <top>
-        <AnchorPane prefHeight="54.0" prefWidth="600.0"  BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="54.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <children>
                 <Button layoutX="506.0" layoutY="9.0" mnemonicParsing="false" onMouseClicked="#SwitchToHomeScene" prefHeight="36.0" prefWidth="80.0" text="Home" textFill="#f07b14" AnchorPane.rightAnchor="10.0" />
                 <Label fx:id="titleLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="262.0" layoutY="28.0" prefHeight="14.0" prefWidth="315.0" textAlignment="CENTER" textFill="WHITE">

@@ -16,7 +16,7 @@
             <children>
                 <VBox id="settingBoxID" prefHeight="215.0" prefWidth="190.0">
                     <children>
-                        <Label prefHeight="93.0" prefWidth="243.0" text="Dark Mode">
+                        <Label prefHeight="93.0" prefWidth="243.0" text="Dark Mode" textAlignment="CENTER">
                             <font>
                                 <Font size="16.0" />
                             </font>
@@ -46,7 +46,7 @@
                         </AnchorPane>
                         <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
                             <children>
-                                <ComboBox id="fontStyleComboBox" fx:id="fontStylesComboBox" layoutX="19.0" layoutY="23.0" onShowing="#displayFontStyles" prefWidth="150.0" promptText="Select font" />
+                                <ComboBox id="fontStyleComboBox" fx:id="fontStylesComboBox" layoutX="19.0" layoutY="23.0" onShowing="#displayFontStyles" prefHeight="53.0" prefWidth="150.0" promptText="Select font" />
                             </children></AnchorPane>
                     </children></VBox>
             </children>
