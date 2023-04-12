@@ -1,0 +1,22 @@
+
+.label{
+    -fx-font-family: "Times New Roman";
+}
+
+.text-field {
+    -fx-font-family: "Times New Roman";
+    -fx-prompt-text-family: "Times New Roman";
+}
+
+.text-area {
+    -fx-font-family: "Times New Roman";
+    -fx-prompt-text-family: "Times New Roman";
+}
+
+.button {
+    -fx-font-family: "Times New Roman";
+}
+
+.combo-box .cell {
+    -fx-font-family: "Times New Roman";
+}

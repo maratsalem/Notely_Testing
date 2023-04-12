@@ -6,7 +6,7 @@
 
 <AnchorPane fx:id="importPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notely.app.CreateController">
    <children>
-      <Label fx:id="importTitle" layoutX="46.0" layoutY="14.0" prefHeight="35.0" prefWidth="635.0" text="Import a Study Set From Quizlet" textFill="WHITE" visible="false">
+      <Label id="importTitle" fx:id="importTitle" layoutX="46.0" layoutY="14.0" prefHeight="35.0" prefWidth="635.0" text="Import a Study Set From Quizlet" textFill="WHITE" visible="false">
          <font>
             <Font name="Heiti TC Medium" size="24.0" />
          </font>
@@ -29,7 +29,7 @@
             <Font size="14.0" />
          </font>
       </TextArea>
-      <AnchorPane id="importPane" fx:id="helpScreen" layoutX="129.0" layoutY="57.0" prefHeight="487.0" prefWidth="543.0">
+      <AnchorPane id="helpScreenImport" fx:id="helpScreen" layoutX="129.0" layoutY="57.0" prefHeight="487.0" prefWidth="543.0">
          <children>
             <Label alignment="CENTER" layoutX="91.0" prefHeight="49.0" prefWidth="362.0" text="How To Import" textAlignment="CENTER">
                <font>

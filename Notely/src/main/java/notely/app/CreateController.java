@@ -75,7 +75,6 @@ public class CreateController {
     @FXML CheckBox darkModeCheck;
     static String fontStyle = "System";
     static boolean darkMode = false;
-    static String backgroundMusic;
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -275,8 +274,8 @@ public class CreateController {
                 root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Quiz.fxml")));
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 scene = new Scene(root);
-                scene.getStylesheets().add(themeSelect);
                 checkingTheme(darkMode);
+                scene.getStylesheets().add(themeSelect);
                 scene.getStylesheets().add(fontStyle + ".css");
                 stage.setScene(scene);
                 stage.show();
@@ -1275,6 +1274,9 @@ public class CreateController {
 
         Pane answerPane = new Pane(dynamicAnswerLabel);
         answerPane.setStyle("-fx-background-radius: 17; -fx-background-color: #ffffffff;");
+        if(darkMode){
+            dynamicAnswerLabel.setStyle("-fx-text-fill: black;");
+        }
         dynamicAnswerLabel.setLayoutX(5);
         dynamicAnswerLabel.setLayoutY(0);
 
