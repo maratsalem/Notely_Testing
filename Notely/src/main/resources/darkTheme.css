@@ -1,0 +1,92 @@
+.root {
+    -fx-accent: #1e74c6;
+    -fx-base: #313170;
+    -fx-background-color: #313178;
+}
+
+.label{
+    -fx-text-color: black;
+}
+
+.text-Area{
+    -fx-prompt-text-fill: lightgray;
+    -fx-text-fill: white;
+}
+
+.text-field {
+    -fx-prompt-text-fill: lightgray;
+    -fx-text-fill: white;
+}
+
+.button{
+    -fx-background-color: #B2A4FF;
+    -fx-background-radius: 17px;
+    -fx-text-fill: #FFFFFF;
+}
+
+.combo-box{
+    -fx-background-radius: 17px;
+     -fx-background-color: #B2A4FF;
+}
+
+.scroll-pane{
+    -fx-base:  #313170;
+    -fx-background-color: #313170;
+}
+
+.border-pane{
+    -fx-base:  #313170;
+    -fx-background-color: #313170;
+}
+
+.split-pane{
+     -fx-base: #313170;
+     -fx-background-color: #313170
+}
+
+#learnPane{
+    -fx-background-color: #576CBC;
+}
+
+#viewPane{
+    -fx-background-color: #576CBC;
+}
+
+#leftButton{
+     -fx-background-color: #B2A4FF;
+     -fx-text-fill: #FFFFFF;
+}
+
+#rightButton{
+     -fx-background-color: #B2A4FF;
+     -fx-text-fill: #FFFFFF;
+}
+
+#flipButton{
+     -fx-background-color: #B2A4FF;
+     -fx-background-radius: 17px;
+     -fx-text-fill: #FFFFFF;
+}
+
+#correctButton{
+     -fx-background-color: #c8e1cc;
+     -fx-text-fill: #FFFFFF;
+}
+
+#flipLearnButton{
+     -fx-background-color: #B2A4FF;
+     -fx-text-fill: #FFFFFF;
+}
+
+#incorrectButton{
+     -fx-background-color: #fdaaaa;
+     -fx-text-fill: #FFFFFF;
+}
+
+#settingBoxID{
+     -fx-background-color: #B2A4FF;
+}
+
+#settingBoxID2{
+     -fx-background-color: #B2A4FF;
+}

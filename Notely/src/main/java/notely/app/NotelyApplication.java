@@ -13,6 +13,7 @@ public class NotelyApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Notely");
         stage.setScene(scene);
+        scene.getStylesheets().add("normalTheme.css");
         stage.setResizable(false);
         stage.show();
     }

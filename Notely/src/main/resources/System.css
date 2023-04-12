@@ -1,0 +1,22 @@
+
+.label{
+    -fx-font-family: "System";
+}
+
+.text-field {
+    -fx-font-family: "System";
+    -fx-prompt-text-family: "System";
+}
+
+.text-area {
+    -fx-font-family: "System";
+    -fx-prompt-text-family: "System";
+}
+
+.button {
+    -fx-font-family: "System";
+}
+
+.combo-box .cell {
+    -fx-font-family: "System";
+}

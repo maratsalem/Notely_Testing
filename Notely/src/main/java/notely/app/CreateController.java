@@ -37,8 +37,8 @@ public class CreateController {
     @FXML Button incorrectButton;
     @FXML Button createSceneButton;
     @FXML TextField setNumber;
-    @FXML TextArea newTerm;
-    @FXML TextArea newDef;
+    @FXML TextField newTerm;
+    @FXML TextField newDef;
     @FXML
     Button topLeftAnswer;
     @FXML
@@ -71,10 +71,16 @@ public class CreateController {
     Button helpButton;
     @FXML
     Label importTitle;
+    @FXML ComboBox fontStylesComboBox;
+    @FXML CheckBox darkModeCheck;
+    static String fontStyle = "System";
+    static boolean darkMode = false;
+    static String backgroundMusic;
     private Stage stage;
     private Scene scene;
     private Parent root;
     private String txt;
+    private String themeSelect ="normalTheme.css";
     private static String file = "";
     private int arraySize;
     private int labelCounter = 2;
@@ -108,14 +114,38 @@ public class CreateController {
         return checkPathString;
     }
 
+    public void checkingTheme(boolean checking){
+        if(checking){
+            themeSelect = "darkTheme.css";
+        } else {
+            themeSelect = "normalTheme.css";
+        }
+    }
+
     @FXML
     public void SwitchToCreateScene(MouseEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("CreateScene.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
+        scene.getStylesheets().add(fontStyle + ".css");
+        checkingTheme(darkMode);
+        scene.getStylesheets().add(themeSelect);
         stage.setScene(scene);
         stage.show();
     }
+
+    @FXML
+    public void SwitchToSettingsScene(MouseEvent event) throws IOException {
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SettingsScene.fxml")));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        scene.getStylesheets().add(fontStyle + ".css");
+        checkingTheme(darkMode);
+        scene.getStylesheets().add(themeSelect);
+        stage.show();
+    }
+
 
     @FXML
     public void SwitchToMainScene(MouseEvent event) throws IOException {
@@ -123,6 +153,9 @@ public class CreateController {
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
+        scene.getStylesheets().add(fontStyle + ".css");
+        checkingTheme(darkMode);
+        scene.getStylesheets().add(themeSelect);
         stage.show();
     }
     @FXML
@@ -131,17 +164,12 @@ public class CreateController {
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
+        scene.getStylesheets().add(fontStyle + ".css");
+        checkingTheme(darkMode);
+        scene.getStylesheets().add(themeSelect);
         stage.show();
         spacePressed = false;
         keyCheck = 0;
-    }
-    @FXML
-    public void SwitchToSettingScene(MouseEvent event) throws IOException {
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("DeleteScene.fxml")));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
     }
 
     @FXML
@@ -150,6 +178,9 @@ public class CreateController {
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
+        scene.getStylesheets().add(fontStyle + ".css");
+        checkingTheme(darkMode);
+        scene.getStylesheets().add(themeSelect);
         stage.show();
     }
 
@@ -159,6 +190,9 @@ public class CreateController {
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
+        scene.getStylesheets().add(fontStyle + ".css");
+        checkingTheme(darkMode);
+        scene.getStylesheets().add(themeSelect);
         stage.show();
     }
     @FXML
@@ -167,6 +201,9 @@ public class CreateController {
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
+        scene.getStylesheets().add(fontStyle + ".css");
+        checkingTheme(darkMode);
+        scene.getStylesheets().add(themeSelect);
         stage.show();
     }
 
@@ -198,6 +235,9 @@ public class CreateController {
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 scene = new Scene(root);
                 stage.setScene(scene);
+                scene.getStylesheets().add(fontStyle + ".css");
+                checkingTheme(darkMode);
+                scene.getStylesheets().add(themeSelect);
                 stage.show();
             }
         }
@@ -216,6 +256,9 @@ public class CreateController {
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 scene = new Scene(root);
                 stage.setScene(scene);
+                scene.getStylesheets().add(fontStyle + ".css");
+                checkingTheme(darkMode);
+                scene.getStylesheets().add(themeSelect);
                 stage.show();
             }
         }
@@ -232,10 +275,37 @@ public class CreateController {
                 root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Quiz.fxml")));
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 scene = new Scene(root);
+                scene.getStylesheets().add(themeSelect);
+                checkingTheme(darkMode);
+                scene.getStylesheets().add(fontStyle + ".css");
                 stage.setScene(scene);
                 stage.show();
             }
         }
+    }
+
+    @FXML
+    public void displayFontStyles() {
+        fontStylesComboBox.getItems().clear();
+        fontStylesComboBox.getItems().addAll("System", "Verdana", "Comic Sans MS", "Algerian", "Times New Roman");
+    }
+
+    @FXML
+    public void applySettings(MouseEvent event) throws IOException {
+        if (!(fontStylesComboBox.getValue() == null)) {
+            fontStyle = fontStylesComboBox.getValue().toString();
+            fontStylesComboBox.setPromptText(fontStyle);
+            fontStyle = fontStyle.replace(" ", "_");
+        }
+        if(darkModeCheck.isSelected()){
+            darkMode = true;
+            themeSelect = "darkTheme.css";
+        } else {
+            darkMode = false;
+            themeSelect = "normalTheme.css";
+        }
+
+        SwitchToSettingsScene(event);
     }
 
     //start of methods used to display notecards on the learn and view scene
@@ -771,6 +841,9 @@ public class CreateController {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Import.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
+        scene.getStylesheets().add(fontStyle + ".css");
+        checkingTheme(darkMode);
+        scene.getStylesheets().add(themeSelect);
         stage.setScene(scene);
         stage.show();
     }

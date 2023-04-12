@@ -5,11 +5,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" onKeyTyped="#updateLabel" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #ff970f;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notely.app.CreateController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" onKeyTyped="#updateLabel" prefHeight="600.0" prefWidth="800.0"  xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notely.app.CreateController">
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-                <AnchorPane layoutX="161.0" layoutY="52.0" prefHeight="453.0" prefWidth="477.0" style="-fx-background-color: #ffffff;">
+                <AnchorPane id="viewPane" layoutX="161.0" layoutY="52.0" prefHeight="453.0" prefWidth="477.0">
                     <children>
                         <Label fx:id="topLabel" alignment="CENTER" layoutY="-6.0" prefHeight="38.0" prefWidth="477.0" text="Term" textAlignment="CENTER" AnchorPane.bottomAnchor="421.20000000000005" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0">
                             <font>
@@ -21,9 +21,9 @@
                                 <Font name="Heiti TC Light" size="28.0" />
                             </font>
                         </Label>
-                        <Button fx:id="leftButton" disable="true" layoutX="424.0" layoutY="411.0" mnemonicParsing="false" onMouseClicked="#onRightClick" prefHeight="37.0" prefWidth="39.0" style="-fx-background-color: #f07b14; -fx-background-radius: 17px;" text="&gt;" textFill="WHITE" AnchorPane.bottomAnchor="10.399999999999977" AnchorPane.rightAnchor="14.400000000000034" />
-                        <Button fx:id="rightButton" disable="true" layoutX="14.0" layoutY="411.0" mnemonicParsing="false" onMouseClicked="#onLeftClick" prefHeight="37.0" prefWidth="39.0" style="-fx-background-color: #f07b14; -fx-background-radius: 17px;" text="&lt;" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
-                        <Button fx:id="flipButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="69.0" layoutY="395.0" mnemonicParsing="false" onMouseClicked="#onFlipClick" prefHeight="40.0" prefWidth="340.0" style="-fx-background-color: #f07b14; -fx-background-radius: 17px;" text="Flip" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="69.0" AnchorPane.rightAnchor="70.0" />
+                        <Button id="leftButton" fx:id="leftButton" disable="true" layoutX="424.0" layoutY="411.0" mnemonicParsing="false" onMouseClicked="#onRightClick" prefHeight="37.0" prefWidth="39.0" text="&gt;" textFill="WHITE" AnchorPane.bottomAnchor="10.399999999999977" AnchorPane.rightAnchor="14.400000000000034" />
+                        <Button id="rightButton" fx:id="rightButton" disable="true" layoutX="14.0" layoutY="411.0" mnemonicParsing="false" onMouseClicked="#onLeftClick" prefHeight="37.0" prefWidth="39.0"  text="&lt;" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
+                        <Button id="flipButton" fx:id="flipButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="69.0" layoutY="395.0" mnemonicParsing="false" onMouseClicked="#onFlipClick" prefHeight="40.0" prefWidth="340.0" text="Flip" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="69.0" AnchorPane.rightAnchor="70.0" />
                     </children>
                 </AnchorPane>
                 <Label fx:id="titleLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="242.0" layoutY="14.0" prefHeight="14.0" prefWidth="315.0" textAlignment="CENTER" textFill="WHITE">
@@ -40,7 +40,7 @@
                 <Insets right="10.0" top="10.0" />
             </BorderPane.margin>
             <children>
-                <Button mnemonicParsing="false" onMouseClicked="#SwitchToHomeScene" prefHeight="30.0" prefWidth="63.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17PX;" text="Home" textFill="#f07b14" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0" />
+                <Button mnemonicParsing="false" onMouseClicked="#SwitchToHomeScene" prefHeight="30.0" prefWidth="63.0"  text="Home" textFill="#f07b14" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0" />
             </children>
         </AnchorPane>
     </top>

@@ -1,31 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #ff970f;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notely.app.CreateController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notely.app.CreateController">
     <center>
         <AnchorPane BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="viewButton" alignment="CENTER" contentDisplay="CENTER" layoutX="207.0" layoutY="375.0" mnemonicParsing="false" onMouseClicked="#SwitchToViewScene" prefHeight="36.0" prefWidth="80.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17PX;" text="View" textAlignment="CENTER" textFill="#f07b14" AnchorPane.leftAnchor="180.0" />
-                <Button fx:id="learnButton" alignment="CENTER" contentDisplay="CENTER" layoutX="360.0" layoutY="376.0" mnemonicParsing="false" onMouseClicked="#SwitchToLearnScene" prefHeight="36.0" prefWidth="80.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17PX;" text="Learn" textAlignment="CENTER" textFill="#f07b14" AnchorPane.rightAnchor="360.0" />
-                <Button fx:id="quizButton" alignment="CENTER" contentDisplay="CENTER" layoutX="537.0" layoutY="375.0" mnemonicParsing="false" onMouseClicked="#switchToQuizScene" prefHeight="36.0" prefWidth="80.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17PX;" text="Quiz" textAlignment="CENTER" textFill="#f07b14" AnchorPane.rightAnchor="180.0" />
-                <Label alignment="CENTER" layoutX="210.0" layoutY="200.0" prefHeight="58.0" prefWidth="411.0" text="Study Modes" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="194.5">
+                <Button fx:id="viewButton" alignment="CENTER" contentDisplay="CENTER" layoutX="207.0" layoutY="375.0" mnemonicParsing="false" onMouseClicked="#SwitchToViewScene" prefHeight="36.0" prefWidth="80.0" text="View" textAlignment="CENTER" textFill="#f07b14" AnchorPane.leftAnchor="180.0" />
+                <Button fx:id="learnButton" alignment="CENTER" contentDisplay="CENTER" layoutX="360.0" layoutY="376.0" mnemonicParsing="false" onMouseClicked="#SwitchToLearnScene" prefHeight="36.0" prefWidth="80.0" text="Learn" textAlignment="CENTER" textFill="#f07b14" AnchorPane.rightAnchor="360.0" />
+                <Button fx:id="quizButton" alignment="CENTER" contentDisplay="CENTER" layoutX="537.0" layoutY="375.0" mnemonicParsing="false" onMouseClicked="#switchToQuizScene" prefHeight="36.0" prefWidth="80.0" text="Quiz" textAlignment="CENTER" textFill="#f07b14" AnchorPane.rightAnchor="180.0" />
+                <Label alignment="CENTER" layoutX="193.0" layoutY="128.0" prefHeight="58.0" prefWidth="411.0" text="Study Modes" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="193.0">
                     <font>
                         <Font name="Heiti TC Medium" size="57.0" />
                     </font>
                 </Label>
-                <ComboBox fx:id="fileField" layoutX="303.0" layoutY="303.0" onShowing="#displaySetsList" prefHeight="34.0" prefWidth="192.0" promptText="Set Name" style="-fx-background-color: #ffffff; -fx-background-radius: 17PX;" />
+                <ComboBox fx:id="fileField" layoutX="303.0" layoutY="303.0" onShowing="#displaySetsList" prefHeight="34.0" prefWidth="192.0" promptText="Set Name" />
             </children>
         </AnchorPane>
     </center>
     <top>
-        <Button mnemonicParsing="false" onMouseClicked="#SwitchToHomeScene" prefHeight="36.0" prefWidth="80.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17PX;" text="Home" textFill="#f07b14" BorderPane.alignment="TOP_RIGHT">
+        <Button mnemonicParsing="false" onMouseClicked="#SwitchToHomeScene" prefHeight="36.0" prefWidth="80.0" text="Home" textFill="#f07b14" BorderPane.alignment="TOP_RIGHT">
             <BorderPane.margin>
                 <Insets right="10.0" top="10.0" />
             </BorderPane.margin>

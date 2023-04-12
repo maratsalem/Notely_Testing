@@ -6,29 +6,29 @@
 <?import javafx.scene.text.*?>
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600" prefWidth="800" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notely.app.CreateController">
-<GridPane alignment="CENTER" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" HBox.hgrow="ALWAYS">
-    <columnConstraints>
-        <ColumnConstraints percentWidth="-Infinity" />
-    </columnConstraints>
-    <rowConstraints>
-        <RowConstraints percentHeight="-Infinity" />
-    </rowConstraints>
-    <children>
-        <AnchorPane minHeight="600.0" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #ff970f;" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
-            <children>
-                <Button fx:id="createSceneButton" minHeight="45.0" minWidth="94.0" mnemonicParsing="false" onMouseClicked="#SwitchToCreateScene" style="-fx-background-color: FFFFFF; -fx-background-radius: 17px;" text="Create" textFill="#f07b14" translateX="170.0" translateY="453.0" />
-                <Button layoutX="-5.0" mnemonicParsing="false" onMouseClicked="#SwitchToStudyScene" prefHeight="45.0" prefWidth="94.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17px;" text="Study" textFill="#f07b14" translateX="347.5" translateY="453.0" />
-                <Button mnemonicParsing="false" onMouseClicked="#SwitchToSettingScene" prefHeight="48.0" prefWidth="94.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 17px;" text="Settings" textFill="#f07b14" translateX="525.0" translateY="453.0" />
-                <Label layoutX="264.0" layoutY="192.0" text="Notely" textFill="WHITE" AnchorPane.leftAnchor="250.0">
-                    <font>
-                        <Font name="Heiti TC Medium" size="96.0" />
-                    </font>
-                </Label>
-            </children>
-            <rotationAxis>
-                <Point3D />
-            </rotationAxis>
-        </AnchorPane>
-    </children>
-</GridPane>
+    <GridPane alignment="CENTER" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" HBox.hgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="-Infinity" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints percentHeight="-Infinity" />
+        </rowConstraints>
+        <children>
+            <AnchorPane minHeight="600.0" prefHeight="600.0" prefWidth="800.0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                <children>
+                    <Button fx:id="createSceneButton" minHeight="45.0" minWidth="94.0" mnemonicParsing="false" onMouseClicked="#SwitchToCreateScene"  text="Create" textFill="#f07b14" translateX="170.0" translateY="453.0" />
+                    <Button layoutX="-5.0" mnemonicParsing="false" onMouseClicked="#SwitchToStudyScene" prefHeight="45.0" prefWidth="94.0"  text="Study" textFill="#f07b14" translateX="347.5" translateY="453.0" />
+                    <Button mnemonicParsing="false" onMouseClicked="#SwitchToSettingsScene" prefHeight="48.0" prefWidth="94.0" text="Settings" textFill="#f07b14" translateX="525.0" translateY="453.0" />
+                    <Label layoutX="264.0" layoutY="192.0" text="Notely" textFill="WHITE" AnchorPane.leftAnchor="250.0">
+                        <font>
+                            <Font name="Heiti TC Medium" size="96.0" />
+                        </font>
+                    </Label>
+                </children>
+                <rotationAxis>
+                    <Point3D />
+                </rotationAxis>
+            </AnchorPane>
+        </children>
+    </GridPane>
 </HBox>
