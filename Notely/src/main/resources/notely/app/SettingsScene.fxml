@@ -7,12 +7,12 @@
 
 <AnchorPane id="settinggg" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notely.app.CreateController">
     <children>
-        <Label fx:id="settingsLabel" alignment="CENTER" layoutX="242.0" layoutY="95.0" prefHeight="100.0" prefWidth="315.0" text="Settings" textAlignment="CENTER" textFill="WHITE">
+        <Label fx:id="settingsLabel" alignment="CENTER" layoutX="242.0" layoutY="98.0" prefHeight="100.0" prefWidth="315.0" text="Settings" textAlignment="CENTER" textFill="WHITE">
             <font>
                 <Font size="57.0" />
             </font></Label>
-        <Button layoutX="678.0" layoutY="39.0" mnemonicParsing="false" onMouseClicked="#SwitchToHomeScene" prefHeight="38.0" prefWidth="73.0" text="Home" textFill="#f07b14" />
-        <HBox layoutX="216.0" layoutY="236.0" prefHeight="215.0" prefWidth="367.0">
+        <Button layoutX="677.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#SwitchToHomeScene" prefHeight="39.0" prefWidth="100.0" text="Home" textFill="#f07b14" />
+        <HBox id="settingsHBox" layoutX="191.0" layoutY="234.0" prefHeight="215.0" prefWidth="417.0">
             <children>
                 <VBox id="settingBoxID" prefHeight="215.0" prefWidth="190.0">
                     <children>
@@ -33,11 +33,11 @@
                             </padding>
                         </Label>
                     </children></VBox>
-                <VBox id="settingBoxID2" prefHeight="215.0" prefWidth="190.0">
+                <VBox id="settingBoxID2" prefHeight="215.0" prefWidth="225.0">
                     <children>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                             <children>
-                                <CheckBox fx:id="darkModeCheck" contentDisplay="GRAPHIC_ONLY" layoutX="75.0" layoutY="30.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="14.0" text="Yes">
+                                <CheckBox fx:id="darkModeCheck" contentDisplay="GRAPHIC_ONLY" layoutX="79.0" layoutY="33.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="14.0" text="Yes">
                                     <font>
                                         <Font size="16.0" />
                                     </font>
@@ -46,11 +46,11 @@
                         </AnchorPane>
                         <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
                             <children>
-                                <ComboBox id="fontStyleComboBox" fx:id="fontStylesComboBox" layoutX="19.0" layoutY="23.0" onShowing="#displayFontStyles" prefHeight="53.0" prefWidth="150.0" promptText="Select font" />
+                                <ComboBox id="fontStyleComboBox" fx:id="fontStylesComboBox" layoutY="6.0" onShowing="#displayFontStyles" prefHeight="54.0" prefWidth="194.0" promptText="Select font" />
                             </children></AnchorPane>
                     </children></VBox>
             </children>
         </HBox>
-        <Button layoutX="677.0" layoutY="518.0" mnemonicParsing="false" onMouseClicked="#applySettings" prefHeight="38.0" prefWidth="74.0" text="Apply" textFill="#f07b14" />
+        <Button layoutX="303.0" layoutY="469.0" mnemonicParsing="false" onMouseClicked="#applySettings" prefHeight="38.0" prefWidth="193.0" text="Apply Changes" textFill="#f07b14" />
     </children>
 </AnchorPane>

@@ -20,7 +20,7 @@
 
 .button{
     -fx-background-color: #FFFFFF;
-    -fx-background-radius: 17px;
+    -fx-background-radius: 20px;
     -fx-text-fill: #f07b14;
 }
 
@@ -42,6 +42,10 @@
 .split-pane{
      -fx-base:  #ff970f;
      -fx-background-color: #ff970f;
+}
+
+#homeScreenButton{
+     -fx-background-radius: 25px;
 }
 
 #learnPane{
@@ -69,7 +73,7 @@
 
 #correctButton{
      -fx-background-color: #2BCC00;
-     -fx-text-fill: #ff970f;
+     -fx-text-fill: #FFFFFF;
 }
 
 #flipLearnButton{
@@ -82,14 +86,9 @@
      -fx-text-fill: #FFFFFF;
 }
 
-#settingBoxID{
+#settingsHBox{
+    -fx-background-radius: 20px;
      -fx-background-color: #fabd6e;
-     -fx-background-radius: 5px;
-}
-
-#settingBoxID2{
-     -fx-background-color: #fabd6e;
-     -fx-background-radius: 5px;
 }
 
 #importTitle{
@@ -104,6 +103,10 @@
 #quizBackPane{
      -fx-background-color: #FFFFFF;
      -fx-background-radius: 25px;
+}
+
+#backPane{
+    -fx-background-color: transparent;
 }
 
 #reviewButton{

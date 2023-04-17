@@ -20,7 +20,7 @@
 
 .button{
     -fx-background-color: #B2A4FF;
-    -fx-background-radius: 17px;
+    -fx-background-radius: 20px;
     -fx-text-fill: #FFFFFF;
 }
 
@@ -42,6 +42,10 @@
 .split-pane{
      -fx-base: #313170;
      -fx-background-color: #313170
+}
+
+#homeScreenButton{
+     -fx-background-radius: 25px;
 }
 
 #learnPane{
@@ -83,14 +87,9 @@
      -fx-text-fill: #FFFFFF;
 }
 
-#settingBoxID{
+#settingsHBox{
+     -fx-background-radius: 20px;
      -fx-background-color: #B2A4FF;
-     -fx-background-radius: 5px;
-}
-
-#settingBoxID2{
-     -fx-background-color: #B2A4FF;
-     -fx-background-radius: 5px;
 }
 
 #importTitle{
@@ -100,6 +99,11 @@
 #helpScreenImport{
     -fx-background-color: #576CBC;
     -fx-background-radius: 17px;
+}
+
+#pasteArea{
+    -fx-prompt-text-fill: lightgray;
+    -fx-text-fill: lightgray;
 }
 
 #quizBackPane{
@@ -126,4 +130,8 @@
          -fx-background-color: #B2A4FF;
          -fx-text-fill: #FFFFFF;
          -fx-background-radius: 17px;
+}
+
+#fontStyleComboBox{
+    -fx-background-color: #313170;
 }

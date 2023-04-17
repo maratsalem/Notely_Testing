@@ -9,7 +9,7 @@
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-                <AnchorPane id="learnPane" layoutX="161.0" layoutY="52.0" prefHeight="453.0" prefWidth="477.0" >
+                <AnchorPane id="learnPane" layoutX="161.0" layoutY="52.0" prefHeight="453.0" prefWidth="477.0">
                     <children>
                         <Label fx:id="topLabel" alignment="CENTER" prefHeight="38.0" prefWidth="477.0" text="Term" textAlignment="CENTER" AnchorPane.bottomAnchor="427.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0">
                             <font>
@@ -18,11 +18,11 @@
                         </Label>
                         <Label fx:id="textLabel" alignment="CENTER" contentDisplay="TOP" layoutX="4.0" layoutY="111.0" prefHeight="291.0" prefWidth="469.0" text="Press Any Key to Continue" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="103.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="5.0">
                             <font>
-                                <Font name="Heiti TC Light" size="28.0" />
+                                <Font size="24.0" />
                             </font>
                         </Label>
-                        <Button id="flipLearnButton" fx:id="flipLearnButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="69.0" layoutY="395.0" mnemonicParsing="false" onMouseClicked="#onFlipQueue" prefHeight="40.0" prefWidth="340.0"  text="Flip" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="69.0" AnchorPane.rightAnchor="70.0" />
-                        <Button id="correctButton" fx:id="correctButton" disable="true" layoutX="14.0" layoutY="411.0" mnemonicParsing="false" onMouseClicked="#correctAnswer" prefHeight="37.0" prefWidth="39.0"  text="✓" textFill="WHITE" />
+                        <Button id="flipLearnButton" fx:id="flipLearnButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="69.0" layoutY="395.0" mnemonicParsing="false" onMouseClicked="#onFlipQueue" prefHeight="40.0" prefWidth="340.0" text="Flip" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="69.0" AnchorPane.rightAnchor="70.0" />
+                        <Button id="correctButton" fx:id="correctButton" disable="true" layoutX="14.0" layoutY="411.0" mnemonicParsing="false" onMouseClicked="#correctAnswer" prefHeight="37.0" prefWidth="39.0" text="✓" textFill="WHITE" />
                         <Button id="incorrectButton" fx:id="incorrectButton" disable="true" layoutX="424.0" layoutY="411.0" mnemonicParsing="false" onMouseClicked="#incorrectAnswer" prefHeight="37.0" prefWidth="39.0" text="X" textFill="WHITE" />
                     </children>
                 </AnchorPane>
@@ -40,8 +40,8 @@
                 <Insets right="10.0" top="10.0" />
             </BorderPane.margin>
             <children>
-                <Button mnemonicParsing="false" onMouseClicked="#SwitchToStudyScene" prefHeight="30.0" prefWidth="147.0" text="Select another set." textFill="#f07b14" AnchorPane.rightAnchor="625.0" AnchorPane.topAnchor="0.0" />
-                <Button mnemonicParsing="false" onMouseClicked="#SwitchToHomeScene" prefHeight="30.0" prefWidth="63.0" text="Home" textFill="#f07b14" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0" />
+                <Button mnemonicParsing="false" onMouseClicked="#SwitchToStudyScene" prefHeight="39.0" prefWidth="170.0" text="Select another set." textFill="#f07b14" AnchorPane.rightAnchor="590.0" AnchorPane.topAnchor="5.0" />
+                <Button mnemonicParsing="false" onMouseClicked="#SwitchToHomeScene" prefHeight="39.0" prefWidth="100.0" text="Home" textFill="#f07b14" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0" />
             </children>
         </AnchorPane>
     </top>

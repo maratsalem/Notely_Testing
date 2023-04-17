@@ -11,6 +11,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import java.io.*;
@@ -35,7 +37,6 @@ public class CreateController {
     @FXML Button flipLearnButton;
     @FXML Button correctButton;
     @FXML Button incorrectButton;
-    @FXML Button createSceneButton;
     @FXML TextField setNumber;
     @FXML TextField newTerm;
     @FXML TextField newDef;
@@ -104,10 +105,10 @@ public class CreateController {
         String checkPathString = "Notely/src/main/java/notely/app/Notecard/" + checkingPathString + ".txt"; //default
 
         if (new File(fileMacPath).exists()) { // ./  for MACOS and ../ for Windows
-            System.out.println("FileMac");
+            //System.out.println("FileMac");
             checkPathString = fileMacPath;
         } else if (new File(fileWindowsPath).exists()) {
-            System.out.println("FileWindows");
+            //System.out.println("FileWindows");
             checkPathString = fileWindowsPath;
         }
         return checkPathString;
@@ -264,6 +265,7 @@ public class CreateController {
     }
 
     public void switchToQuizScene(MouseEvent event) throws IOException {
+        quizBackPane.setVisible(true);
         if (fileField.getValue() == null || fileField.getValue().toString().equals("")) {
             fileField.setPromptText("Please select a set");
             fileField.getItems().add(null);
@@ -953,59 +955,74 @@ public class CreateController {
     }
     @FXML
     protected void displayTermsAndDefinitions() {
-            String setName = fileField.getValue().toString();
+        if (fileField.getValue() == null) {
+            fileField.setPromptText("Please select a Set");
+            return;
+        }
+        String setName = fileField.getValue().toString();
+        if (!checkPath(setName).isEmpty()) {
+            String fileName = checkPath(setName);
+            File file = new File(fileName);
+            if (file.exists()) {
+                try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+                    String line;
+                    int counter = 1;
 
-            if (!checkPath(setName).isEmpty()) {
-                String fileName = checkPath(setName);
-                File file = new File(fileName);
-                if (file.exists()) {
-                    try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-                        String line;
-                        int counter = 1;
+                    // Clear existing notecards from termList
+                    termList.getChildren().clear();
 
-                        // Clear existing notecards from termList
-                        termList.getChildren().clear();
+                    while ((line = br.readLine()) != null) {
+                        if (counter > 2) {
+                            String[] parts = line.split("@");
+                            if (parts.length >= 2) {
+                                AnchorPane notecard = new AnchorPane();
 
-                        while ((line = br.readLine()) != null) {
-                            if (counter > 2) {
-                                String[] parts = line.split("@");
-                                if (parts.length >= 2) {
-                                    AnchorPane notecard = new AnchorPane();
+                                Label setNumberLabel = new Label("Notecard " + (counter - 2));
+                                setNumberLabel.setStyle("-fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold");
+                                Label termLabel = new Label("Term " + (counter - 2) + ": " + parts[0]);
+                                termLabel.setStyle("-fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold");
+                                Label definitionLabel = new Label("Definition " + (counter - 2) + ": " + parts[1]);
+                                definitionLabel.setStyle("-fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold");
 
-                                    Label setNumberLabel = new Label("Notecard " + (counter - 2));
-                                    setNumberLabel.setStyle("-fx-text-fill: white");
-                                    Label termLabel = new Label("Term " + (counter - 2) + ": " + parts[0]);
-                                    termLabel.setStyle("-fx-text-fill: white");
-                                    Label definitionLabel = new Label("Definition " + (counter - 2) + ": " + parts[1]);
-                                    definitionLabel.setStyle("-fx-text-fill: white");
-
-                                    notecard.getChildren().addAll(setNumberLabel, termLabel, definitionLabel);
-
-                                    // Position the notecard within termList
-                                    double y = (counter - 3) * 80;
-                                    notecard.setLayoutX(0);
-                                    notecard.setLayoutY(y);
-
-                                    setNumberLabel.setLayoutX(10);
-                                    setNumberLabel.setLayoutY(10);
-                                    termLabel.setLayoutX(10);
-                                    termLabel.setLayoutY(40);
-                                    definitionLabel.setLayoutX(10);
-                                    definitionLabel.setLayoutY(60);
-
-                                    termList.getChildren().add(notecard); // add notecard to termList
+                                Line separatorLine = new Line();
+                                separatorLine.setStartX(0);
+                                separatorLine.setStartY(85);
+                                separatorLine.setEndX(400);
+                                separatorLine.setEndY(85);
+                                separatorLine.setStroke(Color.web("#ff970f"));
+                                if(darkMode){
+                                    separatorLine.setStroke(Color.web("#313170"));
                                 }
+
+                                notecard.getChildren().addAll(setNumberLabel, termLabel, definitionLabel, separatorLine);
+
+                                // Position the notecard within termList
+                                double y = (counter - 3) * 80;
+                                notecard.setLayoutX(0);
+                                notecard.setLayoutY(y);
+
+                                setNumberLabel.setLayoutX(10);
+                                setNumberLabel.setLayoutY(10);
+                                termLabel.setLayoutX(10);
+                                termLabel.setLayoutY(40);
+                                definitionLabel.setLayoutX(10);
+                                definitionLabel.setLayoutY(60);
+
+                                termList.getChildren().add(notecard); // add notecard to termList
                             }
-                            counter++;
                         }
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        counter++;
                     }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
+        }
     }
 
     //below methods used to edit a set
+
+    @FXML Label deleteLabel;
     @FXML
     public void deleteSet() throws IOException {
         // initialize the setName file, the file we want to delete, and the string we are deleting
@@ -1014,7 +1031,14 @@ public class CreateController {
         String deleteName = fileField.getValue().toString();
 
         //delete the set the user no longer wants
-        deleteFile.delete();
+
+        if(deleteFile.delete()) {
+            deleteLabel.setText(deleteName + " has been successfully deleted.");
+        } else if (fileField.getValue() == null){
+            deleteLabel.setText("Please select a set to delete.");
+        } else {
+            deleteLabel.setText(deleteName + " has not been deleted.");
+        }
 
         BufferedReader readingSetNames = new BufferedReader(new InputStreamReader(new FileInputStream(setNameFile)));
 
@@ -1135,6 +1159,7 @@ public class CreateController {
     public void multipleChoiceSetUp() throws IOException {
         quiz.reset();
         readFile(file);
+        selectAnotherSet.setVisible(false);
 
         for (int i = 0; i < currentStudySet.size(); i++) {
             quiz.addNoteCard(currentStudySet.get(i));
@@ -1155,7 +1180,7 @@ public class CreateController {
         reviewButton.setDisable(true);
         reviewButton.setOpacity(0);
         updateQuizQuestion();
-//        quiz.Quiz(); //for testing purposes
+        // quiz.Quiz(); //for testing purposes
     }
     @FXML
     public void TLMultipleChoiceAnswer() {mChoiceAnswer(topLeftAnswer.getText());}
@@ -1187,8 +1212,8 @@ public class CreateController {
     public void endQuiz() {
         quiz.endQuiz();
         multChoiceQuestion.setText("Quiz Complete. Score: " + quiz.getNumberCorrect() + "/" + quiz.getQuizSize() + " (" + Math.round(quiz.getQuizScore()) + "%)");
-        reviewScore.setText("Score: " + quiz.getNumberCorrect() + "/" + quiz.getQuizSize() + " (" + Math.round(quiz.getQuizScore()) + "%)");
-        MCSetupButton.setDisable(false);
+        reviewScore.setText("   Score: " + quiz.getNumberCorrect() + "/" + quiz.getQuizSize() + " (" + Math.round(quiz.getQuizScore()) + "%)");
+        MCSetupButton.setDisable(true);
         topLeftAnswer.setDisable(true);
         topRightAnswer.setDisable(true);
         bottomLeftAnswer.setDisable(true);
@@ -1244,12 +1269,17 @@ public class CreateController {
     @FXML Label reviewTitle;
     @FXML Label reviewScore;
     @FXML Label reviewSet;
-    @FXML void reviewButtonClicked() throws IOException {
-        reviewSet.setText(titleLabel.getText());
+
+    @FXML Button selectAnotherSet;
+    @FXML AnchorPane quizBackPane = new AnchorPane();
+    @FXML void reviewButtonClicked() {
+        reviewSet.setText("    " + titleLabel.getText());
         titleLabel.setText("");
         reviewPane.setDisable(false);
         reviewPane.setOpacity(1);
         reviewTitle.setOpacity(1);
+        quizBackPane.setVisible(false);
+        selectAnotherSet.setVisible(true);
 
         for (int i = 0; i < review.getReviewSize(); i++) {
             generateReview(i);
@@ -1261,16 +1291,12 @@ public class CreateController {
 
         Label answerLabel = new Label("Answer:");
         Label userAnswerLabel = new Label("Your Answer:");
-
         Label dynamicAnswerLabel = new Label(review.getCorrectAnswer(i));
-        dynamicAnswerLabel.setFont(new Font(21));
-        dynamicAnswerLabel.setPrefSize(309, 44);
         Label dynamicUserAnswerLabel = new Label(review.getUserAnswer(i));
-        dynamicUserAnswerLabel.setFont(new Font(21));
-        dynamicUserAnswerLabel.setPrefSize(309, 44);
-
         Label numberTermLabel = new Label("Question " + (i+1) + ": " + review.getQuestion(i));
-        numberTermLabel.setFont(new Font(17));
+
+        dynamicAnswerLabel.setPrefSize(309, 44);
+        dynamicUserAnswerLabel.setPrefSize(309, 44);
 
         Pane answerPane = new Pane(dynamicAnswerLabel);
         answerPane.setStyle("-fx-background-radius: 17; -fx-background-color: #ffffffff;");
@@ -1284,6 +1310,9 @@ public class CreateController {
         dynamicUserAnswerLabel.setLayoutX(5);
         dynamicUserAnswerLabel.setLayoutY(0);
         userAnswerPane.setStyle("-fx-background-radius: 17; -fx-background-color: #ff7878;");
+        if(darkMode){
+            dynamicAnswerLabel.setStyle("-fx-text-fill: black;");
+        }
         if (review.getCorrectness(i)) {userAnswerPane.setStyle("-fx-background-radius: 17; -fx-background-color: #45f25f;");}
 
         answerPane.setPrefSize(309, 44);
@@ -1291,6 +1320,7 @@ public class CreateController {
 
         AnchorPane newInsertField = new AnchorPane(answerLabel, userAnswerLabel, answerPane, userAnswerPane, numberTermLabel);
 
+        newInsertField.setMinSize(708,120);
         createVbox.getChildren().add(newInsertField);
 
         if (createVbox.getChildren().size() > 1) {
