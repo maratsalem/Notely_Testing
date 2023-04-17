@@ -22,7 +22,7 @@
         </AnchorPane>
     </center>
     <top>
-        <Button mnemonicParsing="false" onMouseClicked="#SwitchToHomeScene" prefHeight="36.0" prefWidth="80.0" text="Home" textFill="#f07b14" BorderPane.alignment="TOP_RIGHT">
+        <Button mnemonicParsing="false" onMouseClicked="#SwitchToHomeScene" prefHeight="39.0" prefWidth="100.0" text="Home" textFill="#f07b14" translateX="-10.0" translateY="5.0" BorderPane.alignment="TOP_RIGHT">
             <BorderPane.margin>
                 <Insets right="10.0" top="10.0" />
             </BorderPane.margin>

@@ -16,7 +16,7 @@
             <Font size="19.0" />
          </font>
       </TextField>
-      <Button layoutX="705.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#SwitchToHomeScene" prefHeight="34.0" prefWidth="71.0" text="Home" textFill="#f07b14" />
+      <Button layoutX="680.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#SwitchToHomeScene" prefHeight="39.0" prefWidth="100.0" text="Home" textFill="#f07b14" />
       <TextField fx:id="folderImport" layoutX="46.0" layoutY="117.0" prefHeight="34.0" prefWidth="377.0" promptText="Folder" visible="false">
          <font>
             <Font size="17.0" />
@@ -24,7 +24,7 @@
       </TextField>
       <Button fx:id="helpButton" layoutX="724.0" layoutY="551.0" mnemonicParsing="false" onMouseClicked="#helpPopUp" prefHeight="34.0" prefWidth="33.0" text="?" textFill="#f07b14" visible="false" />
       <Button fx:id="saveImportButton" layoutX="365.0" layoutY="551.0" mnemonicParsing="false" onMouseClicked="#saveImport" prefHeight="34.0" prefWidth="116.0" text="Save Set" textFill="#f07b14" visible="false" />
-      <TextArea fx:id="pasteArea" layoutX="46.0" layoutY="158.0" prefHeight="378.0" prefWidth="708.0" promptText="Paste Read Only Text Here" visible="false">
+      <TextArea id="pasteArea" fx:id="pasteArea" layoutX="46.0" layoutY="158.0" prefHeight="378.0" prefWidth="708.0" promptText="Paste Read Only Text Here" visible="false">
          <font>
             <Font size="14.0" />
          </font>
@@ -81,7 +81,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Button layoutX="237.0" layoutY="445.0" mnemonicParsing="false" onMouseClicked="#closePopUp" prefHeight="34.0" prefWidth="71.0" text="Done" textFill="WHITE" />
+            <Button layoutX="224.0" layoutY="445.0" mnemonicParsing="false" onMouseClicked="#closePopUp" prefHeight="34.0" prefWidth="100.0" text="Done" textFill="WHITE" />
          </children>
       </AnchorPane>
    </children>
