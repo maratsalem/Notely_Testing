@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" onKeyTyped="#updateLabel" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notely.app.CreateController">
+    <center>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+                <AnchorPane id="viewPane" layoutX="161.0" layoutY="52.0" prefHeight="453.0" prefWidth="477.0">
+                    <children>
+                        <Label fx:id="topLabel" alignment="CENTER" layoutY="-6.0" prefHeight="38.0" prefWidth="477.0" text="Term" textAlignment="CENTER" AnchorPane.bottomAnchor="421.20000000000005" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0">
+                            <font>
+                                <Font name="Heiti TC Light" size="13.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="textLabel" alignment="CENTER" contentDisplay="TOP" layoutX="4.0" layoutY="108.0" prefHeight="291.0" prefWidth="469.0" text="Press Any Key to Continue" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="109.60000000000002" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="5.0">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                        <Button id="leftButton" fx:id="leftButton" disable="true" layoutX="424.0" layoutY="411.0" mnemonicParsing="false" onMouseClicked="#onRightClick" prefHeight="37.0" prefWidth="39.0" text="&gt;" textFill="WHITE" AnchorPane.bottomAnchor="10.399999999999977" AnchorPane.rightAnchor="14.400000000000034" />
+                        <Button id="rightButton" fx:id="rightButton" disable="true" layoutX="14.0" layoutY="411.0" mnemonicParsing="false" onMouseClicked="#onLeftClick" prefHeight="37.0" prefWidth="39.0" text="&lt;" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
+                        <Button id="flipButton" fx:id="flipButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="69.0" layoutY="395.0" mnemonicParsing="false" onMouseClicked="#onFlipClick" prefHeight="40.0" prefWidth="340.0" text="Flip" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="69.0" AnchorPane.rightAnchor="70.0" />
+                    </children>
+                </AnchorPane>
+                <Label fx:id="titleLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="242.0" layoutY="14.0" prefHeight="14.0" prefWidth="315.0" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Heiti TC Light" size="23.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+    </center>
+    <top>
+        <AnchorPane BorderPane.alignment="TOP_RIGHT">
+            <BorderPane.margin>
+                <Insets right="10.0" top="10.0" />
+            </BorderPane.margin>
+            <children>
+                <Button mnemonicParsing="false" onMouseClicked="#SwitchToHomeScene" prefHeight="39.0" prefWidth="100.0" text="Home" textFill="#f07b14" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0" />
+                <Button layoutX="28.0" mnemonicParsing="false" onMouseClicked="#SwitchToStudyScene" prefHeight="39.0" prefWidth="170.0" text="Select another set." textFill="#f07b14" AnchorPane.rightAnchor="590.0" AnchorPane.topAnchor="5.0" />
+            </children>
+        </AnchorPane>
+    </top>
+</BorderPane>

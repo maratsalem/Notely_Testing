@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notely.app.CreateController">
+    <center>
+        <AnchorPane BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="viewButton" alignment="CENTER" contentDisplay="CENTER" layoutX="127.0" layoutY="375.0" mnemonicParsing="false" onMouseClicked="#SwitchToViewScene" prefHeight="66.0" prefWidth="131.0" text="View" textAlignment="CENTER" textFill="#f07b14" AnchorPane.leftAnchor="127.0" />
+                <Button fx:id="learnButton" alignment="CENTER" contentDisplay="CENTER" layoutX="333.0" layoutY="375.0" mnemonicParsing="false" onMouseClicked="#SwitchToLearnScene" prefHeight="66.0" prefWidth="131.0" text="Learn" textAlignment="CENTER" textFill="#f07b14" AnchorPane.rightAnchor="335.8" />
+                <Button fx:id="quizButton" alignment="CENTER" contentDisplay="CENTER" layoutX="538.0" layoutY="375.0" mnemonicParsing="false" onMouseClicked="#switchToQuizScene" prefHeight="66.0" prefWidth="131.0" text="Quiz" textAlignment="CENTER" textFill="#f07b14" AnchorPane.rightAnchor="130.79999999999995" />
+                <Label alignment="CENTER" layoutX="193.0" layoutY="128.0" prefHeight="58.0" prefWidth="411.0" text="Study Modes" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="193.0">
+                    <font>
+                        <Font name="Heiti TC Medium" size="57.0" />
+                    </font>
+                </Label>
+                <ComboBox fx:id="fileField" layoutX="286.0" layoutY="271.0" onShowing="#displaySetsList" prefHeight="47.0" prefWidth="226.0" promptText="Set Name" />
+            </children>
+        </AnchorPane>
+    </center>
+    <top>
+        <Button mnemonicParsing="false" onMouseClicked="#SwitchToHomeScene" prefHeight="39.0" prefWidth="100.0" text="Home" textFill="#f07b14" translateX="-10.0" translateY="5.0" BorderPane.alignment="TOP_RIGHT">
+            <BorderPane.margin>
+                <Insets right="10.0" top="10.0" />
+            </BorderPane.margin>
+        </Button>
+    </top>
+</BorderPane>
