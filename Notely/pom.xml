@@ -163,10 +163,10 @@
                         </goals>
                         <configuration>
                             <targetClasses>
-                                <param>com.example.StringWorker*</param>
+                                <param>notely.app.CreateController</param>
                             </targetClasses>
                             <targetTests>
-                                <param>com.example.StringTest*</param>
+                                <param>com.example.WriteToTextFileTest</param>
                             </targetTests>
                         </configuration>
                     </execution>
