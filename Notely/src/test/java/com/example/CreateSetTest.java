@@ -22,6 +22,19 @@ public class CreateSetTest {
     private final String testFolderName = "testFolder";
     private final String testFilePath = "Notely/src/main/java/notely/app/Notecard/testSet.txt";
 
+    @BeforeAll
+    public static void initJFX() throws InterruptedException {
+        // Initialize JavaFX toolkit
+        CountDownLatch latch = new CountDownLatch(1);
+        Platform.startup(() -> {
+            // JavaFX toolkit is now initialized
+            latch.countDown();
+        });
+        if (!latch.await(5, TimeUnit.SECONDS)) {
+            throw new RuntimeException("Timeout waiting for JavaFX initialization");
+        }
+    }
+
     @BeforeEach
     void setUp() throws InterruptedException {
         MockitoAnnotations.openMocks(this);
@@ -36,23 +49,42 @@ public class CreateSetTest {
             createController.folderInputC.setText(testFolderName);
             latch.countDown();
         });
-        latch.await(3, TimeUnit.SECONDS); // Wait for JavaFX thread to complete
+        if (!latch.await(5, TimeUnit.SECONDS)) {
+            throw new RuntimeException("Timeout waiting for JavaFX component setup");
+        }
     }
 
     @AfterEach
     void tearDown() throws IOException {
-        Files.deleteIfExists(Path.of(testFilePath)); // Cleanup test file
+        // Cleanup test file
+        try {
+            Files.deleteIfExists(Path.of(testFilePath));
+        } catch (IOException e) {
+            System.err.println("Warning: Could not delete test file: " + e.getMessage());
+        }
     }
 
     @Test
-    void testCreateSet_Success() throws IOException {
+    void testCreateSet_Success() throws IOException, InterruptedException {
         File testFile = new File(testFilePath);
         assertFalse(testFile.exists()); // Ensure file does not exist initially
 
-        boolean result = createController.createSet(testSetName, testFolderName);
+        CountDownLatch testLatch = new CountDownLatch(1);
+        boolean[] result = new boolean[1];
 
-        assertTrue(result);
+        Platform.runLater(() -> {
+            try {
+                result[0] = createController.createSet(testSetName, testFolderName);
+                testLatch.countDown();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        assertTrue(testLatch.await(5, TimeUnit.SECONDS), "Test timed out");
+        assertTrue(result[0]);
         assertTrue(testFile.exists()); // File should be created
+
         List<String> lines = Files.readAllLines(Path.of(testFilePath));
         assertEquals(2, lines.size());
         assertEquals(testSetName, lines.get(0)); // Title should be on the first line
@@ -60,23 +92,43 @@ public class CreateSetTest {
     }
 
     @Test
-    void testCreateSet_AlreadyExists() throws IOException {
+    void testCreateSet_AlreadyExists() throws IOException, InterruptedException {
         File testFile = new File(testFilePath);
         testFile.createNewFile(); // Simulate existing file
 
-        boolean result = createController.createSet(testSetName, testFolderName);
+        CountDownLatch testLatch = new CountDownLatch(1);
+        boolean[] result = new boolean[1];
 
-        assertFalse(result);
+        Platform.runLater(() -> {
+            try {
+                result[0] = createController.createSet(testSetName, testFolderName);
+                testLatch.countDown();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        assertTrue(testLatch.await(5, TimeUnit.SECONDS), "Test timed out");
+        assertFalse(result[0]);
     }
 
     @Test
-    void testCreateSet_InvalidInputs() throws IOException {
+    void testCreateSet_InvalidInputs() throws InterruptedException {
+        CountDownLatch latch = new CountDownLatch(1);
+        boolean[] result = new boolean[1];
+
         Platform.runLater(() -> {
             createController.titleInputC.setText("");
             createController.folderInputC.setText("");
+            try {
+                result[0] = createController.createSet("", ""); // Empty title and folder
+                latch.countDown();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
 
-        boolean result = createController.createSet("", ""); // Empty title and folder
-        assertFalse(result);
+        assertTrue(latch.await(5, TimeUnit.SECONDS), "Test timed out");
+        assertFalse(result[0]);
     }
 }
