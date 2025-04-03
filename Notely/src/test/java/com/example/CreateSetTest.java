@@ -22,18 +22,7 @@ public class CreateSetTest {
     private final String testFolderName = "testFolder";
     private final String testFilePath = "Notely/src/main/java/notely/app/Notecard/testSet.txt";
 
-    @BeforeAll
-    public static void initJFX() throws InterruptedException {
-        // Initialize JavaFX toolkit
-        CountDownLatch latch = new CountDownLatch(1);
-        Platform.startup(() -> {
-            // JavaFX toolkit is now initialized
-            latch.countDown();
-        });
-        if (!latch.await(5, TimeUnit.SECONDS)) {
-            throw new RuntimeException("Timeout waiting for JavaFX initialization");
-        }
-    }
+
 
     @BeforeEach
     void setUp() throws InterruptedException {

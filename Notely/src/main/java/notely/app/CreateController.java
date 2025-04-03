@@ -62,11 +62,11 @@ public class CreateController {
     @FXML
     AnchorPane importPane;
     @FXML
-    TextField titleImport;
+    public TextField titleImport;
     @FXML
-    TextField folderImport;
+    public TextField folderImport;
     @FXML
-    TextArea pasteArea;
+    public TextArea pasteArea;
     @FXML
     Button saveImportButton;
     @FXML
@@ -76,7 +76,7 @@ public class CreateController {
     @FXML ComboBox fontStylesComboBox;
     @FXML CheckBox darkModeCheck;
     static String fontStyle = "System";
-    static boolean darkMode = false;
+    public static boolean darkMode = false;
     private Stage stage;
     private Scene scene;
     private Parent root;

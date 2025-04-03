@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.example.CreateSetTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2025-04-03T04:37:35.955Z" hostname="EMLAPTOP" time="0.412">
-  <properties/>
-  <testcase name="testCreateSet_Success()" classname="com.example.CreateSetTest" time="0.401"/>
-  <testcase name="testCreateSet_InvalidInputs()" classname="com.example.CreateSetTest" time="0.003"/>
-  <testcase name="testCreateSet_AlreadyExists()" classname="com.example.CreateSetTest" time="0.004"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
