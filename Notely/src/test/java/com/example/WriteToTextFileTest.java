@@ -17,93 +17,121 @@ public class WriteToTextFileTest {
     private final CreateController writeToTextFile = new CreateController();
     private final String setName = "testFileName";
     private final String folderName = "testFolderName";
+    private final String logFilePath = "Notely/src/main/java/notely/app/Notecard/test_output.txt";
 
     @BeforeEach
     void setUp() throws IOException {
-            // Ensure the file path exists
-            Path filePath = Path.of("Notely/src/main/java/notely/app/Notecard/testFileName.txt");
-            Files.createDirectories(filePath.getParent());
+        // Ensure the file path exists
+        Path filePath = Path.of("Notely/src/main/java/notely/app/Notecard/testFileName.txt");
+        Files.createDirectories(filePath.getParent());
 
-            // Write default values to the file
-            List<String> initialLines = List.of(setName, folderName);
-            Files.write(filePath, initialLines);
+        // Write default values to the file
+        List<String> initialLines = List.of(setName, folderName);
+        Files.write(filePath, initialLines);
+
+        // Ensure the log file exists
+        Files.createFile(Path.of(logFilePath));
     }
 
     @AfterEach
     void tearDown() throws IOException, InterruptedException {
-        Files.deleteIfExists(Path.of("Notely/src/main/java/notely/app/Notecard/testTitleName.txt"));
-        Thread.sleep(100); //for OS issues
+        Files.deleteIfExists(Path.of("Notely/src/main/java/notely/app/Notecard/testFileName.txt"));
+        Files.deleteIfExists(Path.of(logFilePath));
+        Thread.sleep(100); // Prevent OS file handling issues
+    }
+
+    private void logTestResult(String testName, List<String> fileContents) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(logFilePath, true))) {
+            writer.write("Test: " + testName + "\n");
+            writer.write("File Contents:\n");
+            for (String line : fileContents) {
+                writer.write(line + "\n");
+            }
+            writer.write("------------------------------------------------------\n");
+        }
     }
 
     @Test
     void testWriteToTextFile_AppendsCorrectly() throws IOException {
-        // Prepare new term-definition pairs
         ArrayList<String> newEntries = new ArrayList<>();
         newEntries.add("NewTerm");
         newEntries.add("NewDefinition");
 
-
-
         writeToTextFile.writeToTextFile(newEntries, setName, folderName);
 
         String testFilePath = "Notely/src/main/java/notely/app/Notecard/testFileName.txt";
-
-        // Read the file contents after ensuring it exists
         List<String> lines = Files.readAllLines(Path.of(testFilePath));
 
-        // Debugging output (print contents to verify correct read)
-        System.out.println("Write File test " + lines);
+        logTestResult("testWriteToTextFile_AppendsCorrectly", lines);
 
-        // Assertions
-        assertEquals(3, lines.size()); // Expecting 3 lines: title, folder, and term@def pair
-        assertEquals("testFileName", lines.get(0)); // Title should be at line 1
-        assertEquals("testFolderName", lines.get(1)); // Folder name should be at line 2
-        assertEquals("NewTerm@NewDefinition", lines.get(2)); // Term-definition pair at line 3
+        assertEquals(3, lines.size());
+        assertEquals("testFileName", lines.get(0));
+        assertEquals("testFolderName", lines.get(1));
+        assertEquals("NewTerm@NewDefinition", lines.get(2));
     }
-
 
     @Test
     void noNullDefinition() throws IOException {
-
-        // Prepare new term-definition pairs
         ArrayList<String> newEntries = new ArrayList<>();
         newEntries.add("NewTerm");
         newEntries.add("");
 
-        writeToTextFile.writeToTextFile(newEntries, "testFileName", "TestFolderName");
+        writeToTextFile.writeToTextFile(newEntries, setName, folderName);
 
         String testFilePath = "Notely/src/main/java/notely/app/Notecard/testFileName.txt";
-
-        // Read the file contents
         List<String> lines = Files.readAllLines(Path.of(testFilePath));
-        System.out.println("Null def test" + lines);
 
-        // Assertions
-        assertEquals("testFileName", lines.get(0)); // Title should be at line 1
-        assertEquals("testFolderName", lines.get(1)); // Folder name should be at line 2
-        assertEquals(2, lines.size()); // file will not write any information
+        logTestResult("noNullDefinition", lines);
+
+        assertEquals(2, lines.size());
     }
 
     @Test
     void noNullTerm() throws IOException {
-
-        // Prepare new term-definition pairs
         ArrayList<String> newEntries = new ArrayList<>();
         newEntries.add("");
         newEntries.add("NewDefinition");
 
-
         writeToTextFile.writeToTextFile(newEntries, setName, folderName);
+
         String testFilePath = "Notely/src/main/java/notely/app/Notecard/testFileName.txt";
-
-        // Read the file contents
         List<String> lines = Files.readAllLines(Path.of(testFilePath));
-        System.out.println("Null term test " + lines);
 
-        // Assertions
-        assertEquals("testFileName", lines.get(0)); // Title should be at line 1
-        assertEquals("testFolderName", lines.get(1)); // Folder name should be at line 2
-        assertEquals(2, lines.size()); // file will not write any information
+        logTestResult("noNullTerm", lines);
+
+        assertEquals(2, lines.size());
     }
 
+    @Test
+    void testSpecialCharacters() throws IOException {
+        ArrayList<String> newEntries = new ArrayList<>();
+        newEntries.add("Term@Special");
+        newEntries.add("Definition\nWithNewLine");
+
+        writeToTextFile.writeToTextFile(newEntries, setName, folderName);
+
+        String testFilePath = "Notely/src/main/java/notely/app/Notecard/testFileName.txt";
+        List<String> lines = Files.readAllLines(Path.of(testFilePath));
+
+        logTestResult("testSpecialCharacters", lines);
+
+        assertEquals(4, lines.size());
+    }
+
+    @Test
+    void testWhitespaceHandling() throws IOException {
+        ArrayList<String> newEntries = new ArrayList<>();
+        newEntries.add("   SpacedTerm   ");
+        newEntries.add("   SpacedDefinition   ");
+
+        writeToTextFile.writeToTextFile(newEntries, setName, folderName);
+
+        String testFilePath = "Notely/src/main/java/notely/app/Notecard/testFileName.txt";
+        List<String> lines = Files.readAllLines(Path.of(testFilePath));
+
+        logTestResult("testWhitespaceHandling", lines);
+
+        assertEquals(3, lines.size());
+        assertEquals("   SpacedTerm   @   SpacedDefinition   ", lines.get(2));
+    }
 }

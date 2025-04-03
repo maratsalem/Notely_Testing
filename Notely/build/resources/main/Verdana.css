@@ -1,0 +1,22 @@
+
+.label{
+    -fx-font-family: "Verdana";
+}
+
+.text-field {
+    -fx-font-family: "Verdana";
+    -fx-prompt-text-family: "Verdana";
+}
+
+.text-area {
+    -fx-font-family: "Verdana";
+    -fx-prompt-text-family: "Verdana";
+}
+
+.button {
+    -fx-font-family: "Verdana";
+}
+
+.combo-box .cell {
+    -fx-font-family: "Verdana";
+}

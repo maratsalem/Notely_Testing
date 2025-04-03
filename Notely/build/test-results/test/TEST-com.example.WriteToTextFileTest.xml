@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.WriteToTextFileTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-04-03T04:32:42.934Z" hostname="EMLAPTOP" time="0.612">
+  <properties/>
+  <testcase name="testSpecialCharacters()" classname="com.example.WriteToTextFileTest" time="0.141"/>
+  <testcase name="noNullTerm()" classname="com.example.WriteToTextFileTest" time="0.123"/>
+  <testcase name="testWhitespaceHandling()" classname="com.example.WriteToTextFileTest" time="0.115"/>
+  <testcase name="noNullDefinition()" classname="com.example.WriteToTextFileTest" time="0.113"/>
+  <testcase name="testWriteToTextFile_AppendsCorrectly()" classname="com.example.WriteToTextFileTest" time="0.114"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

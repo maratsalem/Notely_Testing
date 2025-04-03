@@ -13,7 +13,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import java.io.*;
 import java.nio.file.Files;
@@ -24,8 +23,10 @@ public class CreateController {
     @FXML ScrollPane scrollPane;
     @FXML AnchorPane firstCreateAPane;
     @FXML AnchorPane termList;
-    @FXML TextField titleInputC;
-    @FXML TextField folderInputC;
+    @FXML
+    public TextField titleInputC;
+    @FXML
+    public TextField folderInputC;
     @FXML ComboBox fileField;
     @FXML Label textLabel;
     @FXML Label topLabel;
