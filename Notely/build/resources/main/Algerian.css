@@ -1,0 +1,22 @@
+
+.label{
+    -fx-font-family: "Algerian";
+}
+
+.text-field {
+    -fx-font-family: "Algerian";
+    -fx-prompt-text-family: "Algerian";
+}
+
+.text-area {
+    -fx-font-family: "Algerian";
+    -fx-prompt-text-family: "Algerian";
+}
+
+.button {
+    -fx-font-family: "Algerian";
+}
+
+.combo-box .cell {
+    -fx-font-family: "Algerian";
+}

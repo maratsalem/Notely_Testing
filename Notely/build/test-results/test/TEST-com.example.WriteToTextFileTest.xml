@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.WriteToTextFileTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2025-04-06T01:38:21.686Z" hostname="EMLAPTOP" time="0.109">
+  <properties/>
+  <testcase name="testWriteToTextFile_MultipleEntries()" classname="com.example.WriteToTextFileTest" time="0.037"/>
+  <testcase name="testWriteToTextFile_NullInput()" classname="com.example.WriteToTextFileTest" time="0.005"/>
+  <testcase name="testWriteToTextFile_EmptyInputList()" classname="com.example.WriteToTextFileTest" time="0.009"/>
+  <testcase name="testWriteToTextFile_EmptyTermOrDefinition_ShouldNotAppend()" classname="com.example.WriteToTextFileTest" time="0.013"/>
+  <testcase name="testWriteToTextFile_AppendsCorrectly()" classname="com.example.WriteToTextFileTest" time="0.006"/>
+  <testcase name="testWriteToTextFile_FileNotFound()" classname="com.example.WriteToTextFileTest" time="0.008"/>
+  <testcase name="testWriteToTextFile_SpecialCharacters()" classname="com.example.WriteToTextFileTest" time="0.009"/>
+  <testcase name="testWriteToTextFile_NewlinesInDefinition()" classname="com.example.WriteToTextFileTest" time="0.007"/>
+  <system-out><![CDATA[Multiple test[testFileName, testFolderName, Term1@Definition1, Term2@Definition2]
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

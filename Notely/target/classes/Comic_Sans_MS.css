@@ -1,0 +1,22 @@
+
+.label{
+    -fx-font-family: "Comic Sans MS";
+}
+
+.text-field {
+    -fx-font-family: "Comic Sans MS";
+    -fx-prompt-text-family: "Comic Sans MS";
+}
+
+.text-area {
+    -fx-font-family: "Comic Sans MS";
+    -fx-prompt-text-family: "Comic Sans MS";
+}
+
+.button {
+    -fx-font-family: "Comic Sans MS";
+}
+
+.combo-box .cell {
+    -fx-font-family: "Comic Sans MS";
+}

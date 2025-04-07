@@ -1,27 +1,24 @@
 package com.example;
 
 import javafx.application.Platform;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import notely.app.CreateControl;
 import org.junit.jupiter.api.*;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
-import notely.app.CreateController;
+
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.nio.file.*;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
-class CreateControllerImportTest {
+class CreateControlImportTest {
 
-    private CreateController controller;
+    private CreateControl controller;
     private final String testSetName = "testImportSet";
     private final String testFolderName = "testImportFolder";
-    private final String testFilePath = "Notely/src/main/java/notely/app/Notecard/testImportSet.txt";
+    private final Path testFile = Path.of("Notely/src/main/java/notely/app/Notecard/testImportSet.txt");
 
     @BeforeAll
     public static void initJFX() throws InterruptedException {
@@ -36,7 +33,7 @@ class CreateControllerImportTest {
     void setUp() throws InterruptedException {
         CountDownLatch latch = new CountDownLatch(1);
         Platform.runLater(() -> {
-            controller = new CreateController();
+            controller = new CreateControl();
             controller.titleImport = new TextField();
             controller.folderImport = new TextField();
             controller.pasteArea = new TextArea();
@@ -47,17 +44,26 @@ class CreateControllerImportTest {
 
     @AfterEach
     void tearDown() throws IOException {
+        deleteTestFileIfExists();
+    }
+
+    private void deleteTestFileIfExists() throws IOException {
         try {
-            Files.deleteIfExists(Path.of(testFilePath));
+            Files.deleteIfExists(testFile);
         } catch (IOException e) {
             System.err.println("Warning: Could not delete test file: " + e.getMessage());
         }
     }
 
+    private void assertFileUnchanged(String expectedContent) throws IOException {
+        assertTrue(Files.exists(testFile), "Expected file to exist.");
+        assertEquals(expectedContent, Files.readString(testFile), "File content mismatch.");
+    }
+
     @Test
     void testSaveImport_ExistingSetName() throws InterruptedException, IOException {
-        // Create test file first
-        Files.write(Path.of(testFilePath), "existing content".getBytes());
+        String existingContent = "existing content";
+        Files.write(testFile, existingContent.getBytes());
 
         CountDownLatch latch = new CountDownLatch(1);
 
@@ -68,15 +74,19 @@ class CreateControllerImportTest {
 
             try {
                 controller.saveImport(null);
-                latch.countDown();
             } catch (IOException e) {
                 fail("IOException occurred: " + e.getMessage());
+            } finally {
+                latch.countDown();
             }
         });
 
         assertTrue(latch.await(5, TimeUnit.SECONDS));
+
         assertEquals("A set with the name: " + testSetName + " already exists.",
                 controller.titleImport.getPromptText());
+
+        assertFileUnchanged(existingContent);
     }
 
     @Test
@@ -90,14 +100,19 @@ class CreateControllerImportTest {
 
             try {
                 controller.saveImport(null);
-                latch.countDown();
             } catch (IOException e) {
                 fail("IOException occurred: " + e.getMessage());
+            } finally {
+                latch.countDown();
             }
         });
 
         assertTrue(latch.await(5, TimeUnit.SECONDS));
+
         assertEquals("There is a line that is missing the @.", controller.pasteArea.getPromptText());
+        assertEquals(testSetName, controller.titleImport.getText());
+        assertEquals(testFolderName, controller.folderImport.getText());
+        assertFalse(Files.exists(testFile));
     }
 
     @Test
@@ -111,15 +126,22 @@ class CreateControllerImportTest {
 
             try {
                 controller.saveImport(null);
-                latch.countDown();
             } catch (IOException e) {
                 fail("IOException occurred: " + e.getMessage());
+            } finally {
+                latch.countDown();
             }
         });
 
         assertTrue(latch.await(5, TimeUnit.SECONDS));
+
         assertEquals("You must enter a set name.", controller.titleImport.getPromptText());
         assertEquals("You must enter a folder name.", controller.folderImport.getPromptText());
         assertEquals("You must enter text.", controller.pasteArea.getPromptText());
+
+        assertEquals("", controller.titleImport.getText());
+        assertEquals("", controller.folderImport.getText());
+        assertEquals("", controller.pasteArea.getText());
+        assertFalse(Files.exists(testFile));
     }
 }

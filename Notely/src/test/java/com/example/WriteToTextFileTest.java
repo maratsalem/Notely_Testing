@@ -3,135 +3,173 @@ package com.example;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import notely.app.CreateController;
-import java.io.*;
+import notely.app.CreateControl;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class WriteToTextFileTest {
 
-    private final CreateController writeToTextFile = new CreateController();
+    private final CreateControl writeToTextFile = new CreateControl();
     private final String setName = "testFileName";
     private final String folderName = "testFolderName";
-    private final String logFilePath = "Notely/src/main/java/notely/app/Notecard/test_output.txt";
+    private final Path testFilePath = Path.of("Notely/src/main/java/notely/app/Notecard/testFileName.txt");
 
     @BeforeEach
     void setUp() throws IOException {
-        // Ensure the file path exists
-        Path filePath = Path.of("Notely/src/main/java/notely/app/Notecard/testFileName.txt");
-        Files.createDirectories(filePath.getParent());
+        // Ensure the directory exists
+        Files.createDirectories(testFilePath.getParent());
 
         // Write default values to the file
         List<String> initialLines = List.of(setName, folderName);
-        Files.write(filePath, initialLines);
-
-        // Ensure the log file exists
-        Files.createFile(Path.of(logFilePath));
+        Files.write(testFilePath, initialLines);
     }
 
     @AfterEach
-    void tearDown() throws IOException, InterruptedException {
-        Files.deleteIfExists(Path.of("Notely/src/main/java/notely/app/Notecard/testFileName.txt"));
-        Files.deleteIfExists(Path.of(logFilePath));
-        Thread.sleep(100); // Prevent OS file handling issues
-    }
-
-    private void logTestResult(String testName, List<String> fileContents) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(logFilePath, true))) {
-            writer.write("Test: " + testName + "\n");
-            writer.write("File Contents:\n");
-            for (String line : fileContents) {
-                writer.write(line + "\n");
-            }
-            writer.write("------------------------------------------------------\n");
-        }
+    void tearDown() throws IOException {
+        Files.deleteIfExists(testFilePath);
     }
 
     @Test
     void testWriteToTextFile_AppendsCorrectly() throws IOException {
+        // Arrange
         ArrayList<String> newEntries = new ArrayList<>();
         newEntries.add("NewTerm");
         newEntries.add("NewDefinition");
 
+        // Act
         writeToTextFile.writeToTextFile(newEntries, setName, folderName);
 
-        String testFilePath = "Notely/src/main/java/notely/app/Notecard/testFileName.txt";
-        List<String> lines = Files.readAllLines(Path.of(testFilePath));
-
-        logTestResult("testWriteToTextFile_AppendsCorrectly", lines);
-
-        assertEquals(3, lines.size());
-        assertEquals("testFileName", lines.get(0));
-        assertEquals("testFolderName", lines.get(1));
-        assertEquals("NewTerm@NewDefinition", lines.get(2));
+        // Assert
+        List<String> lines = Files.readAllLines(testFilePath);
+        assertEquals(3, lines.size(), "File should have original 2 lines plus new entry");
+        assertEquals(setName, lines.get(0), "First line should remain unchanged");
+        assertEquals(folderName, lines.get(1), "Second line should remain unchanged");
+        assertEquals("NewTerm@NewDefinition", lines.get(2), "New entry should be properly formatted");
     }
 
     @Test
-    void noNullDefinition() throws IOException {
-        ArrayList<String> newEntries = new ArrayList<>();
-        newEntries.add("NewTerm");
-        newEntries.add("");
+    void testWriteToTextFile_EmptyTermOrDefinition_ShouldNotAppend() throws IOException {
+        // Test empty definition
+        ArrayList<String> emptyDefEntries = new ArrayList<>();
+        emptyDefEntries.add("TermOnly");
+        emptyDefEntries.add("");
+        writeToTextFile.writeToTextFile(emptyDefEntries, setName, folderName);
+        List<String> lines = Files.readAllLines(testFilePath);
+        assertEquals(2, lines.size(), "Should not append when definition is empty");
 
-        writeToTextFile.writeToTextFile(newEntries, setName, folderName);
+        // Test empty term
+        ArrayList<String> emptyTermEntries = new ArrayList<>();
+        emptyTermEntries.add("");
+        emptyTermEntries.add("DefinitionOnly");
+        writeToTextFile.writeToTextFile(emptyTermEntries, setName, folderName);
+        lines = Files.readAllLines(testFilePath);
+        assertEquals(2, lines.size(), "Should not append when term is empty");
 
-        String testFilePath = "Notely/src/main/java/notely/app/Notecard/testFileName.txt";
-        List<String> lines = Files.readAllLines(Path.of(testFilePath));
-
-        logTestResult("noNullDefinition", lines);
-
-        assertEquals(2, lines.size());
+        // Test both empty
+        ArrayList<String> bothEmptyEntries = new ArrayList<>();
+        bothEmptyEntries.add("");
+        bothEmptyEntries.add("");
+        writeToTextFile.writeToTextFile(bothEmptyEntries, setName, folderName);
+        lines = Files.readAllLines(testFilePath);
+        assertEquals(2, lines.size(), "Should not append when both term and definition are empty");
     }
 
     @Test
-    void noNullTerm() throws IOException {
-        ArrayList<String> newEntries = new ArrayList<>();
-        newEntries.add("");
-        newEntries.add("NewDefinition");
+    void testWriteToTextFile_MultipleEntries() throws IOException {
+        // Arrange
+        ArrayList<String> multipleEntries = new ArrayList<>();
+        multipleEntries.add("Term1");
+        multipleEntries.add("Definition1");
+        multipleEntries.add("Term2");
+        multipleEntries.add("Definition2");
 
-        writeToTextFile.writeToTextFile(newEntries, setName, folderName);
+        // Act
+        writeToTextFile.writeToTextFile(multipleEntries, setName, folderName);
 
-        String testFilePath = "Notely/src/main/java/notely/app/Notecard/testFileName.txt";
-        List<String> lines = Files.readAllLines(Path.of(testFilePath));
-
-        logTestResult("noNullTerm", lines);
-
-        assertEquals(2, lines.size());
+        // Assert
+        List<String> lines = Files.readAllLines(testFilePath);
+        assertEquals(4, lines.size(), "Should append multiple entries correctly");
+        assertEquals("Term1@Definition1", lines.get(2), "First entry should be correct");
+        assertEquals("Term2@Definition2", lines.get(3), "Second entry should be correct");
+        System.out.println("Multiple test" + lines);
     }
 
     @Test
-    void testSpecialCharacters() throws IOException {
-        ArrayList<String> newEntries = new ArrayList<>();
-        newEntries.add("Term@Special");
-        newEntries.add("Definition\nWithNewLine");
+    void testWriteToTextFile_SpecialCharacters() throws IOException {
+        // Arrange
+        ArrayList<String> specialEntries = new ArrayList<>();
+        specialEntries.add("Term@WithAt");
+        specialEntries.add("Definition");
+        specialEntries.add("Term");
+        specialEntries.add("Defi@nition");
 
-        writeToTextFile.writeToTextFile(newEntries, setName, folderName);
+        // Act
+        writeToTextFile.writeToTextFile(specialEntries, setName, folderName);
 
-        String testFilePath = "Notely/src/main/java/notely/app/Notecard/testFileName.txt";
-        List<String> lines = Files.readAllLines(Path.of(testFilePath));
+        // Assert
+        List<String> lines = Files.readAllLines(testFilePath);
+        assertEquals(4, lines.size(), "Should handle special characters");
+        assertEquals("Term@WithAt@Definition", lines.get(2), "Should handle @ in term");
+        assertEquals("Term@Defi@nition", lines.get(3), "Should handle @ in definition");
+    }
 
-        logTestResult("testSpecialCharacters", lines);
 
-        assertEquals(4, lines.size());
+    @Test
+    void testWriteToTextFile_NewlinesInDefinition() throws IOException {
+        // Arrange
+        ArrayList<String> newlineEntries = new ArrayList<>();
+        newlineEntries.add("Term");
+        newlineEntries.add("Line1\nLine2");
+
+        // Act
+        writeToTextFile.writeToTextFile(newlineEntries, setName, folderName);
+
+        // Assert
+        String content = Files.readString(testFilePath);
+        assertTrue(content.contains("Term@Line1\nLine2"), "Should preserve newlines in definition");
     }
 
     @Test
-    void testWhitespaceHandling() throws IOException {
-        ArrayList<String> newEntries = new ArrayList<>();
-        newEntries.add("   SpacedTerm   ");
-        newEntries.add("   SpacedDefinition   ");
+    void testWriteToTextFile_EmptyInputList() throws IOException {
+        // Arrange
+        ArrayList<String> emptyList = new ArrayList<>();
+        List<String> originalContent = Files.readAllLines(testFilePath);
 
-        writeToTextFile.writeToTextFile(newEntries, setName, folderName);
+        // Act
+        writeToTextFile.writeToTextFile(emptyList, setName, folderName);
 
-        String testFilePath = "Notely/src/main/java/notely/app/Notecard/testFileName.txt";
-        List<String> lines = Files.readAllLines(Path.of(testFilePath));
+        // Assert
+        List<String> newContent = Files.readAllLines(testFilePath);
+        assertEquals(originalContent, newContent, "File should remain unchanged with empty input");
+    }
 
-        logTestResult("testWhitespaceHandling", lines);
+    @Test
+    void testWriteToTextFile_NullInput() throws IOException {
+        // Arrange
+        List<String> originalContent = Files.readAllLines(testFilePath);
 
-        assertEquals(3, lines.size());
-        assertEquals("   SpacedTerm   @   SpacedDefinition   ", lines.get(2));
+        // Act
+        writeToTextFile.writeToTextFile(null, setName, folderName);
+
+        // Assert
+        List<String> newContent = Files.readAllLines(testFilePath);
+        assertEquals(originalContent, newContent, "File should remain unchanged with null input");
+    }
+
+    @Test
+    void testWriteToTextFile_FileNotFound() {
+        // Arrange
+        String nonExistentSet = "nonExistentFile";
+        ArrayList<String> entries = new ArrayList<>();
+        entries.add("Term");
+        entries.add("Definition");
+
+        // Act & Assert
+        assertDoesNotThrow(() -> writeToTextFile.writeToTextFile(entries, nonExistentSet, folderName),
+                "Should handle FileNotFoundException gracefully");
     }
 }

@@ -1,0 +1,4 @@
+--patch-module
+com.example.notely=_
+--add-reads
+com.example.notely=ALL-UNNAMED

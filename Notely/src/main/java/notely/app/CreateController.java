@@ -729,37 +729,37 @@ public class CreateController {
     public void writeToTextFile(ArrayList<String> writeArrayList, String setName, String folderOfSet) {
 
         String writeFilePath = checkPath(setName);
+        if(writeArrayList != null) {
+                try {
 
+                    File file = new File(writeFilePath);
+                    FileInputStream fileReading = new FileInputStream(file);
+                    Scanner reader = new Scanner(fileReading);
+                    ArrayList<String> data = new ArrayList<>();
 
-        try {
+                    while (reader.hasNextLine())
+                        data.add(reader.nextLine());
+                    reader.close();
 
-            File file = new File(writeFilePath);
-            FileInputStream fileReading = new FileInputStream(file);
-            Scanner reader = new Scanner(fileReading);
-            ArrayList<String> data = new ArrayList<>();
+                    FileOutputStream fileWriting = new FileOutputStream(file);
+                    PrintWriter writer = new PrintWriter(fileWriting, true);
 
-            while (reader.hasNextLine())
-                data.add(reader.nextLine());
-            reader.close();
+                    //uses arrayList created by create scece to create an array with proper term/def format
+                    for (int i = 0; i < writeArrayList.size(); i += 2) {
+                        if (!Objects.equals(writeArrayList.get(i), "") && !Objects.equals(writeArrayList.get(i + 1), "")) {
+                            data.add(writeArrayList.get(i) + "@" + writeArrayList.get(i + 1));
+                        }
+                    }
 
-            FileOutputStream fileWriting = new FileOutputStream(file);
-            PrintWriter writer = new PrintWriter(fileWriting, true);
+                    //uses the previously created array to write into the text file
+                    for (int i = 0; i < data.size(); i++)
+                        writer.write(data.get(i) + "\n");
+                    writer.close();
 
-            //uses arrayList created by create scece to create an array with proper term/def format
-            for (int i = 0; i < writeArrayList.size(); i += 2) {
-                if(!Objects.equals(writeArrayList.get(i), "") && !Objects.equals(writeArrayList.get(i + 1), "")) {
-                    data.add(writeArrayList.get(i) + "@" + writeArrayList.get(i + 1));
+                } catch (FileNotFoundException ignored) {
+
                 }
             }
-
-            //uses the previously created array to write into the text file
-            for (int i = 0; i < data.size(); i++)
-                writer.write(data.get(i) + "\n");
-            writer.close();
-
-        } catch (FileNotFoundException ignored) {
-
-        }
     }
 
     @FXML public void createSceneDynamic() {

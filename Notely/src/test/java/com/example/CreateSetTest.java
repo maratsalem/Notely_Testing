@@ -2,7 +2,7 @@ package com.example;
 
 import javafx.application.Platform;
 import javafx.scene.control.TextField;
-import notely.app.CreateController;
+import notely.app.CreateControl;
 import org.junit.jupiter.api.*;
 import org.mockito.MockitoAnnotations;
 
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CreateSetTest {
 
-    private CreateController createController;
+    private CreateControl CreateControl;
     private final String testSetName = "testSet";
     private final String testFolderName = "testFolder";
     private final String testFilePath = "Notely/src/main/java/notely/app/Notecard/testSet.txt";
@@ -26,16 +26,15 @@ public class CreateSetTest {
 
     @BeforeEach
     void setUp() throws InterruptedException {
-        MockitoAnnotations.openMocks(this);
-        createController = new CreateController();
+        CreateControl = new CreateControl();
 
         // Initialize JavaFX components
         CountDownLatch latch = new CountDownLatch(1);
         Platform.runLater(() -> {
-            createController.titleInputC = new TextField();
-            createController.folderInputC = new TextField();
-            createController.titleInputC.setText(testSetName);
-            createController.folderInputC.setText(testFolderName);
+            CreateControl.titleInputC = new TextField();
+            CreateControl.folderInputC = new TextField();
+            CreateControl.titleInputC.setText(testSetName);
+            CreateControl.folderInputC.setText(testFolderName);
             latch.countDown();
         });
         if (!latch.await(5, TimeUnit.SECONDS)) {
@@ -63,7 +62,7 @@ public class CreateSetTest {
 
         Platform.runLater(() -> {
             try {
-                result[0] = createController.createSet(testSetName, testFolderName);
+                result[0] = CreateControl.createSet(testSetName, testFolderName);
                 testLatch.countDown();
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -90,7 +89,7 @@ public class CreateSetTest {
 
         Platform.runLater(() -> {
             try {
-                result[0] = createController.createSet(testSetName, testFolderName);
+                result[0] = CreateControl.createSet(testSetName, testFolderName);
                 testLatch.countDown();
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -107,10 +106,10 @@ public class CreateSetTest {
         boolean[] result = new boolean[1];
 
         Platform.runLater(() -> {
-            createController.titleInputC.setText("");
-            createController.folderInputC.setText("");
+            CreateControl.titleInputC.setText("");
+            CreateControl.folderInputC.setText("");
             try {
-                result[0] = createController.createSet("", ""); // Empty title and folder
+                result[0] = CreateControl.createSet("", ""); // Empty title and folder
                 latch.countDown();
             } catch (IOException e) {
                 throw new RuntimeException(e);

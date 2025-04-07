@@ -1,0 +1,137 @@
+.root {
+    -fx-accent: #1e74c6;
+    -fx-base: #313170;
+    -fx-background-color: #313178;
+}
+
+.label{
+    -fx-text-fill: white;
+}
+
+.text-Area{
+    -fx-prompt-text-fill: lightgray;
+    -fx-text-fill: white;
+}
+
+.text-field {
+    -fx-prompt-text-fill: lightgray;
+    -fx-text-fill: white;
+}
+
+.button{
+    -fx-background-color: #B2A4FF;
+    -fx-background-radius: 20px;
+    -fx-text-fill: #FFFFFF;
+}
+
+.combo-box{
+    -fx-background-radius: 17px;
+    -fx-background-color: #B2A4FF;
+}
+
+.scroll-pane{
+    -fx-base:  #313170;
+    -fx-background-color: #313170;
+}
+
+.border-pane{
+    -fx-base:  #313170;
+    -fx-background-color: #313170;
+}
+
+.split-pane{
+     -fx-base: #313170;
+     -fx-background-color: #313170
+}
+
+#homeScreenButton{
+     -fx-background-radius: 25px;
+}
+
+#learnPane{
+    -fx-background-color: #576CBC;
+}
+
+#viewPane{
+    -fx-background-color: #576CBC;
+}
+
+#leftButton{
+     -fx-background-color: #B2A4FF;
+     -fx-text-fill: #FFFFFF;
+}
+
+#rightButton{
+     -fx-background-color: #B2A4FF;
+     -fx-text-fill: #FFFFFF;
+}
+
+#flipButton{
+     -fx-background-color: #B2A4FF;
+     -fx-background-radius: 17px;
+     -fx-text-fill: #FFFFFF;
+}
+
+#correctButton{
+     -fx-background-color: #c8e1cc;
+     -fx-text-fill: #FFFFFF;
+}
+
+#flipLearnButton{
+     -fx-background-color: #B2A4FF;
+     -fx-text-fill: #FFFFFF;
+}
+
+#incorrectButton{
+     -fx-background-color: #fdaaaa;
+     -fx-text-fill: #FFFFFF;
+}
+
+#settingsHBox{
+     -fx-background-radius: 20px;
+     -fx-background-color: #B2A4FF;
+}
+
+#importTitle{
+    -fx-background-color: #313170;
+}
+
+#helpScreenImport{
+    -fx-background-color: #576CBC;
+    -fx-background-radius: 17px;
+}
+
+#pasteArea{
+    -fx-prompt-text-fill: lightgray;
+    -fx-text-fill: lightgray;
+}
+
+#quizBackPane{
+     -fx-background-color: #576CBC;
+     -fx-background-radius: 25px;
+}
+
+#reviewButton{
+         -fx-background-color: #313178;
+         -fx-text-fill: #FFFFFF;
+}
+
+#MCSetupButton{
+         -fx-background-color: #313170;
+}
+
+#reviewSet{
+         -fx-background-color: #B2A4FF;
+         -fx-text-fill: #FFFFFF;
+         -fx-background-radius: 17px;
+}
+
+#reviewScore{
+         -fx-background-color: #B2A4FF;
+         -fx-text-fill: #FFFFFF;
+         -fx-background-radius: 17px;
+}
+
+#fontStyleComboBox{
+    -fx-background-color: #313170;
+}
