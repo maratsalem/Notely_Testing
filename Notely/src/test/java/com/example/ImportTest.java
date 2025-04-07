@@ -3,9 +3,8 @@ package com.example;
 import javafx.application.Platform;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import notely.app.CreateControl;
 import org.junit.jupiter.api.*;
-
+import notely.app.CreateController;
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.concurrent.CountDownLatch;
@@ -13,27 +12,18 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CreateControlImportTest {
+class ImportTest {
 
-    private CreateControl controller;
+    private CreateController controller;
     private final String testSetName = "testImportSet";
     private final String testFolderName = "testImportFolder";
     private final Path testFile = Path.of("Notely/src/main/java/notely/app/Notecard/testImportSet.txt");
-
-    @BeforeAll
-    public static void initJFX() throws InterruptedException {
-        CountDownLatch latch = new CountDownLatch(1);
-        Platform.startup(() -> latch.countDown());
-        if (!latch.await(5, TimeUnit.SECONDS)) {
-            throw new RuntimeException("Timeout waiting for JavaFX initialization");
-        }
-    }
 
     @BeforeEach
     void setUp() throws InterruptedException {
         CountDownLatch latch = new CountDownLatch(1);
         Platform.runLater(() -> {
-            controller = new CreateControl();
+            controller = new CreateController();
             controller.titleImport = new TextField();
             controller.folderImport = new TextField();
             controller.pasteArea = new TextArea();

@@ -2,6 +2,5 @@ notely\app\CreateController.class
 notely\app\QuizReview.class
 notely\app\MultipleChoice.class
 notely\app\NoteCard.class
-notely\app\CreateControl.class
 module-info.class
 notely\app\NotelyApplication.class

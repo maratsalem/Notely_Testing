@@ -162,7 +162,7 @@
                         </goals>
                         <configuration>
                             <targetClasses>
-                                <param>notely.app.CreateControl</param>
+                                <param>notely.app.CreateController</param>
                             </targetClasses>
                             <targetTests>
                                 <param>com.example.WriteToTextFileTest</param>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.example.WriteToTextFileTest" time="0.101" tests="8" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.example.ImportTest" time="0.035" tests="3" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="javafx.runtime.version" value="17.0.2-ea+3"/>
@@ -61,15 +61,13 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="testWriteToTextFile_MultipleEntries" classname="com.example.WriteToTextFileTest" time="0.012">
-    <system-out><![CDATA[Multiple test[testFileName, testFolderName, Term1@Definition1, Term2@Definition2]
-]]></system-out>
+  <testcase name="testSaveImport_InvalidFormat" classname="com.example.ImportTest" time="0.014">
+    <system-out><![CDATA[term1definition1
+1]]></system-out>
   </testcase>
-  <testcase name="testWriteToTextFile_NullInput" classname="com.example.WriteToTextFileTest" time="0.007"/>
-  <testcase name="testWriteToTextFile_EmptyInputList" classname="com.example.WriteToTextFileTest" time="0.007"/>
-  <testcase name="testWriteToTextFile_EmptyTermOrDefinition_ShouldNotAppend" classname="com.example.WriteToTextFileTest" time="0.013"/>
-  <testcase name="testWriteToTextFile_AppendsCorrectly" classname="com.example.WriteToTextFileTest" time="0.014"/>
-  <testcase name="testWriteToTextFile_FileNotFound" classname="com.example.WriteToTextFileTest" time="0.016"/>
-  <testcase name="testWriteToTextFile_SpecialCharacters" classname="com.example.WriteToTextFileTest" time="0.007"/>
-  <testcase name="testWriteToTextFile_NewlinesInDefinition" classname="com.example.WriteToTextFileTest" time="0.005"/>
+  <testcase name="testSaveImport_EmptyFields" classname="com.example.ImportTest" time="0.004"/>
+  <testcase name="testSaveImport_ExistingSetName" classname="com.example.ImportTest" time="0.009">
+    <system-out><![CDATA[term1@definition1
+2]]></system-out>
+  </testcase>
 </testsuite>

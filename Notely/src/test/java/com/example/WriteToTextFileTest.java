@@ -3,7 +3,7 @@ package com.example;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import notely.app.CreateControl;
+import notely.app.CreateController;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class WriteToTextFileTest {
 
-    private final CreateControl writeToTextFile = new CreateControl();
+    private final CreateController writeToTextFile = new CreateController();
     private final String setName = "testFileName";
     private final String folderName = "testFolderName";
     private final Path testFilePath = Path.of("Notely/src/main/java/notely/app/Notecard/testFileName.txt");
