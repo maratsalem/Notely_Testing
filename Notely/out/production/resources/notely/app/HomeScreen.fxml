@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600" prefWidth="800" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notely.app.CreateController">
+    <GridPane alignment="CENTER" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" HBox.hgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="-Infinity" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints percentHeight="-Infinity" />
+        </rowConstraints>
+        <children>
+            <AnchorPane minHeight="600.0" prefHeight="600.0" prefWidth="800.0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                <children>
+                    <Button id="homeScreenButton" minHeight="66.0" minWidth="131.0" mnemonicParsing="false" onMouseClicked="#SwitchToCreateScene" prefHeight="66.0" prefWidth="131.0" text="Create" textFill="#f07b14" translateX="125.0" translateY="425.0" />
+                    <Button id="homeScreenButton" mnemonicParsing="false" onMouseClicked="#SwitchToStudyScene" prefHeight="66.0" prefWidth="131.0" text="Study" textFill="#f07b14" translateX="330.0" translateY="425.0" />
+                    <Button id="homeScreenButton" mnemonicParsing="false" onMouseClicked="#SwitchToSettingsScene" prefHeight="66.0" prefWidth="131.0" text="Settings" textFill="#f07b14" translateX="535.0" translateY="425.0" />
+                    <Label layoutX="249.0" layoutY="180.0" text="Notely" textFill="WHITE" AnchorPane.leftAnchor="249.0">
+                        <font>
+                            <Font size="100.0" />
+                        </font>
+                    </Label>
+                </children>
+                <rotationAxis>
+                    <Point3D />
+                </rotationAxis>
+            </AnchorPane>
+        </children>
+    </GridPane>
+</HBox>
