@@ -13,7 +13,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import java.io.*;
 import java.nio.file.Files;
@@ -24,8 +23,10 @@ public class CreateController {
     @FXML ScrollPane scrollPane;
     @FXML AnchorPane firstCreateAPane;
     @FXML AnchorPane termList;
-    @FXML TextField titleInputC;
-    @FXML TextField folderInputC;
+    @FXML
+    public TextField titleInputC;
+    @FXML
+    public TextField folderInputC;
     @FXML ComboBox fileField;
     @FXML Label textLabel;
     @FXML Label topLabel;
@@ -61,11 +62,11 @@ public class CreateController {
     @FXML
     AnchorPane importPane;
     @FXML
-    TextField titleImport;
+    public TextField titleImport;
     @FXML
-    TextField folderImport;
+    public TextField folderImport;
     @FXML
-    TextArea pasteArea;
+    public TextArea pasteArea;
     @FXML
     Button saveImportButton;
     @FXML
@@ -75,7 +76,7 @@ public class CreateController {
     @FXML ComboBox fontStylesComboBox;
     @FXML CheckBox darkModeCheck;
     static String fontStyle = "System";
-    static boolean darkMode = false;
+    public static boolean darkMode = false;
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -328,12 +329,12 @@ public class CreateController {
     // if they press a button while studying their set
     public boolean buttonPressed() {
         // System.out.println("This is in my boolean check."); //Testing
-            if (keyCheck < 1) {
-                spacePressed = false;
-                keyCheck++;
-            } else {
-                spacePressed = true;
-            }
+        if (keyCheck < 1) {
+            spacePressed = false;
+            keyCheck++;
+        } else {
+            spacePressed = true;
+        }
         return spacePressed;
     }
 
@@ -725,39 +726,39 @@ public class CreateController {
         writer.close();
     }
 
-    //write all the terms&defs a user inputs in the create scene into a file
     public void writeToTextFile(ArrayList<String> writeArrayList, String setName, String folderOfSet) {
 
         String writeFilePath = checkPath(setName);
+        if(writeArrayList != null) {
+            try {
 
-        try {
+                File file = new File(writeFilePath);
+                FileInputStream fileReading = new FileInputStream(file);
+                Scanner reader = new Scanner(fileReading);
+                ArrayList<String> data = new ArrayList<>();
 
-            File file = new File(writeFilePath);
-            FileInputStream fileReading = new FileInputStream(file);
-            Scanner reader = new Scanner(fileReading);
-            ArrayList<String> data = new ArrayList<>();
+                while (reader.hasNextLine())
+                    data.add(reader.nextLine());
+                reader.close();
 
-            while (reader.hasNextLine())
-                data.add(reader.nextLine());
-            reader.close();
+                FileOutputStream fileWriting = new FileOutputStream(file);
+                PrintWriter writer = new PrintWriter(fileWriting, true);
 
-            FileOutputStream fileWriting = new FileOutputStream(file);
-            PrintWriter writer = new PrintWriter(fileWriting, true);
-
-            //uses arrayList created by create scece to create an array with proper term/def format
-            for (int i = 0; i < writeArrayList.size(); i += 2) {
-                if(!Objects.equals(writeArrayList.get(i), "") && !Objects.equals(writeArrayList.get(i + 1), "")) {
-                    data.add(writeArrayList.get(i) + "@" + writeArrayList.get(i + 1));
+                //uses arrayList created by create scece to create an array with proper term/def format
+                for (int i = 0; i < writeArrayList.size(); i += 2) {
+                    if (!Objects.equals(writeArrayList.get(i), "") && !Objects.equals(writeArrayList.get(i + 1), "")) {
+                        data.add(writeArrayList.get(i) + "@" + writeArrayList.get(i + 1));
+                    }
                 }
+
+                //uses the previously created array to write into the text file
+                for (int i = 0; i < data.size(); i++)
+                    writer.write(data.get(i) + "\n");
+                writer.close();
+
+            } catch (FileNotFoundException ignored) {
+
             }
-
-            //uses the previously created array to write into the text file
-            for (int i = 0; i < data.size(); i++)
-                writer.write(data.get(i) + "\n");
-            writer.close();
-
-        } catch (FileNotFoundException ignored) {
-
         }
     }
 
@@ -808,7 +809,7 @@ public class CreateController {
         for (Node anchPaneNode : anchorPaneList) {
             if (anchPaneNode instanceof AnchorPane) {
 
-               //list of all the textFields within each of the anchor panes
+                //list of all the textFields within each of the anchor panes
                 ObservableList<Node> textFieldList = ((AnchorPane) anchPaneNode).getChildren();
 
                 // uses the textFieldList to find instances of textFields in the anchor panes
@@ -1070,86 +1071,86 @@ public class CreateController {
         }
         writingSetNames.close();
     }
-        @FXML
+    @FXML
     protected void saveChanges() throws IOException {
-            String setName = fileField.getValue().toString();
-            String fileName = checkPath(setName);
-            File file = new File(fileName);
+        String setName = fileField.getValue().toString();
+        String fileName = checkPath(setName);
+        File file = new File(fileName);
 
-            // Read the contents of the text file
-            List<String> lines = Files.readAllLines(file.toPath());
-            int changeIndex = 0;
+        // Read the contents of the text file
+        List<String> lines = Files.readAllLines(file.toPath());
+        int changeIndex = 0;
 
-            // Calculate the start index of the selected set
-            if (setNumber != null && !setNumber.getText().isEmpty()) {
-                // new line
-                try {
-                    changeIndex = Integer.parseInt(setNumber.getText());
-                } catch (NumberFormatException e) {
-                    setNumber.setText("Please enter a number value.");
+        // Calculate the start index of the selected set
+        if (setNumber != null && !setNumber.getText().isEmpty()) {
+            // new line
+            try {
+                changeIndex = Integer.parseInt(setNumber.getText());
+            } catch (NumberFormatException e) {
+                setNumber.setText("Please enter a number value.");
+            }
+
+            if(changeIndex > (lines.size() - 2) || changeIndex <= 0){
+                setNumber.setText("Please enter a valid number.");
+            } else {
+                int startIndex = changeIndex + 1;
+
+                // Update the selected term and definition with the new values
+                if(newTerm.getText().isEmpty() || newDef.getText().isEmpty()){
+                    lines.remove(startIndex);
+                } else {
+                    lines.set(startIndex, newTerm.getText() + "@" + newDef.getText());
                 }
 
-                if(changeIndex > (lines.size() - 2) || changeIndex <= 0){
-                    setNumber.setText("Please enter a valid number.");
-                } else {
-                    int startIndex = changeIndex + 1;
+                // Save the updated contents back to the text file
+                Files.write(file.toPath(), lines);
 
-                    // Update the selected term and definition with the new values
-                    if(newTerm.getText().isEmpty() || newDef.getText().isEmpty()){
-                        lines.remove(startIndex);
-                    } else {
-                        lines.set(startIndex, newTerm.getText() + "@" + newDef.getText());
-                    }
+                //reads and writes the current notecards in a file to the right hand side of the screen
+                try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+                    String line;
+                    int counter = 1;
 
-                    // Save the updated contents back to the text file
-                    Files.write(file.toPath(), lines);
+                    // Clear existing notecards from termList
+                    termList.getChildren().clear();
 
-                    //reads and writes the current notecards in a file to the right hand side of the screen
-                    try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-                        String line;
-                        int counter = 1;
+                    while ((line = br.readLine()) != null) {
+                        if (counter > 2) {
+                            String[] parts = line.split("@");
+                            if (parts.length >= 2) {
+                                AnchorPane notecard = new AnchorPane();
 
-                        // Clear existing notecards from termList
-                        termList.getChildren().clear();
+                                Label setNumberLabel = new Label("Notecard " + (counter - 2));
+                                setNumberLabel.setStyle("-fx-text-fill: white");
+                                Label termLabel = new Label("Term " + (counter - 2) + ": " + parts[0]);
+                                termLabel.setStyle("-fx-text-fill: white");
+                                Label definitionLabel = new Label("Definition " + (counter - 2) + ": " + parts[1]);
+                                definitionLabel.setStyle("-fx-text-fill: white");
 
-                        while ((line = br.readLine()) != null) {
-                            if (counter > 2) {
-                                String[] parts = line.split("@");
-                                if (parts.length >= 2) {
-                                    AnchorPane notecard = new AnchorPane();
+                                notecard.getChildren().addAll(setNumberLabel, termLabel, definitionLabel);
 
-                                    Label setNumberLabel = new Label("Notecard " + (counter - 2));
-                                    setNumberLabel.setStyle("-fx-text-fill: white");
-                                    Label termLabel = new Label("Term " + (counter - 2) + ": " + parts[0]);
-                                    termLabel.setStyle("-fx-text-fill: white");
-                                    Label definitionLabel = new Label("Definition " + (counter - 2) + ": " + parts[1]);
-                                    definitionLabel.setStyle("-fx-text-fill: white");
+                                // Position the notecard within termList
+                                double y = (counter - 3) * 80;
+                                notecard.setLayoutX(0);
+                                notecard.setLayoutY(y);
 
-                                    notecard.getChildren().addAll(setNumberLabel, termLabel, definitionLabel);
+                                setNumberLabel.setLayoutX(10);
+                                setNumberLabel.setLayoutY(10);
+                                termLabel.setLayoutX(10);
+                                termLabel.setLayoutY(40);
+                                definitionLabel.setLayoutX(10);
+                                definitionLabel.setLayoutY(60);
 
-                                    // Position the notecard within termList
-                                    double y = (counter - 3) * 80;
-                                    notecard.setLayoutX(0);
-                                    notecard.setLayoutY(y);
-
-                                    setNumberLabel.setLayoutX(10);
-                                    setNumberLabel.setLayoutY(10);
-                                    termLabel.setLayoutX(10);
-                                    termLabel.setLayoutY(40);
-                                    definitionLabel.setLayoutX(10);
-                                    definitionLabel.setLayoutY(60);
-
-                                    termList.getChildren().add(notecard); // add notecard to termList
-                                }
+                                termList.getChildren().add(notecard); // add notecard to termList
                             }
-                            counter++;
                         }
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        counter++;
                     }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
         }
+    }
 
     //methods below are used for multiple choice testing
     int quizSize; //for later function?? - allowing the user to set quiz size

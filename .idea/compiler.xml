@@ -9,8 +9,5 @@
         <module name="Notely" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="Notely" target="17" />
-    </bytecodeTargetLevel>
   </component>
 </project>
